@@ -1,0 +1,7 @@
+.DS_Store
+*.zip
+# Personal files stay out of the public repo
+jobs-agent/profile/facts.md
+jobs-agent/profile/search-profile.md
+jobs-agent/runs/*
+!jobs-agent/runs/.gitkeep
