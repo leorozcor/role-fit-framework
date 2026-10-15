@@ -2,7 +2,7 @@
 
 Purpose: take a job description, score it honestly against a calibrated framework, and — only if it passes — produce tailored application material that contains no invented facts.
 
-**Sourcing is a radar, not a funnel.** Cold-application volume has converted at roughly zero; every process that reached a real conversation came through a person. `/scan` pulls a narrow JobsPipe search so no relevant opening is missed, then screens cheaply. Its main output is *which companies deserve a warm approach*, not a list to apply to cold. A cold application from a scan needs a Strong verdict.
+**Sourcing is a radar, not a funnel.** Cold-application volume has converted at roughly zero; every process that reached a real conversation came through a person. `/scan` pulls a narrow JobsPipe search (which includes LinkedIn's public postings and the main ATS platforms) and the RSS feeds in `profile/scan.json`, then screens cheaply. Duunitori and LinkedIn are never scraped: both forbid it in their terms. A role found there goes in by hand with `/score <url or paste>`. Its main output is *which companies deserve a warm approach*, not a list to apply to cold. A cold application from a scan needs a Strong verdict.
 
 **Scripts do the mechanical, the model does judgment, the human makes every call that matters.** `bin/jobs` keeps state (`data/jobs.db`); the agent records its judgments there with `bin/jobs record`, never by editing the database directly.
 
@@ -10,7 +10,7 @@ Purpose: take a job description, score it honestly against a calibrated framewor
 
 | Command | What it does |
 |---|---|
-| `/scan [days]` | JobsPipe radar, then a cheap screen of what landed: gates 1, 2, 4, avoid list, level, network hits. No full scoring. |
+| `/scan [days]` | JobsPipe and RSS radar, then a cheap screen of what landed: gates 1, 2, 4, avoid list, level, network hits. No full scoring. |
 | `/score <id, file, URL or paste>` | Full v6.2 score: Steps 1–3 and 5 below. Writes `runs/<id>/sheet.md`. Never drafts. |
 | `/draft <id> [anyway]` | Step 4 for a scored Strong/Viable role. Writes `runs/<id>/application.md` with the unsupported-requirements list and a trace to `facts.md`. |
 | `/warm <id>` | Warm path from `profile/network.md`, drafted as an ask plus a forwardable paragraph. Never sends. |

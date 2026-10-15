@@ -1,27 +1,99 @@
 {
-  "_comment": "JobsPipe radar. Every job returned costs one credit (free tier: 1,000 once). Keep queries narrow: the scan is a radar for companies worth a warm approach, not a cold-application funnel. Field names verified against jobspipe-go and jobspipe-cli on 2026-10-15.",
+  "_comment": "JobsPipe radar. Every job returned costs one credit (free tier: 1,000 once). Keep queries narrow: the scan is a radar for companies worth a warm approach, not a cold-application funnel. Field names verified against jobspipe-go and jobspipe-cli on 2026-10-15. RSS feeds are read as published; Duunitori and LinkedIn are not scraped (their terms forbid it): LinkedIn public postings arrive through JobsPipe, and Duunitori finds go in by hand with /score <url>.",
   "page_size": 50,
   "max_results_per_query": 100,
   "queries": [
     {
       "name": "finland-product-leadership",
       "filters": {
-        "job_title_or": ["head of product", "director of product", "product director", "vp product", "vp of product", "chief product officer", "cpo", "head of product management", "director, product", "tuotejohtaja"],
-        "job_country_code_or": ["FI"],
+        "job_title_or": [
+          "head of product",
+          "director of product",
+          "product director",
+          "vp product",
+          "vp of product",
+          "chief product officer",
+          "cpo",
+          "head of product management",
+          "director, product",
+          "tuotejohtaja"
+        ],
+        "job_country_code_or": [
+          "FI"
+        ],
         "posted_at_max_age_days": 14
       }
     },
     {
       "name": "remote-nordics-baltics-product-leadership",
       "filters": {
-        "job_title_or": ["head of product", "director of product", "product director", "vp product", "vp of product", "chief product officer", "head of product management"],
-        "job_country_code_or": ["EE", "SE", "DK", "NO"],
+        "job_title_or": [
+          "head of product",
+          "director of product",
+          "product director",
+          "vp product",
+          "vp of product",
+          "chief product officer",
+          "head of product management"
+        ],
+        "job_country_code_or": [
+          "EE",
+          "SE",
+          "DK",
+          "NO"
+        ],
         "remote": true,
         "posted_at_max_age_days": 14
       }
     }
   ],
-  "title_must_match_any": ["head of product", "director", "vp", "vice president", "chief product", "cpo", "product lead", "tuotejohtaja", "group product"],
-  "title_exclude_any": ["intern", "junior", "associate", "product owner", "marketing", "sales", "engineering manager", "software engineer", "designer"],
-  "avoid_keywords": ["payroll", "accounts payable", "invoicing", "financial close", "accounting software", "bookkeeping", "defence", "defense", "government procurement", "tender", "workforce management", "hr tech", "adtech", "product coach", "chief of staff", "safe agile", "scaled agile"]
+  "title_must_match_any": [
+    "head of product",
+    "director",
+    "vp",
+    "vice president",
+    "chief product",
+    "cpo",
+    "product lead",
+    "tuotejohtaja",
+    "group product"
+  ],
+  "title_exclude_any": [
+    "intern",
+    "junior",
+    "associate",
+    "product owner",
+    "marketing",
+    "sales",
+    "engineering manager",
+    "software engineer",
+    "designer"
+  ],
+  "avoid_keywords": [
+    "payroll",
+    "accounts payable",
+    "invoicing",
+    "financial close",
+    "accounting software",
+    "bookkeeping",
+    "defence",
+    "defense",
+    "government procurement",
+    "tender",
+    "workforce management",
+    "hr tech",
+    "adtech",
+    "product coach",
+    "chief of staff",
+    "safe agile",
+    "scaled agile"
+  ],
+  "rss_feeds": [
+    {
+      "name": "vierityspalkki",
+      "url": "https://vierityspalkki.fi/tyopaikat/feed/",
+      "country": "FI",
+      "company_pattern": "^\\s*(.+?)\\s+(?:etsii|hakee|is looking|is hiring|seeks)\\b"
+    }
+  ]
 }

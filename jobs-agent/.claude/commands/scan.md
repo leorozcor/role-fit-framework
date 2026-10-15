@@ -1,5 +1,5 @@
 ---
-description: Pull new postings from JobsPipe and screen them cheaply (gates, avoid list, network) — no full scoring
+description: Pull new postings from JobsPipe and RSS feeds and screen them cheaply (gates, avoid list, network) — no full scoring
 argument-hint: [days]
 ---
 
@@ -35,7 +35,12 @@ and `profile/network.md` once. Then for each row from
 3. **Level and functional center of gravity** from the title and JD: an
    IC-level or Engineering-centred seat is a screen-out unless the JD
    clearly says otherwise.
-4. **Network:** does `profile/network.md` list anyone at this company? Copy
+4. **Company unknown** (`flags.company_unknown`, from feeds that don't name it):
+   read the JD. If it names the employer, fix it with
+   `bin/jobs record <id> --company "<name>"` before anything else. If it
+   doesn't (a recruiter posting for an unnamed client), leave it unknown and
+   say so in the gate note. Never guess an employer.
+5. **Network:** does `profile/network.md` list anyone at this company? Copy
    the strength exactly as written there. Never upgrade a Contact to an
    Advocate.
 
@@ -49,6 +54,11 @@ to `to_score` with the note "JD missing, paste before scoring".
 
 When unsure, prefer `to_score` with the doubt written in the note. Screening is
 cheap to reverse; a wrongly dropped role is invisible.
+
+Sources: `jobspipe` rows carry `flags.boards` (e.g. linkedin, teamtailor,
+greenhouse), the boards JobsPipe found the posting on. RSS rows carry the feed
+name as their source. Duunitori and LinkedIn are never scraped: their terms
+forbid it, and the account at risk would be his.
 
 ## 3. Report
 
