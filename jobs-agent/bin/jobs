@@ -7,6 +7,7 @@ made by the agent following CLAUDE.md, then recorded here with `jobs record`.
 
 Standard library only. State lives in data/jobs.db (gitignored).
 Some mechanics adapted from mattijskersten/jobs-dashboard (MIT licence).
+Licensed under the MIT licence: see LICENSE-CODE at the repository root.
 """
 
 from __future__ import annotations
