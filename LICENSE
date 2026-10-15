@@ -2,8 +2,8 @@ Copyright (c) 2026 Luis Orozco
 
 Everything in this repository is licensed under the Creative Commons
 Attribution 4.0 International licence (CC BY 4.0), except:
-- jobs-agent/bin/ and jobs-agent/.claude/, which are licensed under the MIT
-  licence (see LICENSE-CODE);
+- jobs-agent/bin/, jobs-agent/.claude/ and tools/job-scorer.jsx, which are
+  licensed under the MIT licence (see LICENSE-CODE);
 - tools/chiva-x-posts/, which is licensed under GPL-2.0-or-later as stated in
   its plugin header.
 

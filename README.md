@@ -47,7 +47,7 @@ The pipeline shape (scripts for the mechanical, the model for judgment, a person
 
 ## Licence
 
-The writing (framework, notebook, agent instructions and rules) is [CC BY 4.0](LICENSE): use and adapt it freely, with attribution. The agent's code and commands, `jobs-agent/bin/` and `jobs-agent/.claude/`, are [MIT](LICENSE-CODE). The WordPress plugin in `tools/chiva-x-posts/` is GPL-2.0-or-later.
+The writing (framework, notebook, agent instructions and rules) is [CC BY 4.0](LICENSE): use and adapt it freely, with attribution. The code, `jobs-agent/bin/`, `jobs-agent/.claude/` and `tools/job-scorer.jsx`, is [MIT](LICENSE-CODE). The WordPress plugin in `tools/chiva-x-posts/` is GPL-2.0-or-later.
 
 ## Author
 
