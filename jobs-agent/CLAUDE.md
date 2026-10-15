@@ -2,7 +2,22 @@
 
 Purpose: take a job description, score it honestly against a calibrated framework, and — only if it passes — produce tailored application material that contains no invented facts.
 
-**Deliberately out of scope:** collecting or scraping job listings. Cold-application volume has converted at roughly zero. Roles arrive from network, executive search, and selective direct application. This agent does judgment and drafting, not sourcing.
+**Sourcing is a radar, not a funnel.** Cold-application volume has converted at roughly zero; every process that reached a real conversation came through a person. `/scan` pulls a narrow JobsPipe search so no relevant opening is missed, then screens cheaply. Its main output is *which companies deserve a warm approach*, not a list to apply to cold. A cold application from a scan needs a Strong verdict.
+
+**Scripts do the mechanical, the model does judgment, the human makes every call that matters.** `bin/jobs` keeps state (`data/jobs.db`); the agent records its judgments there with `bin/jobs record`, never by editing the database directly.
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `/scan [days]` | JobsPipe radar, then a cheap screen of what landed: gates 1, 2, 4, avoid list, level, network hits. No full scoring. |
+| `/score <id, file, URL or paste>` | Full v6.2 score: Steps 1–3 and 5 below. Writes `runs/<id>/sheet.md`. Never drafts. |
+| `/draft <id> [anyway]` | Step 4 for a scored Strong/Viable role. Writes `runs/<id>/application.md` with the unsupported-requirements list and a trace to `facts.md`. |
+| `/warm <id>` | Warm path from `profile/network.md`, drafted as an ask plus a forwardable paragraph. Never sends. |
+| `/outcome <id> <outcome> [details]` | Records applied / interviewing / rejected / offer / closed / passed and applies the outcome-update rule. |
+| `/board` | The board, plus what needs attention. |
+
+Statuses: `new → screened_out | to_score → scored → drafted → applied → interviewing → offer`, with off-ramps `passed` (his call), `rejected` (theirs) and `closed` (the world's). Reopening any of those needs a note naming new evidence.
 
 ---
 
@@ -12,6 +27,10 @@ Purpose: take a job description, score it honestly against a calibrated framewor
 |---|---|---|
 | `profile/facts.md` | Verified fact base (start from `facts.template.md`; never commit the real one publicly). Only permitted source of biographical claims. | **No.** Only the human edits this. |
 | `profile/search-profile.md` | Start from `search-profile.template.md`. Gates, what a 9 and a 3 look like, avoid list, standing principles. | No. |
+| `profile/network.md` | Start from `network.template.md`. Who can open which door, with channel strength. | No. Never upgrade a strength. |
+| `profile/scan.json` | Start from `scan.template.json`. JobsPipe queries and the mechanical title filter. | No. |
+| `bin/jobs` | Tracker CLI: add, scan, list, show, set, record, board. | No. Use it; don't edit it. |
+| `data/` | `jobs.db`, `board.md`, `last-scan.json`. Gitignored. | Only through `bin/jobs`. |
 | `rules/framework-v6.2.md` | Full scoring framework: gates, nine weighted factors, diagnostics, calibration appendix. | No. |
 | `rules/scoring-sheet-template.md` | The one-page output format for a score. | No. |
 | `rules/tailoring.md` | How to write application material without fabricating. | No. |

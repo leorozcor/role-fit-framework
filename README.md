@@ -22,10 +22,22 @@ Folding these into one number corrupts all three. Most of the framework exists t
 ## Using the agent
 
 1. Copy `jobs-agent/` somewhere private.
-2. Fill in `profile/facts.template.md` and `profile/search-profile.template.md`, and rename them to `facts.md` and `search-profile.md`. The `.gitignore` keeps those two out of version control.
-3. Open the folder in Claude Code and give it a job description.
+2. In `profile/`, copy each template to its real name and fill it in: `facts.md`, `search-profile.md`, `network.md`, `scan.json`. The `.gitignore` keeps all four out of version control.
+3. Run `bin/jobs init`. For the optional JobsPipe radar, put `JOBSPIPE_API_KEY=...` in `jobs-agent/.env` (free key at [jobspipe.dev](https://jobspipe.dev/signup)).
+4. Open the folder in Claude Code and trust it, so `.claude/settings.json` applies.
 
-The agent has no buttons: it never applies, sends or contacts anyone. It drafts; you decide.
+| Command | What it does |
+|---|---|
+| `/score <file, URL or pasted JD>` | Gates, the nine factors, asymmetry, candidate fit and channel. Writes a sheet; never drafts. |
+| `/draft <id>` | Application material for a Strong or Viable role, from the fact base only, with a list of every requirement the facts don't support. |
+| `/warm <id>` | The warm path from `network.md`, drafted as an ask plus a paragraph the contact can forward. |
+| `/outcome <id> <outcome>` | Records what happened and applies the outcome-update rule. |
+| `/scan` | A narrow JobsPipe search, screened cheaply. A radar for companies worth a warm approach, not a cold-application funnel. |
+| `/board` | The board and what needs attention. |
+
+`bin/jobs` is a small standard-library Python tracker (SQLite) that does the bookkeeping; the model does the judgment and records it there. The agent cannot edit `profile/`, `rules/`, `bin/` or its own settings, and has no tool that applies, sends or contacts anyone. It drafts; you decide.
+
+The pipeline shape (scripts for the mechanical, the model for judgment, a person for every call that matters) follows Mattijs Kersten's [jobs-dashboard](https://github.com/mattijskersten/jobs-dashboard), MIT licensed. This version drops volume collection and auto-tailoring in favour of a scoring framework and network-first channels.
 
 ## Status and honesty notes
 

@@ -1,0 +1,677 @@
+#!/usr/bin/env python3
+"""Tracker for the jobs agent.
+
+Deterministic bookkeeping only: landing jobs, deduplicating, moving them through
+statuses, and printing the board. Every judgment (gates, scoring, drafting) is
+made by the agent following CLAUDE.md, then recorded here with `jobs record`.
+
+Standard library only. State lives in data/jobs.db (gitignored).
+Some mechanics adapted from mattijskersten/jobs-dashboard (MIT licence).
+"""
+
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import json
+import os
+import re
+import sqlite3
+import sys
+import unicodedata
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data"
+RUNS = ROOT / "runs"
+DB_PATH = Path(os.environ.get("JOBS_DB", DATA / "jobs.db"))
+SCAN_CONFIG = ROOT / "profile" / "scan.json"
+API_BASE = os.environ.get("JOBSPIPE_API_BASE", "https://api.jobspipe.dev")
+
+# ---------------------------------------------------------------------------
+# Status lifecycle
+# ---------------------------------------------------------------------------
+# new          landed by a scan, nobody has looked yet
+# screened_out failed a gate or the avoid list at screening (agent's call)
+# to_score     worth a full v6.2 score (manual adds start here)
+# scored       sheet filled, verdict recorded
+# drafted      application material written, waiting for the human
+# applied      the human applied
+# interviewing in process
+# offer        offer received
+# rejected     they said no
+# passed       he said no
+# closed       the world took it away (posting gone, role filled, paused)
+
+STATUSES = [
+    "new", "screened_out", "to_score", "scored", "drafted", "applied",
+    "interviewing", "offer", "rejected", "passed", "closed",
+]
+ACTIVE = ["to_score", "scored", "drafted", "applied", "interviewing", "offer"]
+TERMINAL = {"screened_out", "rejected", "passed", "closed"}
+
+TRANSITIONS = {
+    "new": {"screened_out", "to_score", "passed", "closed"},
+    "to_score": {"scored", "screened_out", "passed", "closed"},
+    "scored": {"drafted", "applied", "passed", "closed", "to_score"},
+    "drafted": {"applied", "passed", "closed", "scored"},
+    "applied": {"interviewing", "rejected", "offer", "closed"},
+    "interviewing": {"offer", "rejected", "closed"},
+    "offer": {"passed", "closed"},
+    # Reopening a terminal job needs a note naming the NEW evidence.
+    # "A thin board is not evidence that rejected options have become better."
+    "screened_out": {"to_score"},
+    "passed": {"to_score"},
+    "closed": {"to_score"},
+    "rejected": {"to_score"},
+}
+
+VERDICTS = ["Strong", "Viable", "Watchlist", "Pass", "Gig", "Real alternative"]
+CANDIDATE = ["High", "Medium", "Low"]
+CHANNEL = ["None", "Contact", "Advocate", "Sponsor"]
+
+SCHEMA = f"""
+CREATE TABLE IF NOT EXISTS jobs (
+    id            TEXT PRIMARY KEY,
+    source        TEXT NOT NULL,
+    source_id     TEXT,
+    dedup_key     TEXT NOT NULL,
+    company       TEXT NOT NULL,
+    title         TEXT NOT NULL,
+    location      TEXT,
+    country       TEXT,
+    remote        INTEGER,
+    seniority     TEXT,
+    salary        TEXT,
+    url           TEXT,
+    posted_date   TEXT,
+    has_jd        INTEGER NOT NULL DEFAULT 0,
+    flags         TEXT,
+    status        TEXT NOT NULL CHECK (status IN ({", ".join(repr(s) for s in STATUSES)})),
+    verdict       TEXT,
+    org_total     REAL,
+    asymmetry     INTEGER,
+    candidate_fit TEXT,
+    channel       TEXT,
+    advocate      TEXT,
+    gate_note     TEXT,
+    notes         TEXT,
+    first_seen    TEXT NOT NULL,
+    updated_at    TEXT NOT NULL
+);
+CREATE UNIQUE INDEX IF NOT EXISTS jobs_source_id ON jobs(source, source_id) WHERE source_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS jobs_dedup ON jobs(dedup_key);
+CREATE TABLE IF NOT EXISTS events (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    job_id      TEXT NOT NULL REFERENCES jobs(id),
+    at          TEXT NOT NULL,
+    from_status TEXT,
+    to_status   TEXT,
+    note        TEXT
+);
+CREATE TABLE IF NOT EXISTS scans (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    at          TEXT NOT NULL,
+    returned    INTEGER NOT NULL,
+    landed      INTEGER NOT NULL,
+    duplicates  INTEGER NOT NULL,
+    filtered    INTEGER NOT NULL,
+    errors      TEXT
+);
+"""
+
+
+def now() -> str:
+    return dt.datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+def die(msg: str, code: int = 1) -> None:
+    print(f"error: {msg}", file=sys.stderr)
+    sys.exit(code)
+
+
+def connect() -> sqlite3.Connection:
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    con = sqlite3.connect(DB_PATH)
+    con.row_factory = sqlite3.Row
+    con.executescript(SCHEMA)
+    return con
+
+
+# ---------------------------------------------------------------------------
+# Identity and dedup
+# ---------------------------------------------------------------------------
+
+def ascii_fold(text: str) -> str:
+    return unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
+
+
+def slugify(text: str, max_len: int = 40) -> str:
+    s = re.sub(r"[^a-z0-9]+", "-", ascii_fold(text).lower()).strip("-")
+    return s[:max_len].rstrip("-") or "job"
+
+
+_COMPANY_SUFFIX = re.compile(r"\b(oy|oyj|ab|ltd|limited|inc|gmbh|plc|llc|bv|as|sa)\b\.?")
+
+
+def dedup_key(company: str, title: str) -> str:
+    c = _COMPANY_SUFFIX.sub("", ascii_fold(company).lower())
+    t = ascii_fold(title).lower()
+    c = re.sub(r"[^a-z0-9]+", "", c)
+    t = re.sub(r"\([^)]*\)", "", t)  # "(m/f/d)", "(remote)" and similar
+    t = re.sub(r"[^a-z0-9]+", " ", t).strip()
+    return f"{c}|{t}"
+
+
+def new_id(con: sqlite3.Connection, company: str, title: str) -> str:
+    base = f"{slugify(company, 20)}-{slugify(title, 30)}"
+    candidate, n = base, 2
+    while con.execute("SELECT 1 FROM jobs WHERE id = ?", (candidate,)).fetchone():
+        candidate, n = f"{base}-{n}", n + 1
+    return candidate
+
+
+def find_job(con: sqlite3.Connection, ref: str) -> sqlite3.Row:
+    row = con.execute("SELECT * FROM jobs WHERE id = ?", (ref,)).fetchone()
+    if row:
+        return row
+    rows = con.execute(
+        "SELECT * FROM jobs WHERE id LIKE ? OR company LIKE ? ORDER BY updated_at DESC",
+        (f"%{ref}%", f"%{ref}%"),
+    ).fetchall()
+    if len(rows) == 1:
+        return rows[0]
+    if not rows:
+        die(f"no job matches '{ref}'")
+    listing = "\n".join(f"  {r['id']}  [{r['status']}]  {r['company']} - {r['title']}" for r in rows)
+    die(f"'{ref}' matches {len(rows)} jobs, use the exact id:\n{listing}")
+    raise AssertionError  # unreachable
+
+
+def log_event(con, job_id, from_status, to_status, note=None):
+    con.execute(
+        "INSERT INTO events (job_id, at, from_status, to_status, note) VALUES (?, ?, ?, ?, ?)",
+        (job_id, now(), from_status, to_status, note),
+    )
+
+
+def insert_job(con, *, source, source_id, company, title, status, location=None,
+               country=None, remote=None, seniority=None, salary=None, url=None,
+               posted_date=None, jd_text=None, flags=None, notes=None) -> str:
+    job_id = new_id(con, company, title)
+    run_dir = RUNS / job_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    has_jd = bool(jd_text and jd_text.strip())
+    header = [f"# {title}", f"**Company:** {company}"]
+    for label, val in (("Location", location), ("Posted", posted_date), ("URL", url), ("Source", source)):
+        if val:
+            header.append(f"**{label}:** {val}")
+    body = jd_text.strip() if has_jd else (
+        "_Full description not included by the source. Open the URL above and paste "
+        "the job description here before scoring._"
+    )
+    (run_dir / "jd.md").write_text("\n".join(header) + "\n\n---\n\n" + body + "\n", encoding="utf-8")
+    ts = now()
+    con.execute(
+        """INSERT INTO jobs (id, source, source_id, dedup_key, company, title, location, country,
+               remote, seniority, salary, url, posted_date, has_jd, flags, status, notes,
+               first_seen, updated_at)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+        (job_id, source, source_id, dedup_key(company, title), company, title, location, country,
+         None if remote is None else int(bool(remote)), seniority, salary, url, posted_date,
+         int(has_jd), json.dumps(flags) if flags else None, status, notes, ts, ts),
+    )
+    log_event(con, job_id, None, status, f"landed from {source}")
+    return job_id
+
+
+# ---------------------------------------------------------------------------
+# Commands
+# ---------------------------------------------------------------------------
+
+def cmd_init(args):
+    connect().close()
+    RUNS.mkdir(exist_ok=True)
+    print(f"database ready: {DB_PATH}")
+
+
+def cmd_add(args):
+    con = connect()
+    if args.file == "-":
+        jd = sys.stdin.read()
+    else:
+        p = Path(args.file).expanduser()
+        if not p.is_file():
+            die(f"no such file: {p}")
+        jd = p.read_text(encoding="utf-8")
+    key = dedup_key(args.company, args.title)
+    dup = con.execute("SELECT id, status FROM jobs WHERE dedup_key = ?", (key,)).fetchone()
+    if dup and not args.force:
+        die(f"already tracked as {dup['id']} [{dup['status']}]; use --force to add a second copy")
+    job_id = insert_job(
+        con, source=args.source, source_id=None, company=args.company, title=args.title,
+        status="to_score", location=args.location, url=args.url, posted_date=args.posted,
+        jd_text=jd, notes=args.note,
+    )
+    if args.channel or args.advocate:
+        con.execute("UPDATE jobs SET channel = ?, advocate = ? WHERE id = ?",
+                    (args.channel, args.advocate, job_id))
+    con.commit()
+    print(job_id)
+    print(f"jd: {RUNS / job_id / 'jd.md'}")
+
+
+def cmd_set(args):
+    con = connect()
+    job = find_job(con, args.job)
+    target = args.status
+    if target not in STATUSES:
+        die(f"unknown status '{target}'. Valid: {', '.join(STATUSES)}")
+    if target == job["status"]:
+        print(f"{job['id']} already {target}")
+        return
+    allowed = TRANSITIONS.get(job["status"], set())
+    if target not in allowed:
+        die(f"{job['id']}: {job['status']} -> {target} not allowed. From {job['status']}: "
+            f"{', '.join(sorted(allowed)) or 'nothing'}")
+    if job["status"] in TERMINAL and not args.note:
+        die("reopening needs --note naming the new evidence. "
+            "A thin board is not evidence that a passed role has become better.")
+    con.execute("UPDATE jobs SET status = ?, updated_at = ? WHERE id = ?", (target, now(), job["id"]))
+    log_event(con, job["id"], job["status"], target, args.note)
+    con.commit()
+    print(f"{job['id']}: {job['status']} -> {target}")
+
+
+def cmd_record(args):
+    con = connect()
+    job = find_job(con, args.job)
+    fields = {}
+    if args.verdict is not None:
+        fields["verdict"] = args.verdict
+    if args.org_total is not None:
+        if not 0 <= args.org_total <= 10:
+            die("org total must be between 0 and 10")
+        fields["org_total"] = args.org_total
+    if args.asymmetry is not None:
+        fields["asymmetry"] = args.asymmetry
+    if args.candidate is not None:
+        fields["candidate_fit"] = args.candidate
+    if args.channel is not None:
+        fields["channel"] = args.channel
+    if args.advocate is not None:
+        fields["advocate"] = args.advocate
+    if args.gate_note is not None:
+        fields["gate_note"] = args.gate_note
+    if args.notes is not None:
+        fields["notes"] = args.notes
+    if args.has_jd:
+        fields["has_jd"] = 1
+    if not fields and not args.status:
+        die("nothing to record")
+    if fields:
+        fields["updated_at"] = now()
+        sets = ", ".join(f"{k} = ?" for k in fields)
+        con.execute(f"UPDATE jobs SET {sets} WHERE id = ?", (*fields.values(), job["id"]))
+        log_event(con, job["id"], job["status"], job["status"],
+                  "recorded " + ", ".join(f"{k}={v}" for k, v in fields.items() if k != "updated_at"))
+    con.commit()
+    if args.status:
+        args.job, args.note = job["id"], args.note
+        cmd_set(args)
+    else:
+        print(f"{job['id']}: recorded")
+
+
+def row_line(r: sqlite3.Row) -> str:
+    bits = [r["verdict"] or "", f"{r['org_total']:.1f}" if r["org_total"] is not None else "",
+            f"cand {r['candidate_fit']}" if r["candidate_fit"] else "",
+            f"chan {r['channel']}" + (f" ({r['advocate']})" if r["advocate"] else "") if r["channel"] else ""]
+    extra = " · ".join(b for b in bits if b)
+    return f"{r['id']}  {r['company']} - {r['title']}" + (f"  [{extra}]" if extra else "")
+
+
+def cmd_list(args):
+    con = connect()
+    statuses = args.status.split(",") if args.status else ACTIVE + ["new"]
+    for s in statuses:
+        if s not in STATUSES:
+            die(f"unknown status '{s}'")
+    q = f"SELECT * FROM jobs WHERE status IN ({','.join('?' * len(statuses))}) ORDER BY status, org_total DESC, updated_at DESC"
+    rows = con.execute(q, statuses).fetchall()
+    if args.json:
+        print(json.dumps([dict(r) for r in rows], indent=2, ensure_ascii=False))
+        return
+    for r in rows:
+        print(f"[{r['status']}] {row_line(r)}")
+    if not rows:
+        print("nothing in " + ", ".join(statuses))
+
+
+def cmd_show(args):
+    con = connect()
+    job = find_job(con, args.job)
+    d = dict(job)
+    d["run_dir"] = str(RUNS / job["id"])
+    d["files"] = sorted(p.name for p in (RUNS / job["id"]).glob("*")) if (RUNS / job["id"]).exists() else []
+    d["events"] = [dict(e) for e in con.execute(
+        "SELECT at, from_status, to_status, note FROM events WHERE job_id = ? ORDER BY id", (job["id"],))]
+    print(json.dumps(d, indent=2, ensure_ascii=False))
+
+
+def cmd_board(args):
+    con = connect()
+    out = [f"# Board, {dt.date.today().isoformat()}", ""]
+    sections = [
+        ("Offers", ["offer"]), ("Interviewing", ["interviewing"]), ("Applied", ["applied"]),
+        ("Drafted, waiting for you", ["drafted"]), ("Scored", ["scored"]),
+        ("To score", ["to_score"]), ("New from scans, not yet screened", ["new"]),
+    ]
+    for title, sts in sections:
+        rows = con.execute(
+            f"SELECT * FROM jobs WHERE status IN ({','.join('?' * len(sts))}) "
+            "ORDER BY org_total DESC, updated_at DESC", sts).fetchall()
+        if not rows:
+            continue
+        out.append(f"## {title} ({len(rows)})")
+        out += [f"- {row_line(r)}" + ("" if r["has_jd"] else "  _(no JD yet)_") for r in rows]
+        out.append("")
+    since = (dt.date.today() - dt.timedelta(days=args.days)).isoformat()
+    closed = con.execute(
+        "SELECT j.*, e.to_status AS outcome, e.at AS outcome_at FROM events e JOIN jobs j ON j.id = e.job_id "
+        "WHERE e.to_status IN ('rejected','passed','closed','screened_out') AND j.status = e.to_status "
+        "AND e.at >= ? ORDER BY e.at DESC",
+        (since,)).fetchall()
+    if closed:
+        out.append(f"## Closed in the last {args.days} days ({len(closed)})")
+        out += [f"- {r['outcome']} {r['outcome_at'][:10]}: {r['company']} - {r['title']}" for r in closed]
+        out.append("")
+    # Channel health: the evidence says warm paths, not volume, reach conversations.
+    active = con.execute(
+        f"SELECT channel, count(*) n FROM jobs WHERE status IN ({','.join('?' * len(ACTIVE))}) GROUP BY channel",
+        ACTIVE).fetchall()
+    if active:
+        mix = ", ".join(f"{r['channel'] or 'unrecorded'}: {r['n']}" for r in active)
+        out.append(f"**Channel mix of active roles:** {mix}")
+    scan = con.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 1").fetchone()
+    if scan:
+        out.append(f"**Last scan:** {scan['at'][:16]}, {scan['returned']} returned, {scan['landed']} landed, "
+                   f"{scan['duplicates']} duplicates, {scan['filtered']} filtered"
+                   + (f", errors: {scan['errors']}" if scan["errors"] else ""))
+    text = "\n".join(out).rstrip() + "\n"
+    DATA.mkdir(exist_ok=True)
+    (DATA / "board.md").write_text(text, encoding="utf-8")
+    print(text)
+
+
+# ---------------------------------------------------------------------------
+# JobsPipe scan
+# ---------------------------------------------------------------------------
+# Field names differ between JobsPipe's homepage example and its own SDKs
+# (title vs job_title, nested vs flat location, compensation vs *_salary_usd).
+# Read defensively and keep the raw record so nothing is silently lost.
+
+def _first(d: dict, *keys):
+    for k in keys:
+        v = d.get(k)
+        if v not in (None, "", []):
+            return v
+    return None
+
+
+def normalise(rec: dict) -> dict:
+    loc = rec.get("location")
+    city = country = None
+    remote = rec.get("remote")
+    if isinstance(loc, dict):
+        city = _first(loc, "city", "name", "region")
+        country = _first(loc, "country", "country_code")
+        if remote is None:
+            remote = loc.get("remote")
+        location = ", ".join(str(x) for x in (city, country) if x) or None
+    else:
+        location = loc
+    country = country or _first(rec, "country_code", "country")
+    comp = rec.get("compensation") if isinstance(rec.get("compensation"), dict) else {}
+    lo = _first(comp, "min") or _first(rec, "min_annual_salary_usd", "min_salary")
+    hi = _first(comp, "max") or _first(rec, "max_annual_salary_usd", "max_salary")
+    cur = _first(comp, "currency") or ("USD" if rec.get("min_annual_salary_usd") or rec.get("max_annual_salary_usd") else None)
+    period = _first(comp, "period") or ("year" if rec.get("min_annual_salary_usd") else None)
+    salary = None
+    if lo or hi:
+        salary = f"{lo or '?'}-{hi or '?'} {cur or ''} {('/' + period) if period else ''}".strip()
+    company = rec.get("company")
+    if isinstance(company, dict):
+        company = _first(company, "name", "company_name")
+    return {
+        "source_id": str(_first(rec, "id", "job_id") or ""),
+        "title": _first(rec, "job_title", "title") or "",
+        "company": company or rec.get("company_name") or "",
+        "location": location,
+        "country": country,
+        "remote": remote,
+        "seniority": rec.get("seniority"),
+        "salary": salary,
+        "url": _first(rec, "apply_url", "final_url", "url", "source_url"),
+        "posted": (_first(rec, "date_posted", "posted_at") or "")[:10] or None,
+        "description": _first(rec, "description", "description_markdown", "job_description", "description_text"),
+    }
+
+
+def load_scan_config() -> dict:
+    path = SCAN_CONFIG
+    if not path.exists():
+        tpl = ROOT / "profile" / "scan.template.json"
+        die(f"missing {path}. Copy {tpl.name} to scan.json and edit it.")
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        die(f"{path} is not valid JSON: {e}")
+    raise AssertionError
+
+
+def api_key() -> str | None:
+    key = os.environ.get("JOBSPIPE_API_KEY")
+    if key:
+        return key.strip()
+    env = ROOT / ".env"
+    if env.exists():
+        for line in env.read_text().splitlines():
+            if line.strip().startswith("JOBSPIPE_API_KEY="):
+                return line.split("=", 1)[1].strip().strip('"').strip("'")
+    return None
+
+
+def jobspipe_search(filters: dict, key: str) -> dict:
+    req = urllib.request.Request(
+        f"{API_BASE}/v1/jobs/search",
+        data=json.dumps(filters).encode(),
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
+                 "User-Agent": "jobs-agent/1.0"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            return json.loads(resp.read().decode())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"HTTP {e.code}: {e.read().decode(errors='replace')[:400]}") from None
+
+
+def title_filter(title: str, cfg: dict) -> str | None:
+    t = ascii_fold(title).lower()
+    must = [m.lower() for m in cfg.get("title_must_match_any", [])]
+    if must and not any(m in t for m in must):
+        return "title not senior product"
+    for x in cfg.get("title_exclude_any", []):
+        if x.lower() in t:
+            return f"title contains '{x}'"
+    return None
+
+
+def flag_text(norm: dict, cfg: dict) -> list[str]:
+    hay = ascii_fold(" ".join(str(norm.get(k) or "") for k in ("title", "company", "description"))).lower()
+    return [w for w in cfg.get("avoid_keywords", []) if w.lower() in hay]
+
+
+def cmd_scan(args):
+    cfg = load_scan_config()
+    con = connect()
+    pages: list[tuple[str, dict]] = []
+    errors: list[str] = []
+    if args.from_file:
+        pages.append(("file", json.loads(Path(args.from_file).read_text(encoding="utf-8"))))
+    else:
+        key = api_key()
+        if not key:
+            die("set JOBSPIPE_API_KEY (or put it in jobs-agent/.env). Free key: https://jobspipe.dev/signup")
+        cap = int(cfg.get("max_results_per_query", 100))
+        page_size = min(int(cfg.get("page_size", 50)), cap)
+        for q in cfg.get("queries", []):
+            fetched, offset = 0, 0
+            while fetched < cap:
+                filters = dict(q["filters"])
+                if args.days:
+                    filters["posted_at_max_age_days"] = args.days
+                filters["limit"] = min(page_size, cap - fetched)
+                if offset:
+                    filters["offset"] = offset
+                if args.dry_run:
+                    print(f"[dry run] {q['name']}: {json.dumps(filters)}")
+                    break
+                try:
+                    resp = jobspipe_search(filters, key)
+                except (RuntimeError, urllib.error.URLError, TimeoutError) as e:
+                    errors.append(f"{q['name']}: {e}")
+                    break
+                data = resp.get("data") or resp.get("results") or []
+                pages.append((q["name"], resp))
+                fetched += len(data)
+                offset += len(data)
+                if len(data) < filters["limit"]:
+                    break
+        if args.dry_run:
+            return
+    returned = landed = dups = filtered = 0
+    landed_ids, filtered_lines = [], []
+    seen_this_scan: set[str] = set()
+    for qname, resp in pages:
+        for rec in resp.get("data") or resp.get("results") or []:
+            returned += 1
+            n = normalise(rec)
+            if not n["title"] or not n["company"]:
+                errors.append(f"record without title/company: {str(rec)[:120]}")
+                continue
+            key_ = dedup_key(n["company"], n["title"])
+            if key_ in seen_this_scan:
+                dups += 1
+                continue
+            seen_this_scan.add(key_)
+            exists = con.execute(
+                "SELECT id FROM jobs WHERE (source = 'jobspipe' AND source_id = ?) OR dedup_key = ?",
+                (n["source_id"] or None, key_)).fetchone()
+            if exists:
+                dups += 1
+                continue
+            reason = title_filter(n["title"], cfg)
+            if reason:
+                filtered += 1
+                filtered_lines.append(f"{n['company']} - {n['title']}: {reason}")
+                continue
+            flags = flag_text(n, cfg)
+            job_id = insert_job(
+                con, source="jobspipe", source_id=n["source_id"] or None, company=n["company"],
+                title=n["title"], status="new", location=n["location"], country=n["country"],
+                remote=n["remote"], seniority=n["seniority"], salary=n["salary"], url=n["url"],
+                posted_date=n["posted"], jd_text=n["description"],
+                flags={"avoid_keywords": flags, "query": qname} if flags else {"query": qname},
+            )
+            (RUNS / job_id / "source.json").write_text(json.dumps(rec, indent=2, ensure_ascii=False), encoding="utf-8")
+            landed += 1
+            landed_ids.append(job_id)
+    con.execute("INSERT INTO scans (at, returned, landed, duplicates, filtered, errors) VALUES (?,?,?,?,?,?)",
+                (now(), returned, landed, dups, filtered, "; ".join(errors) or None))
+    con.commit()
+    DATA.mkdir(exist_ok=True)
+    (DATA / "last-scan.json").write_text(json.dumps(
+        {"at": now(), "returned": returned, "landed": landed_ids, "duplicates": dups,
+         "filtered": filtered_lines, "errors": errors}, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"returned {returned} (= credits used, at most), landed {landed}, duplicates {dups}, "
+          f"filtered by title {filtered}, errors {len(errors)}")
+    for e in errors:
+        print(f"  error: {e}", file=sys.stderr)
+    for j in landed_ids:
+        print(f"  new: {j}")
+    if errors and not returned:
+        sys.exit(2)
+
+
+# ---------------------------------------------------------------------------
+
+def main(argv=None):
+    p = argparse.ArgumentParser(prog="jobs", description=__doc__.split("\n\n")[0])
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    sub.add_parser("init", help="create the database").set_defaults(fn=cmd_init)
+
+    a = sub.add_parser("add", help="add a job description by hand (network, search firm, a link)")
+    a.add_argument("--file", required=True, help="JD text file, or - for stdin")
+    a.add_argument("--company", required=True)
+    a.add_argument("--title", required=True)
+    a.add_argument("--url")
+    a.add_argument("--location")
+    a.add_argument("--posted", help="YYYY-MM-DD")
+    a.add_argument("--source", default="manual", choices=["manual", "network", "search-firm", "inbound", "jobspipe"])
+    a.add_argument("--channel", choices=CHANNEL)
+    a.add_argument("--advocate")
+    a.add_argument("--note")
+    a.add_argument("--force", action="store_true")
+    a.set_defaults(fn=cmd_add)
+
+    s = sub.add_parser("scan", help="pull new postings from JobsPipe using profile/scan.json")
+    s.add_argument("--days", type=int, help="override posted_at_max_age_days for every query")
+    s.add_argument("--dry-run", action="store_true", help="print the requests, spend nothing")
+    s.add_argument("--from-file", help="ingest a saved JobsPipe response instead of calling the API")
+    s.set_defaults(fn=cmd_scan)
+
+    l_ = sub.add_parser("list", help="list jobs (default: active + new)")
+    l_.add_argument("--status", help="comma-separated statuses")
+    l_.add_argument("--json", action="store_true")
+    l_.set_defaults(fn=cmd_list)
+
+    sh = sub.add_parser("show", help="one job as JSON, with its history")
+    sh.add_argument("job")
+    sh.set_defaults(fn=cmd_show)
+
+    st = sub.add_parser("set", help="move a job to a new status")
+    st.add_argument("job")
+    st.add_argument("status")
+    st.add_argument("--note")
+    st.set_defaults(fn=cmd_set)
+
+    r = sub.add_parser("record", help="record the agent's judgments on a job")
+    r.add_argument("job")
+    r.add_argument("--verdict", choices=VERDICTS)
+    r.add_argument("--org-total", type=float)
+    r.add_argument("--asymmetry", type=int, choices=[0, 1, 2])
+    r.add_argument("--candidate", choices=CANDIDATE)
+    r.add_argument("--channel", choices=CHANNEL)
+    r.add_argument("--advocate")
+    r.add_argument("--gate-note")
+    r.add_argument("--notes")
+    r.add_argument("--has-jd", action="store_true", help="mark that the JD has been pasted into jd.md")
+    r.add_argument("--status", help="also move to this status")
+    r.add_argument("--note", help="note for the status change")
+    r.set_defaults(fn=cmd_record)
+
+    b = sub.add_parser("board", help="print the board and write data/board.md")
+    b.add_argument("--days", type=int, default=14, help="how far back to list closed roles")
+    b.set_defaults(fn=cmd_board)
+
+    args = p.parse_args(argv)
+    args.fn(args)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bin/jobs *)",
+      "Bash(python3 -c *)",
+      "Bash(pandoc *)",
+      "Bash(grep *)",
+      "Read(**)",
+      "Edit(runs/**)",
+      "WebFetch"
+    ],
+    "deny": [
+      "Edit(profile/**)",
+      "Edit(rules/**)",
+      "Edit(bin/**)",
+      "Edit(.claude/**)",
+      "Read(.env)"
+    ]
+  }
+}
