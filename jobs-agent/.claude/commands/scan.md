@@ -1,5 +1,5 @@
 ---
-description: Pull new postings from JobsPipe and RSS feeds and screen them cheaply (gates, avoid list, network) — no full scoring
+description: Pull new postings from JobsPipe, RSS feeds and the company watchlist, and screen them cheaply (gates, avoid list, network) — no full scoring
 argument-hint: [days]
 ---
 
@@ -54,6 +54,16 @@ to `to_score` with the note "JD missing, paste before scoring".
 
 When unsure, prefer `to_score` with the doubt written in the note. Screening is
 cheap to reverse; a wrongly dropped role is invisible.
+
+**Search-firm roles** (`flags.via_search_firm`): the employer is the client
+named in the title; the channel is the recruiter. Say so in the gate note: the
+next step is a call with the recruiter, not a cold application.
+
+**Watchlist rows** (source greenhouse, lever, ashby, recruitee, personio or
+teamtailor) come from companies he chose to watch. Their title filter is looser
+("product" anywhere), so judge level carefully: an IC Senior PM seat is a
+level-cap question for `/score`, not an automatic screen-out, if the company is
+on the watchlist.
 
 Sources: `jobspipe` rows carry `flags.boards` (e.g. linkedin, teamtailor,
 greenhouse), the boards JobsPipe found the posting on. RSS rows carry the feed

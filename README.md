@@ -32,7 +32,7 @@ Folding these into one number corrupts all three. Most of the framework exists t
 | `/draft <id>` | Application material for a Strong or Viable role, from the fact base only, with a list of every requirement the facts don't support. |
 | `/warm <id>` | The warm path from `network.md`, drafted as an ask plus a paragraph the contact can forward. |
 | `/outcome <id> <outcome>` | Records what happened and applies the outcome-update rule. |
-| `/scan` | A narrow JobsPipe search (which includes LinkedIn's public postings) plus any RSS feeds you list, screened cheaply. A radar for companies worth a warm approach, not a cold-application funnel. Job boards whose terms forbid scraping, such as LinkedIn and Duunitori, are not scraped. |
+| `/scan` | A narrow JobsPipe search (which includes LinkedIn's public postings), any RSS feeds you list, and a watchlist of companies polled through their public job-board endpoints (Greenhouse, Lever, Ashby, Recruitee, Personio, Teamtailor), screened cheaply. A radar for companies worth a warm approach, not a cold-application funnel. Job boards whose terms forbid scraping, such as LinkedIn and Duunitori, are not scraped. |
 | `/board` | The board and what needs attention. |
 
 `bin/jobs` is a small standard-library Python tracker (SQLite) that does the bookkeeping; the model does the judgment and records it there. The agent cannot edit `profile/`, `rules/`, `bin/` or its own settings, and has no tool that applies, sends or contacts anyone. It drafts; you decide.

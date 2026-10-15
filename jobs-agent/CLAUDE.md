@@ -2,7 +2,7 @@
 
 Purpose: take a job description, score it honestly against a calibrated framework, and — only if it passes — produce tailored application material that contains no invented facts.
 
-**Sourcing is a radar, not a funnel.** Cold-application volume has converted at roughly zero; every process that reached a real conversation came through a person. `/scan` pulls a narrow JobsPipe search (which includes LinkedIn's public postings and the main ATS platforms) and the RSS feeds in `profile/scan.json`, then screens cheaply. Duunitori and LinkedIn are never scraped: both forbid it in their terms. A role found there goes in by hand with `/score <url or paste>`. Its main output is *which companies deserve a warm approach*, not a list to apply to cold. A cold application from a scan needs a Strong verdict.
+**Sourcing is a radar, not a funnel.** Cold-application volume has converted at roughly zero; every process that reached a real conversation came through a person. `/scan` pulls a narrow JobsPipe search (which includes LinkedIn's public postings and the main ATS platforms), the RSS feeds and the company watchlist in `profile/scan.json`, then screens cheaply. Duunitori and LinkedIn are never scraped: both forbid it in their terms. A role found there goes in by hand with `/score <url or paste>`. Its main output is *which companies deserve a warm approach*, not a list to apply to cold. A cold application from a scan needs a Strong verdict.
 
 **Scripts do the mechanical, the model does judgment, the human makes every call that matters.** `bin/jobs` keeps state (`data/jobs.db`); the agent records its judgments there with `bin/jobs record`, never by editing the database directly.
 
@@ -28,7 +28,7 @@ Statuses: `new → screened_out | to_score → scored → drafted → applied �
 | `profile/facts.md` | Verified fact base (start from `facts.template.md`; never commit the real one publicly). Only permitted source of biographical claims. | **No.** Only the human edits this. |
 | `profile/search-profile.md` | Start from `search-profile.template.md`. Gates, what a 9 and a 3 look like, avoid list, standing principles. | No. |
 | `profile/network.md` | Start from `network.template.md`. Who can open which door, with channel strength. | No. Never upgrade a strength. |
-| `profile/scan.json` | Start from `scan.template.json`. JobsPipe queries and the mechanical title filter. | No. |
+| `profile/scan.json` | Start from `scan.template.json`. JobsPipe queries, RSS feeds, company watchlist and the mechanical title filters. | No. |
 | `bin/jobs` | Tracker CLI: add, scan, list, show, set, record, board. | No. Use it; don't edit it. |
 | `data/` | `jobs.db`, `board.md`, `last-scan.json`. Gitignored. | Only through `bin/jobs`. |
 | `rules/framework-v6.2.md` | Full scoring framework: gates, nine weighted factors, diagnostics, calibration appendix. | No. |

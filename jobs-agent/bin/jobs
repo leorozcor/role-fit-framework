@@ -555,6 +555,7 @@ def html_to_text(markup: str) -> str:
     return re.sub(r"\n\s*\n\s*\n+", "\n\n", text).strip()
 
 
+TT_NS = "https://teamtailor.com/locations"
 RSS_NS = {"content": "http://purl.org/rss/1.0/modules/content/", "dc": "http://purl.org/dc/elements/1.1/"}
 
 
@@ -576,16 +577,36 @@ def parse_rss(xml_text: str, feed: dict) -> list[tuple[dict, dict]]:
                 posted = email.utils.parsedate_to_datetime(pub).date().isoformat()
             except (TypeError, ValueError):
                 posted = None
-        company = None
-        if pattern:
+        title = html.unescape(title)
+        company = feed.get("company")
+        tpat = feed.get("title_company_pattern")
+        if tpat:
+            m = re.match(tpat, title)
+            if m:
+                company, title = m.group(1).strip(), title[m.end():].strip(" -–:")
+        if not company and pattern:
             m = pattern.search(body)
             if m:
                 company = m.group(1).strip(" ,.:")
-        raw = {"title": title, "link": link, "pubDate": pub, "body_html": body_html}
+        # Teamtailor extras: <tt:locations><tt:location><tt:city>, <tt:country>; <remoteStatus>
+        cities, countries = [], []
+        for loc in item.iter(f"{{{TT_NS}}}location"):
+            city, ctry = loc.findtext(f"{{{TT_NS}}}city"), loc.findtext(f"{{{TT_NS}}}country")
+            if city and city not in cities:
+                cities.append(city)
+            if ctry and ctry not in countries:
+                countries.append(ctry)
+        remote_status = (item.findtext("remoteStatus") or "").strip().lower() or None
+        location = ", ".join(cities + countries) or None
+        raw = {"title": title, "link": link, "pubDate": pub, "body_html": body_html,
+               "locations": cities, "countries": countries, "remoteStatus": remote_status}
         out.append(({
-            "source_id": link or None, "title": html.unescape(title), "company": company or UNKNOWN_COMPANY,
-            "location": None, "country": "FI" if feed.get("country") == "FI" else feed.get("country"),
-            "remote": None, "seniority": None, "salary": None, "url": link, "posted": posted,
+            "source_id": (item.findtext("guid") or link or "").strip() or None, "title": title,
+            "company": company or UNKNOWN_COMPANY,
+            "location": (location + (f" ({remote_status})" if remote_status else "")) if location else remote_status,
+            "country": feed.get("country"),
+            "remote": True if remote_status in ("fully", "remote", "fully_remote") else None,
+            "seniority": None, "salary": None, "url": link, "posted": posted,
             "description": body, "boards": [feed["name"]],
         }, raw))
     return out
@@ -595,6 +616,138 @@ def fetch_url(url: str) -> str:
     req = urllib.request.Request(url, headers={"User-Agent": "jobs-agent/1.0 (personal job search; RSS reader)"})
     with urllib.request.urlopen(req, timeout=60) as resp:
         return resp.read().decode("utf-8", errors="replace")
+
+
+# ---------------------------------------------------------------------------
+# Company watchlist: public job-board endpoints that the ATS vendors publish for
+# exactly this purpose (careers pages, aggregators). No login, no scraping.
+# Verified 2026-10-15 against vendor docs: Greenhouse Job Board API, Lever
+# Postings API, Ashby Posting API, Recruitee careers-site API, Personio XML
+# feed, Teamtailor RSS.
+
+def _ms_to_date(ms):
+    try:
+        return dt.datetime.fromtimestamp(int(ms) / 1000, dt.timezone.utc).date().isoformat()
+    except (TypeError, ValueError, OverflowError):
+        return None
+
+
+def _base(entry, **kw):
+    d = {"source_id": None, "title": "", "company": entry["company"], "location": None, "country": None,
+         "remote": None, "seniority": None, "salary": None, "url": None, "posted": None,
+         "description": None, "boards": [entry["ats"]]}
+    d.update(kw)
+    d["source_id"] = f"{entry['ats']}:{entry.get('slug') or entry.get('url')}:{d['source_id']}"
+    return d
+
+
+def watch_url(entry: dict) -> str:
+    ats, slug = entry["ats"], entry.get("slug")
+    if entry.get("url"):
+        return entry["url"]
+    return {
+        "greenhouse": f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true",
+        "lever": f"https://api{'.eu' if entry.get('eu') else ''}.lever.co/v0/postings/{slug}?mode=json",
+        "ashby": f"https://api.ashbyhq.com/posting-api/job-board/{slug}?includeCompensation=true",
+        "recruitee": f"https://{slug}.recruitee.com/api/offers/",
+        "personio": f"https://{slug}.jobs.personio.de/xml",
+        "teamtailor": f"https://{slug}.teamtailor.com/jobs.rss",
+    }[ats]
+
+
+def parse_watch(entry: dict, text: str) -> list[tuple[dict, dict]]:
+    ats = entry["ats"]
+    out = []
+    if ats == "greenhouse":
+        for j in json.loads(text).get("jobs", []):
+            body = html_to_text(html.unescape(j.get("content") or ""))
+            out.append((_base(entry, source_id=j.get("id"), title=j.get("title") or "",
+                              location=(j.get("location") or {}).get("name"), url=j.get("absolute_url"),
+                              posted=(j.get("first_published") or j.get("updated_at") or "")[:10] or None,
+                              description=body or None), j))
+    elif ats == "lever":
+        for j in json.loads(text):
+            cats = j.get("categories") or {}
+            parts = [j.get("descriptionPlain") or ""]
+            for lst in j.get("lists") or []:
+                parts.append(f"{lst.get('text', '')}\n{html_to_text(lst.get('content', ''))}")
+            parts.append(j.get("additionalPlain") or "")
+            out.append((_base(entry, source_id=j.get("id"), title=j.get("text") or "",
+                              location=cats.get("location"), country=j.get("country"),
+                              remote=(j.get("workplaceType") == "remote") or None,
+                              url=j.get("hostedUrl"), posted=_ms_to_date(j.get("createdAt")),
+                              description="\n\n".join(p for p in parts if p.strip()) or None), j))
+    elif ats == "ashby":
+        for j in json.loads(text).get("jobs", []):
+            if j.get("isListed") is False:
+                continue
+            comp = j.get("compensation") or {}
+            out.append((_base(entry, source_id=j.get("id") or j.get("jobUrl"), title=j.get("title") or "",
+                              location=j.get("location"), remote=j.get("isRemote"),
+                              salary=comp.get("compensationTierSummary") if isinstance(comp, dict) else None,
+                              url=j.get("jobUrl"), posted=(j.get("publishedAt") or "")[:10] or None,
+                              description=j.get("descriptionPlain") or html_to_text(j.get("descriptionHtml") or "") or None), j))
+    elif ats == "recruitee":
+        for j in json.loads(text).get("offers", []):
+            body = html_to_text((j.get("description") or "") + (j.get("requirements") or ""))
+            out.append((_base(entry, source_id=j.get("id"), title=j.get("title") or "",
+                              location=j.get("location"), country=j.get("country_code"), remote=j.get("remote"),
+                              url=j.get("careers_url"), posted=(j.get("published_at") or "")[:10] or None,
+                              description=body or None), j))
+    elif ats == "personio":
+        root = ET.fromstring(text)
+        for pos in root.iter("position"):
+            pid = pos.findtext("id")
+            descs = []
+            for d in pos.iter("jobDescription"):
+                descs.append(f"{d.findtext('name') or ''}\n{html_to_text(d.findtext('value') or '')}")
+            out.append((_base(entry, source_id=pid, title=(pos.findtext("name") or "").strip(),
+                              location=pos.findtext("office"), seniority=pos.findtext("seniority"),
+                              url=f"https://{entry['slug']}.jobs.personio.de/job/{pid}",
+                              posted=(pos.findtext("createdAt") or "")[:10] or None,
+                              description="\n\n".join(x for x in descs if x.strip()) or None),
+                        {k: pos.findtext(k) for k in ("id", "name", "office", "department", "seniority", "createdAt")}))
+    elif ats == "teamtailor":
+        feed = {"name": "teamtailor", "company": None if entry.get("search_firm") else entry["company"],
+                "title_company_pattern": entry.get("title_company_pattern"), "country": entry.get("country")}
+        for n, raw in parse_rss(text, feed):
+            n["source_id"] = f"teamtailor:{entry.get('slug') or entry.get('url')}:{n['source_id']}"
+            if entry.get("search_firm"):
+                n["via"] = entry["company"]
+            out.append((n, raw))
+    else:
+        raise ValueError(f"unknown ats '{ats}'")
+    for n, _ in out:
+        n["filter_profile"] = "watchlist"
+        if entry.get("search_firm"):
+            n["via"] = entry["company"]
+    return out
+
+
+def collect_watchlist(cfg, args, items, errors, notes) -> None:
+    overrides = dict(x.split("=", 1) for x in (args.watch_file or []))
+    for entry in cfg.get("watchlist", []):
+        if entry.get("enabled", True) is False:
+            continue
+        name = entry["company"]
+        if args.watch_file and name not in overrides:
+            continue
+        try:
+            url = watch_url(entry)
+        except KeyError:
+            errors.append(f"watchlist {name}: unknown ats '{entry.get('ats')}'")
+            continue
+        if args.dry_run:
+            print(f"[dry run] watchlist {name}: GET {url}")
+            continue
+        try:
+            text = Path(overrides[name]).read_text(encoding="utf-8") if name in overrides else fetch_url(url)
+            parsed = parse_watch(entry, text)
+        except (urllib.error.URLError, TimeoutError, ET.ParseError, json.JSONDecodeError, OSError, ValueError) as e:
+            errors.append(f"watchlist {name} ({entry['ats']}): {e}")
+            continue
+        items += [(entry["ats"], f"watch:{name}", n, r) for n, r in parsed]
+        notes.append(f"watchlist {name}: {len(parsed)} open roles")
 
 
 def collect_jobspipe(cfg, args, items, errors, notes) -> int:
@@ -681,10 +834,12 @@ def cmd_scan(args):
     notes: list[str] = []
     want = args.source
     credits = 0
-    if want in ("all", "jobspipe") and not args.rss_file:
+    if want in ("all", "jobspipe") and not args.rss_file and not args.watch_file:
         credits = collect_jobspipe(cfg, args, items, errors, notes)
-    if want in ("all", "rss") and not args.from_file:
+    if want in ("all", "rss") and not args.from_file and not args.watch_file:
         collect_rss(cfg, args, items, errors, notes)
+    if want in ("all", "watchlist") and not args.from_file and not args.rss_file:
+        collect_watchlist(cfg, args, items, errors, notes)
     if args.dry_run:
         return
     seen_count = landed = dups = filtered = 0
@@ -708,7 +863,12 @@ def cmd_scan(args):
         if exists:
             dups += 1
             continue
-        reason = title_filter(n["title"], cfg)
+        if n.get("filter_profile") == "watchlist":
+            reason = title_filter(n["title"], {
+                "title_must_match_any": cfg.get("watchlist_title_must_match_any", ["product"]),
+                "title_exclude_any": cfg.get("watchlist_title_exclude_any", cfg.get("title_exclude_any", []))})
+        else:
+            reason = title_filter(n["title"], cfg)
         if reason:
             filtered += 1
             filtered_lines.append(f"[{source}] {n['company']} - {n['title']}: {reason}")
@@ -722,6 +882,8 @@ def cmd_scan(args):
             flags["avoid_keywords"] = hits
         if not known_company:
             flags["company_unknown"] = True
+        if n.get("via"):
+            flags["via_search_firm"] = n["via"]
         job_id = insert_job(
             con, source=source, source_id=n["source_id"] or None, company=n["company"],
             title=n["title"], status="new", location=n["location"], country=n["country"],
@@ -774,7 +936,8 @@ def main(argv=None):
     a.set_defaults(fn=cmd_add)
 
     s = sub.add_parser("scan", help="pull new postings from JobsPipe and RSS feeds in profile/scan.json")
-    s.add_argument("--source", choices=["all", "jobspipe", "rss"], default="all")
+    s.add_argument("--source", choices=["all", "jobspipe", "rss", "watchlist"], default="all")
+    s.add_argument("--watch-file", action="append", metavar="COMPANY=PATH", help="read a saved board response for one watchlist company (testing)")
     s.add_argument("--rss-file", action="append", metavar="NAME=PATH", help="read a saved feed instead of fetching it (testing)")
     s.add_argument("--days", type=int, help="override posted_at_max_age_days for every query")
     s.add_argument("--dry-run", action="store_true", help="print the requests, spend nothing")

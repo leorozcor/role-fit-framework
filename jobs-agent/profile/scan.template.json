@@ -95,5 +95,39 @@
       "country": "FI",
       "company_pattern": "^\\s*(.+?)\\s+(?:etsii|hakee|is looking|is hiring|seeks)\\b"
     }
+  ],
+  "_comment_watchlist": "Company watchlist: each company's public job-board endpoint (free, no credits). ats is one of greenhouse, lever (add \"eu\": true for api.eu.lever.co), ashby, recruitee, personio, teamtailor (give \"url\" ending in /jobs.rss for custom domains). Find the slug where the company's 'apply' links point. search_firm: true means a recruiter's board; the client company is taken from the title with title_company_pattern. Replace the examples and set enabled to true.",
+  "watchlist_title_must_match_any": [
+    "product"
+  ],
+  "watchlist_title_exclude_any": [
+    "designer",
+    "design engineer",
+    "engineer",
+    "marketing",
+    "analyst",
+    "intern",
+    "junior",
+    "associate",
+    "owner",
+    "quality",
+    "cost",
+    "specialist"
+  ],
+  "watchlist": [
+    {
+      "company": "<Company name>",
+      "ats": "greenhouse",
+      "slug": "<board-slug>",
+      "enabled": false
+    },
+    {
+      "company": "<Search firm name>",
+      "ats": "teamtailor",
+      "url": "https://<their-careers-domain>/jobs.rss",
+      "search_firm": true,
+      "title_company_pattern": "^(.+?)\\s+-\\s+(?=\\S)",
+      "enabled": false
+    }
   ]
 }
