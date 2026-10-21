@@ -53,7 +53,7 @@ If a gate cannot be assessed (salary unstated, location ambiguous), mark it **UN
 - **Do not draft** application material unless the human explicitly chooses to invest before resolution.
 - If the gate later resolves as FAIL, the score is void. It is never a reason to reconsider the floor.
 
-**Gate 3 is hard to judge from outside.** Always include this as a question for the first conversation: *"How far along is the process, and is anyone already in late stages or internal?"* Two roles in the calibration set looked open and were not.
+**Gate 3 is hard to judge from outside.** Always include this as a question for the first conversation: *"How far along is the process, and is anyone already in late stages or internal?"* and *"Is this role in the approved headcount plan for the next 12 months, and has the company changed its hiring plan this year?"* Two roles in the calibration set looked open and were not; another company hired and then announced layoffs within weeks.
 
 ### Step 2 — Score
 Fill `rules/scoring-sheet-template.md` using `rules/framework-v6.2.md`.
