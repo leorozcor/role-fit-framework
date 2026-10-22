@@ -388,9 +388,11 @@ def cmd_board(args):
         out.append("")
     since = (dt.date.today() - dt.timedelta(days=args.days)).isoformat()
     closed = con.execute(
-        "SELECT j.*, e.to_status AS outcome, e.at AS outcome_at FROM events e JOIN jobs j ON j.id = e.job_id "
+        # One row per job: only real transitions count (a note recorded on a closed job logs
+        # rejected -> rejected), and a job closed twice shows its latest closure.
+        "SELECT j.*, e.to_status AS outcome, MAX(e.at) AS outcome_at FROM events e JOIN jobs j ON j.id = e.job_id "
         "WHERE e.to_status IN ('rejected','passed','closed','screened_out') AND j.status = e.to_status "
-        "AND e.at >= ? ORDER BY e.at DESC",
+        "AND e.from_status IS NOT e.to_status AND e.at >= ? GROUP BY j.id ORDER BY outcome_at DESC",
         (since,)).fetchall()
     if closed:
         out.append(f"## Closed in the last {args.days} days ({len(closed)})")
