@@ -2,7 +2,33 @@
 
 *A decision tool, not an essay. It exists to predict organizational fit and to identify where capability can create unusual value — not to explain organizations beautifully.*
 
-**Architecture:** Principles state commitments. Gates stop bad fits. The positive lens finds asymmetry. Nine factors predict fit. Diagnostics and heuristics operationalize the factors. Evidence and usage rules keep the scoring honest. A calibration appendix holds dated examples so the framework itself stays stable.
+**Architecture:** A strategic layer says what the search is for. Principles state commitments. Gates stop bad fits. The positive lens finds asymmetry. Nine factors predict fit. Diagnostics and heuristics operationalize the factors. Evidence and usage rules keep the scoring honest. A calibration appendix holds dated examples so the framework itself stays stable.
+
+---
+
+## 0. STRATEGIC LAYER (added October 2026)
+
+**Guiding statement.** Find organizations with problems I'm unusually well equipped to solve, that recognize and will pay for my contribution, and where solving those problems doesn't require sacrificing the rest of my life.
+
+The scoring machine below answers *is this role worth it?* This layer answers *what is the search for?* It does not add a factor or change any weight; it says how to read the parts together.
+
+**1. Value creation ≠ value capture.**
+- Being able to solve a problem is not enough. The buyer must (a) recognize the problem, (b) have budget and authority, and (c) believe my experience is the best answer.
+- Identify who actually owns the problem and who owns the budget; they may not be the same person. *Probe:* "Who feels this problem most, and who decides the budget to fix it?"
+- In this framework: **asymmetry** measures creation; **gates and Mandate** cover (b); **candidate fit and channel** cover (c).
+- Positioning and interview communication help (c): lead with proof points and measurable outcomes, not adjectives. **But they have a ceiling.** The calibration appendix shows that every rejection with a known reason turned on a literal requirement or a level/archetype mismatch, never on the quality of the argument. Better framing cannot create (c) where a literal requirement is missing; an advocate, or choosing roles where (c) is already likely, can.
+- Rejection reasons ("direct domain expertise") are market data about where (c) fails. They update candidate-fit calibration, per the outcome-update rule.
+
+**2. Timing and optionality.**
+- A good long-term direction may not be a viable immediate move. Judge options on both horizons: what this does now, and where it leads.
+- Maintain several ways to earn a living (leadership role, fractional work and coaching, teaching) without treating any one as a permanent identity. This is what makes the **Gig** verdict and the **real alternative** usable rather than theoretical.
+- Combine interests and abilities with labour-market evidence and small, reversible real-world experiments. A bounded gig or a teaching engagement can be an experiment, not only income.
+
+**3. Life purpose ≠ the employer's business model.**
+- Purpose lives across family, community, friendships and interests outside work, including joy in ridiculous things.
+- Some purpose is better expressed outside paid work (community organising, mentoring, teaching). This is one reason Work interest carries 5%, not more: a role does not have to supply all of life's meaning to be a good role.
+- Work should support that life, not absorb every meaningful part of it, while still offering enough meaning to be sustainable.
+- **Red flag: an organization that demands more than it sustainably gives back.** Score it in **Sustainability** (and look for its cause in the fear diagnostic); do not let a strong mission or a good salary compensate for it.
 
 ---
 

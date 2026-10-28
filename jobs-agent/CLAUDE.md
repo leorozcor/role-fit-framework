@@ -133,6 +133,7 @@ Three to five, drawn from the framework's diagnostics and specific to what this 
 - *When you say hands-on, what would I personally be doing in an ordinary week? Close to customers and product decisions, close to delivery, or close to the technical implementation?* (Product / Delivery / Technical)
 - *When you picture the strongest candidate, what function have they most likely spent the last five years leading?* (functional center of gravity)
 - *What have you deliberately not accelerated because AI made building faster?* (throughput illusion)
+- *Who feels this problem most, and who decides the budget to fix it?* (value capture: problem owner versus budget owner)
 - *What does this role decide alone, without going back up?*
 - *What does the business actually make money from, and what does that make rational for product?*
 - *How do you know when a product decision here was right? Point to a case where the data changed the answer.*
