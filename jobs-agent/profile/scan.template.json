@@ -88,6 +88,8 @@
     "safe agile",
     "scaled agile"
   ],
+  "_comment_avoid_companies": "Companies dropped at scan on evidence about how they treat the role (for example, repeated reports of leadership churn from people you trust), not on their postings. Give each a reason.",
+  "avoid_companies": [],
   "rss_feeds": [
     {
       "name": "vierityspalkki",

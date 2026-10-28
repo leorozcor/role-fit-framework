@@ -28,7 +28,7 @@ Statuses: `new → screened_out | to_score → scored → drafted → applied �
 | `profile/facts.md` | Verified fact base (start from `facts.template.md`; never commit the real one publicly). Only permitted source of biographical claims. | **No.** Only the human edits this. |
 | `profile/search-profile.md` | Start from `search-profile.template.md`. Gates, what a 9 and a 3 look like, avoid list, standing principles. | No. |
 | `profile/network.md` | Start from `network.template.md`. Who can open which door, with channel strength. | No. Never upgrade a strength. |
-| `profile/scan.json` | Start from `scan.template.json`. JobsPipe queries, RSS feeds, company watchlist and the mechanical title filters. | No. |
+| `profile/scan.json` | Start from `scan.template.json`. JobsPipe queries, RSS feeds, company watchlist, the mechanical title filters and `avoid_companies` (dropped at scan, with a reason). | No. |
 | `bin/jobs` | Tracker CLI: add, scan, list, show, set, record, board. | No. Use it; don't edit it. |
 | `data/` | `jobs.db`, `board.md`, `last-scan.json`. Gitignored. | Only through `bin/jobs`. |
 | `rules/framework-v6.2.md` | Full scoring framework: gates, nine weighted factors, diagnostics, calibration appendix. | No. |

@@ -32,6 +32,7 @@ DATA = ROOT / "data"
 RUNS = ROOT / "runs"
 DB_PATH = Path(os.environ.get("JOBS_DB", DATA / "jobs.db"))
 SCAN_CONFIG = ROOT / "profile" / "scan.json"
+CURSORS = DATA / "jobspipe-cursors.json"
 API_BASE = os.environ.get("JOBSPIPE_API_BASE", "https://api.jobspipe.dev")
 
 # ---------------------------------------------------------------------------
@@ -520,6 +521,18 @@ def title_filter(title: str, cfg: dict) -> str | None:
     return None
 
 
+def avoided_company(company: str, cfg: dict) -> str | None:
+    """Companies avoided on evidence (profile/scan.json "avoid_companies"): dropped at scan,
+    before any title screening, and listed in the scan output with the reason."""
+    c = ascii_fold(company or "").lower()
+    for entry in cfg.get("avoid_companies", []):
+        name = entry.get("name", "") if isinstance(entry, dict) else str(entry)
+        if name and ascii_fold(name).lower() in c:
+            reason = entry.get("reason", "") if isinstance(entry, dict) else ""
+            return f"avoided company ({name}{': ' + reason if reason else ''})"
+    return None
+
+
 def flag_text(norm: dict, cfg: dict) -> list[str]:
     hay = ascii_fold(" ".join(str(norm.get(k) or "") for k in ("title", "company", "description"))).lower()
     return [w for w in cfg.get("avoid_keywords", []) if w.lower() in hay]
@@ -752,26 +765,42 @@ def collect_watchlist(cfg, args, items, errors, notes) -> None:
         notes.append(f"watchlist {name}: {len(parsed)} open roles")
 
 
-def collect_jobspipe(cfg, args, items, errors, notes) -> int:
-    """Returns the number of JobsPipe records returned (an upper bound on credits used)."""
+def load_cursors() -> dict:
+    try:
+        return json.loads(CURSORS.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def collect_jobspipe(cfg, args, items, errors, notes, cursors) -> tuple[int, bool]:
+    """Returns (credits, exact). Credits come from the API's credits_charged when every
+    page reports it; otherwise the number of records returned, an upper bound.
+    New delta cursors go into `cursors`; the caller saves them once the scan is committed."""
     if args.from_file:
         resp = json.loads(Path(args.from_file).read_text(encoding="utf-8"))
         recs = resp.get("data") or resp.get("results") or []
         items += [("jobspipe", "file", normalise(r), r) for r in recs]
-        return len(recs)
+        return len(recs), False
     key = api_key()
     if not key:
         notes.append("JobsPipe skipped: no JOBSPIPE_API_KEY (put it in jobs-agent/.env; free key at https://jobspipe.dev/signup)")
-        return 0
+        return 0, True
     cap = int(cfg.get("max_results_per_query", 100))
     page_size = min(int(cfg.get("page_size", 50)), cap)
-    returned = 0
+    credits, exact = 0, True
     for q in cfg.get("queries", []):
-        fetched, offset = 0, 0
+        base = dict(q["filters"])
+        if args.days:
+            base["posted_at_max_age_days"] = args.days
+        # A delta cursor is only valid for identical filters; any edit to the query
+        # (or a --days override) starts a full read again.
+        saved = cursors.get(q["name"]) or {}
+        delta = saved.get("delta_cursor") if saved.get("filters") == base and not args.full else None
+        fetched, offset, complete, next_delta = 0, 0, False, None
         while fetched < cap:
-            filters = dict(q["filters"])
-            if args.days:
-                filters["posted_at_max_age_days"] = args.days
+            filters = dict(base)
+            if delta:
+                filters["delta_cursor"] = delta
             filters["limit"] = min(page_size, cap - fetched)
             if offset:
                 filters["offset"] = offset
@@ -781,16 +810,31 @@ def collect_jobspipe(cfg, args, items, errors, notes) -> int:
             try:
                 resp = jobspipe_search(filters, key)
             except (RuntimeError, urllib.error.URLError, TimeoutError) as e:
-                errors.append(f"jobspipe {q['name']}: {e}")
+                errors.append(f"jobspipe {q['name']}: {e}" + (" (sent a saved delta cursor; retry with --full)" if delta else ""))
                 break
             data = resp.get("data") or resp.get("results") or []
+            meta = resp.get("metadata") or {}
             items += [("jobspipe", q["name"], normalise(r), r) for r in data]
             fetched += len(data)
             offset += len(data)
-            returned += len(data)
+            if isinstance(meta.get("credits_charged"), (int, float)):
+                credits += int(meta["credits_charged"])
+            else:
+                credits += len(data)
+                exact = False
+            next_delta = meta.get("next_delta_cursor")
             if len(data) < filters["limit"]:
+                complete = True
                 break
-    return returned
+        if args.dry_run:
+            continue
+        # Only a fully read result set gives a meaningful watermark (JobsPipe returns
+        # next_delta_cursor on the last page). Hitting the cap keeps the old cursor,
+        # so the next scan re-reads rather than skipping what was not fetched.
+        if complete and next_delta:
+            cursors[q["name"]] = {"filters": base, "delta_cursor": next_delta, "at": now()}
+        notes.append(f"jobspipe {q['name']}: {fetched} returned" + (" (new since last scan)" if delta else " (full read)"))
+    return credits, exact
 
 
 def collect_rss(cfg, args, items, errors, notes) -> None:
@@ -835,9 +879,10 @@ def cmd_scan(args):
     errors: list[str] = []
     notes: list[str] = []
     want = args.source
-    credits = 0
+    credits, exact = 0, True
+    cursors = load_cursors()
     if want in ("all", "jobspipe") and not args.rss_file and not args.watch_file:
-        credits = collect_jobspipe(cfg, args, items, errors, notes)
+        credits, exact = collect_jobspipe(cfg, args, items, errors, notes, cursors)
     if want in ("all", "rss") and not args.from_file and not args.watch_file:
         collect_rss(cfg, args, items, errors, notes)
     if want in ("all", "watchlist") and not args.from_file and not args.rss_file:
@@ -865,11 +910,12 @@ def cmd_scan(args):
         if exists:
             dups += 1
             continue
-        if n.get("filter_profile") == "watchlist":
+        reason = avoided_company(n["company"], cfg)
+        if not reason and n.get("filter_profile") == "watchlist":
             reason = title_filter(n["title"], {
                 "title_must_match_any": cfg.get("watchlist_title_must_match_any", ["product"]),
                 "title_exclude_any": cfg.get("watchlist_title_exclude_any", cfg.get("title_exclude_any", []))})
-        else:
+        elif not reason:
             reason = title_filter(n["title"], cfg)
         if reason:
             filtered += 1
@@ -899,12 +945,13 @@ def cmd_scan(args):
                 (now(), seen_count, landed, dups, filtered, "; ".join(errors) or None))
     con.commit()
     DATA.mkdir(exist_ok=True)
+    CURSORS.write_text(json.dumps(cursors, indent=2), encoding="utf-8")
     (DATA / "last-scan.json").write_text(json.dumps(
-        {"at": now(), "seen": seen_count, "jobspipe_credits_at_most": credits, "landed": landed_ids,
+        {"at": now(), "seen": seen_count, "jobspipe_credits": credits, "jobspipe_credits_exact": exact, "landed": landed_ids,
          "duplicates": dups, "filtered": filtered_lines, "notes": notes, "errors": errors},
         indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"seen {seen_count}, landed {landed}, duplicates {dups}, filtered by title {filtered}, "
-          f"errors {len(errors)}; JobsPipe credits used at most {credits}")
+          f"errors {len(errors)}; JobsPipe credits {'charged' if exact else 'used at most'} {credits}")
     for note in notes:
         print(f"  {note}")
     for e in errors:
@@ -944,6 +991,7 @@ def main(argv=None):
     s.add_argument("--days", type=int, help="override posted_at_max_age_days for every query")
     s.add_argument("--dry-run", action="store_true", help="print the requests, spend nothing")
     s.add_argument("--from-file", help="ingest a saved JobsPipe response instead of calling the API")
+    s.add_argument("--full", action="store_true", help="ignore saved delta cursors and re-read every JobsPipe query in full")
     s.set_defaults(fn=cmd_scan)
 
     l_ = sub.add_parser("list", help="list jobs (default: active + new)")
