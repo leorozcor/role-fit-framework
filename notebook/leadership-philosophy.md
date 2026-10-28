@@ -236,6 +236,19 @@ What AI does not remove quickly: customer reality, organizational incentives, st
 
 So the value of product management does not come from keeping engineers supplied with work. **If production ceases to be the dominant constraint**, more of the discipline's value should migrate toward ensuring that faster production is attached to better problems, better evidence, and better decisions.
 
+*Corollary — AI is an amplifier.* It amplifies how good or bad a product organisation already is. With documentation, taste, vision and objectives, it makes a team better. Without them, or in a feature factory, it produces slop at scale. The cost is not small: an unusable product that customers churn from, and/or endless technical debt in code nobody understands. Open question: what kind of cognitive decline sustained AI use produces in the people using it.
+
+*Corollary — the old constraints were a brake.* If the bottleneck moves earlier, the traditional constraints may have been protecting the organisation. Engineering capacity, implementation cost and delivery time forced some degree of prioritisation. Remove those constraints without improving decision-making, and you remove a brake on bad decisions. The debt then accumulates in several places:
+
+- **Product debt:** more features, inconsistent journeys, unnecessary complexity and deteriorating usability.
+- **Technical debt:** more code whose assumptions, dependencies and failure modes nobody adequately understands.
+- **Knowledge debt:** decisions and implementations increasingly disconnected from the team's shared understanding of the product.
+- **Organisational debt:** leadership reads increased output as improved performance, reinforcing the behaviours that caused the problem.
+- **Individual cognitive deskilling:** people gradually lose the ability to reason independently about problems because they outsource the reasoning itself, not merely the execution. A developer becomes less able to debug, a PM less able to articulate hypotheses, an analyst less able to question the numbers.
+- **Collective cognitive decline:** the organisation loses its shared understanding of why the product works the way it does. Everyone can generate proposals, analyses and implementations, but fewer people can explain the system, its history or the trade-offs behind its design.
+
+Using AI to learn, and to become better rather than merely faster, requires the setup to actually learn from and through it: individual, cultural and organisational.
+
 *Corollary — capability is partly an organizational property.* A curious individual inside an enabling system compounds very fast at present. The same individual inside a restrictive system can appear less capable, because the environment has removed the feedback loops through which capability develops. Hence the framework's experimentation-latitude and capability-compounding probes.
 
 *Evidential status — hold loosely.* The claim that AI-assisted engineering is fast enough to exhaust backlogs is currently anecdotal, and it circulates because it is striking. Contrary anecdotes exist (US big-tech reportedly cutting product roles and then missing them). The **reasoning** is sound; the **market fact** is not established. Treat it as a hypothesis worth testing in interviews — *what has happened to your teams' throughput, and what has that done to how you decide?* — rather than a trend to assert. Note also the self-serving risk: this hypothesis happens to flatter the value of the discipline the author practises, which is exactly when the working method demands more evidence, not less.
