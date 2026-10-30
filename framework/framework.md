@@ -6,29 +6,27 @@
 
 ---
 
-## 0. STRATEGIC LAYER (added October 2026)
+## 0. STRATEGIC LAYER — CAREER PORTFOLIO (October 2026)
 
 **Guiding statement.** Find organizations with problems I'm unusually well equipped to solve, that recognize and will pay for my contribution, and where solving those problems doesn't require sacrificing the rest of my life.
 
-The scoring machine below answers *is this role worth it?* This layer answers *what is the search for?* It does not add a factor or change any weight; it says how to read the parts together.
+The scoring machine below answers *is this role worth it?* This layer answers *what is the search for?* It governs **which opportunities deserve pursuit and how work fits into life**. It is not a tenth organizational-fit factor, and it does not change the gates, weights, asymmetry overlay or candidate-fit rating.
 
-**1. Value creation ≠ value capture.**
-- Being able to solve a problem is not enough. The buyer must (a) recognize the problem, (b) have budget and authority, and (c) believe my experience is the best answer.
-- Identify who actually owns the problem and who owns the budget; they may not be the same person. *Probe:* "Who feels this problem most, and who decides the budget to fix it?"
-- In this framework: **asymmetry** measures creation; **gates and Mandate** cover (b); **candidate fit and channel** cover (c).
-- Positioning and interview communication help (c): lead with proof points and measurable outcomes, not adjectives. **But they have a ceiling.** The calibration appendix shows that every rejection with a known reason turned on a literal requirement or a level/archetype mismatch, never on the quality of the argument. Better framing cannot create (c) where a literal requirement is missing; an advocate, or choosing roles where (c) is already likely, can.
-- Rejection reasons ("direct domain expertise") are market data about where (c) fails. They update candidate-fit calibration, per the outcome-update rule.
+**1. Value creation ≠ value capture.** Being unusually capable of solving a problem (Asymmetric Fit) is different from being hired and paid to solve it (Candidate Fit, channel, salary and authorization gates). For each serious opportunity, identify:
+- **Problem owner:** who experiences the problem and has reason to want it fixed?
+- **Budget owner:** who can approve the headcount, compensation and investment? This might not be the problem owner. *Probe:* "Who feels this problem most, and who decides the budget to fix it?"
+- **Selection decision-maker:** who must believe my specific experience is the best answer, and what evidence would convince them?
+- **Recognition:** is the problem acknowledged as important now, and does the buyer recognize my *literal proof* rather than require an analogy they may not accept?
 
-**2. Timing and optionality.**
-- A good long-term direction may not be a viable immediate move. Judge options on both horizons: what this does now, and where it leads.
-- Maintain several ways to earn a living (leadership role, fractional work and coaching, teaching) without treating any one as a permanent identity. This is what makes the **Gig** verdict and the **real alternative** usable rather than theoretical.
-- Combine interests and abilities with labour-market evidence and small, reversible real-world experiments. A bounded gig or a teaching engagement can be an experiment, not only income.
+Use concrete outcomes and personal interventions, not adjectives, in applications and interviews. **But communication has a ceiling.** The calibration appendix shows that every rejection with a known reason turned on a literal requirement or a level/archetype mismatch, never on the quality of the argument. Better framing cannot create recognition where a literal requirement is missing; an advocate, or choosing roles where recognition is already likely, can.
 
-**3. Life purpose ≠ the employer's business model.**
-- Purpose lives across family, community, friendships and interests outside work, including joy in ridiculous things.
-- Some purpose is better expressed outside paid work (community organising, mentoring, teaching). This is one reason Work interest carries 5%, not more: a role does not have to supply all of life's meaning to be a good role.
-- Work should support that life, not absorb every meaningful part of it, while still offering enough meaning to be sustainable.
-- **Red flag: an organization that demands more than it sustainably gives back.** Score it in **Sustainability** (and look for its cause in the fear diagnostic); do not let a strong mission or a good salary compensate for it.
+Rejections about direct domain expertise are **market evidence about selection and recognition**, not proof that my value-creation assessment or the organization's fit was wrong; they update candidate-fit calibration, per the outcome-update rule. Do not count recognition, budget and salary again in the nine-factor total.
+
+**2. Timing and optionality.** Judge a path on two horizons: **what is viable now** and **what compounds into a desirable direction over several years**. A strong long-term fit can be inaccessible, underfunded or badly timed today. Maintain credible ways to earn and learn — permanent Product leadership, fractional or bounded coaching work, teaching and other self-generated work — without turning any one channel into a permanent identity. This is what makes the **Gig** verdict and the **real alternative** usable rather than theoretical. Test interests and capabilities against labor-market responses through small, reversible experiments, not narrative alone; a bounded gig or a teaching engagement can be an experiment, not only income. Evaluate this **across the portfolio**, rather than penalizing an individual employer's organizational score because other options are currently scarce.
+
+**3. Life purpose ≠ employer's business model.** Purpose lives across family, community, friendships and interests outside work, including joy in ridiculous things. Mentoring, teaching and community organising may express some of it better outside employment; this is one reason Work interest carries 5%, not more. Work should offer enough meaning and contribution to remain sustainable, **while supporting rather than monopolizing that wider life**. Watch for employers that require more attention, health or family time than the work can sustainably give back: score that in **Sustainability** (look for its cause in the fear diagnostic), and do not let a strong mission or a good salary compensate for it. Geography and ethical limits remain hard gates; ongoing demands belong in Sustainability and the final *Home/Gig* judgment.
+
+**Strategic decision test:** *Can I create unusual value? Will this buyer recognize and reward it now? Does the opportunity preserve enough of the life I want to live? What do I gain or give up over the next few years?*
 
 ---
 
@@ -105,6 +103,8 @@ Asymmetry exists only when all three conditions hold:
 **Why separate.** A role you would thrive in but are unlikely to get should keep its high organizational score, because that score carries true information about where you do your best work. Lowering it for poor odds would destroy that information. Conversely, a role you would easily get but would not thrive in must not have its low organizational score rescued by high odds. Folding the axes together corrupts both.
 
 **Why it exists.** Asymmetry was quietly doing double duty — its "relevance" leg was self-assessed on structural analogy, and it was being read as a hiring prediction. The evidence against that reading is consistent: in every case where the rejection reason is known, it was a **literal stated requirement already identified as a gap**, not a weakness in the analogy.
+
+**Buyer map — selection diagnostic, not a fourth score.** For a serious opportunity, identify who owns the problem, who owns the budget or hiring authorization, and who makes the selection decision. They may be different people. Check that the problem is recognized *now* and that the decision-maker sees literal evidence of this candidate as its solution. Missing budget belongs to the hard gate; missing recognition belongs to Candidate Fit, positioning and channel strategy. It does **not** lower Organizational Fit or Asymmetry. See the Strategic Layer.
 
 **Scored on literal evidence, not analogy:**
 - **Stated requirements met from the fact base** — required versus nice-to-have, counted rather than argued

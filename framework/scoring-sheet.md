@@ -107,6 +107,9 @@ Evidence: ______________________
 **"Hands-on" in the JD means:** ☐ Product ☐ Delivery ☐ Technical ☐ Unknown ☐ Not used
 *Unknown → it becomes a first-conversation probe, not a guess.*
 
+**Value-capture diagnostic — not a score:** Problem owner: ______  Budget/hiring approver: ______  Selection decision-maker: ______
+**Recognition evidence:** Do they acknowledge this problem *now* and view my specific proof as the answer? ______
+
 **Channel strength — separate, does not change the rating:**
 ☐ None ☐ Contact ☐ **Advocate** ☐ **Sponsor** — *only Advocate and Sponsor count*
 Who, and what exactly are they saying to the hiring team: ______________________
@@ -150,6 +153,8 @@ ______________________________________________
 If I pass on this, what do I actually do instead? (Not the next-best job.)
 ______________________________________________
 
+**Two horizons (portfolio check, not an organizational score):** Is this viable now? Does it compound toward a direction I want over several years? What small reversible experiment could reduce uncertainty? ______
+
 ---
 
 ## Verdict
@@ -165,6 +170,8 @@ ______________________________________________
 
 *Home:* Is this organization worthy of several years of my life and full emotional investment? ☐ Yes ☐ No
 *Gig:* Is this worthy of a bounded period of excellent work, under explicit terms, with a clear reason for entering and leaving? ☐ Yes ☐ No
+
+**Life compatibility:** What would this role demand from family, health, friendships, community or other meaningful pursuits — and is that exchange sustainable? ______
 
 **If neither is yes → Pass.**
 
