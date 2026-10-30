@@ -464,6 +464,9 @@ _RANGE = re.compile(_MON + r"((?:19|20)\d{2})\s*(?:[-–—]|to|until)\s*" + _MO
                     r"((?:19|20)\d{2}|present|current|now|today|nykyään|nykyhetki)", re.I)
 
 
+_LUMP = re.compile(r"earlier (roles|career|experience)|previous (roles|experience)|other roles|aiemm", re.I)
+
+
 def cv_text(path: Path) -> str:
     suf = path.suffix.lower()
     if suf == ".pdf":
@@ -493,8 +496,25 @@ def fact_roles() -> list[dict]:
         head = line[4:m.start()].rstrip(" ,")
         employer = re.split(r"\s+[—–-]\s+|,", head)[0]
         names = [n.strip() for n in employer.split("/") if len(n.strip()) > 2]
-        roles.append({"line": line[4:], "names": names, "start": m.group(1), "end": m.group(2)})
+        # Also try each alias's first word ("Schibsted" for "Schibsted Nordic Marketplaces").
+        firsts = [n.split()[0] for n in names if len(n.split()) > 1 and len(n.split()[0]) >= 4]
+        roles.append({"line": line[4:], "names": names + [f for f in firsts if f not in names],
+                      "start": m.group(1), "end": m.group(2)})
     return roles
+
+
+def _find_range(lines: list[str], name: str):
+    """A date range on the same line as the employer's name, or on the line after it.
+    CV headers put the dates on the role line; a range further away belongs to something else."""
+    pat = re.compile(r"(?<![a-z0-9])" + re.escape(name.lower()) + r"(?![a-z0-9])")
+    for i, line in enumerate(lines):
+        if not pat.search(line.lower()) or _LUMP.search(line):
+            continue
+        for cand in (line, lines[i + 1] if i + 1 < len(lines) else ""):
+            m = _RANGE.search(cand)
+            if m:
+                return m
+    return None
 
 
 def cmd_cvcheck(args):
@@ -503,27 +523,25 @@ def cmd_cvcheck(args):
         die(f"no such file: {path}")
     if not FACTS.is_file():
         die(f"no fact base at {FACTS}")
-    text = cv_text(path)
-    low = text.lower()
+    lines = cv_text(path).splitlines()
+    # A lumped block ("Earlier roles 6/2001 - 3/2016") covers older roles without naming them.
+    lumps = [m for l in lines if _LUMP.search(l) for m in [_RANGE.search(l)] if m]
     problems = 0
     for role in fact_roles():
-        hit = None
-        for name in role["names"]:
-            for m in re.finditer(re.escape(name.lower()), low):
-                after = _RANGE.search(text, m.end(), min(len(text), m.end() + 250))
-                before = None
-                if not after:
-                    window = list(_RANGE.finditer(text, max(0, m.start() - 160), m.start()))
-                    before = window[-1] if window else None
-                hit = after or before
-                if hit:
-                    break
-            if hit:
-                break
         label = " / ".join(role["names"])
         want = f"{role['start']}–{role['end'] or 'open'}"
+        hit = None
+        for name in role["names"]:
+            hit = _find_range(lines, name)
+            if hit:
+                break
         if not hit:
-            print(f"  ?  {label}: not found with a date range in the CV (fact base {want})")
+            lump = next((m for m in lumps if m.group(1) <= role["start"]
+                         and m.group(2)[:1].isdigit() and role["end"] and role["end"] <= m.group(2)), None)
+            if lump:
+                print(f"  ✓  {label}: inside the lumped block '{lump.group(0)}' (fact base {want})")
+            else:
+                print(f"  ?  {label}: not found with a date range in the CV (fact base {want})")
             continue
         start, end = hit.group(1), hit.group(2).lower()
         open_cv = not end[:1].isdigit()
@@ -541,6 +559,12 @@ def cmd_cvcheck(args):
             print(f"  ✗  {label}: " + "; ".join(issues) + f"   [CV: '{hit.group(0)}']")
         else:
             print(f"  ✓  {label}: {hit.group(0)}")
+    for m in lumps:  # the block's own edges should match the roles it covers
+        covered = [r for r in fact_roles() if r["end"] and m.group(1) <= r["start"] and r["end"] <= m.group(2)]
+        if covered and min(r["start"] for r in covered) != m.group(1):
+            problems += 1
+            print(f"  ✗  lumped block '{m.group(0)}' starts {m.group(1)}, earliest covered role starts "
+                  f"{min(r['start'] for r in covered)}")
     print("dates match the fact base" if not problems else
           f"{problems} date mismatch(es): fix the CV before sending")
     sys.exit(1 if problems else 0)
