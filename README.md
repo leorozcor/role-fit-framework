@@ -8,12 +8,15 @@ A decision tool for senior job searches, and the thinking behind it. It tries to
 
 Folding these into one number corrupts all three. Most of the framework exists to stop that from happening.
 
+A fourth judgment sits outside the scoring: **is this offer worth taking?** The offer-acceptance test is a separate instrument, with minimum terms written before any offer exists. The four run in a fixed order (framework section 0b) and none revises another: being wanted never makes an organization better.
+
 ## What's here
 
 | Path | What it is |
 |---|---|
 | [`framework/framework.md`](framework/framework.md) | The framework (v6.2): principles, gates, the asymmetry lens, candidate fit, nine factors with diagnostics and interview probes, fear diagnostic, evidence rules, verdicts, and an anonymized calibration appendix. |
 | [`framework/scoring-sheet.md`](framework/scoring-sheet.md) | One-page sheet for scoring a role. Fill it in before re-reading the framework. |
+| [`framework/offer-acceptance.md`](framework/offer-acceptance.md) | The offer-acceptance test: compensation, authority, sustainability, career capital, reversibility, and the cost of saying yes. |
 | [`notebook/leadership-philosophy.md`](notebook/leadership-philosophy.md) | The explanatory side: cognitive ecology, fear and the centralization of judgment, urgency displacement, requisite variety, the profit formula, AI and the moving bottleneck. Ideas live here if they help thinking; they move into the framework only if they improve prediction. |
 | [`jobs-agent/`](jobs-agent/) | A Claude Code agent that scores a job description against the framework and, only if it passes, drafts application material from a verified fact base without inventing anything. Profile files are templates. |
 | [`tools/job-scorer.jsx`](tools/job-scorer.jsx) | An earlier React scoring widget. Uses older factor weights than v6.2. |
@@ -22,7 +25,7 @@ Folding these into one number corrupts all three. Most of the framework exists t
 ## Using the agent
 
 1. Copy `jobs-agent/` somewhere private.
-2. In `profile/`, copy each template to its real name and fill it in: `facts.md`, `search-profile.md`, `network.md`, `scan.json`. The `.gitignore` keeps all four out of version control.
+2. In `profile/`, copy each template to its real name and fill it in: `facts.md`, `search-profile.md`, `network.md`, `scan.json`, `decision-bank.md`. The `.gitignore` keeps all five out of version control.
 3. Run `bin/jobs init`. For the optional JobsPipe radar, put `JOBSPIPE_API_KEY=...` in `jobs-agent/.env` (free key at [jobspipe.dev](https://jobspipe.dev/signup)).
 4. Open the folder in Claude Code and trust it, so `.claude/settings.json` applies.
 
@@ -35,13 +38,16 @@ Folding these into one number corrupts all three. Most of the framework exists t
 | `/scan` | A narrow JobsPipe search (which includes LinkedIn's public postings), any RSS feeds you list, and a watchlist of companies polled through their public job-board endpoints (Greenhouse, Lever, Ashby, Recruitee, Personio, Teamtailor), screened cheaply. A radar for companies worth a warm approach, not a cold-application funnel. Job boards whose terms forbid scraping, such as LinkedIn and Duunitori, are not scraped. |
 | `/board` | The board and what needs attention. |
 
+Before sending anything, `bin/jobs cvcheck <cv>` checks the CV's dates against the fact base. When a process ends, `bin/jobs record <id> --reason <r>` tags why (literal requirement, archetype, level, veto, no real buyer and so on), and the board tallies the reasons, so the selection model can be tested rather than only explain the past.
+
 `bin/jobs` is a small standard-library Python tracker (SQLite) that does the bookkeeping; the model does the judgment and records it there. The agent cannot edit `profile/`, `rules/`, `bin/` or its own settings, and has no tool that applies, sends or contacts anyone. It drafts; you decide.
 
 The pipeline shape (scripts for the mechanical, the model for judgment, a person for every call that matters) follows Mattijs Kersten's [jobs-dashboard](https://github.com/mattijskersten/jobs-dashboard), MIT licensed. This version drops volume collection and auto-tailoring in favour of a scoring framework and network-first channels.
 
 ## Status and honesty notes
 
-- The calibration behind this framework is a small sample from one person's search. The selection findings are working heuristics, not laws.
+- The calibration behind this framework is a small sample from one person's search. The selection findings are working heuristics, not laws: in a first full tagging, nearly half the rejection reasons were unknown.
+- After the October 2026 revision the framework is frozen for a few months, to see whether it predicts outcomes rather than explaining them afterwards.
 - Organizational fit has not been validated as a predictor of thriving. It has been validated, repeatedly, as *not* a predictor of being hired, which is why candidate fit exists.
 - The real calibration appendix names organizations and people, so it stays private. The public appendix keeps the lessons without the cases.
 

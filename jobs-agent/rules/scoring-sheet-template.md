@@ -4,6 +4,10 @@
 
 **Rule of use:** fill this in *before* re-reading the full framework. Consult the framework only to resolve a specific uncertainty, not to justify a number already chosen. Score when rested, not depleted.
 
+**Order (framework 0b):** cheap first screen → organizational fit → candidate fit and buyer map → pursuit decision → offer acceptance. Four judgments; none revises another. Being wanted never makes an organization better.
+
+**Buyer reality check (part of the cheap first screen — it only removes roles):** Seat real and funded? ☐ Someone identifiable who can hire? ☐ Archetype plainly different from my recent identity? ☐ ______
+
 ---
 
 ## Gates — all four must pass
@@ -107,8 +111,12 @@ Evidence: ______________________
 **"Hands-on" in the JD means:** ☐ Product ☐ Delivery ☐ Technical ☐ Unknown ☐ Not used
 *Unknown → it becomes a first-conversation probe, not a guess.*
 
-**Value-capture diagnostic — not a score:** Problem owner: ______  Budget/hiring approver: ______  Selection decision-maker: ______
+**Buyer map — not a score:** Problem owner: ______  Budget/hiring approver: ______  Selection decision-maker: ______
+**Veto holders:** who can block the hire, on what grounds, and does my advocate have influence over them? ______
 **Recognition evidence:** Do they acknowledge this problem *now* and view my specific proof as the answer? ______
+**Proof threshold:** what concrete evidence would let them choose me over the literal-match CV? ______ *(No answer → asymmetry is not actionable.)*
+**Buyer urgency:** problem to solve within ~6 months, or an ideal future executive? ______
+**Process cost:** stages, unpaid work, time so far, against evidence it converts: ______
 
 **Channel strength — separate, does not change the rating:**
 ☐ None ☐ Contact ☐ **Advocate** ☐ **Sponsor** — *only Advocate and Sponsor count*
@@ -123,6 +131,9 @@ Who, and what exactly are they saying to the hiring team: ______________________
 | **Pass** | ☐ ⚠ **Danger zone** | ☐ Pass | ☐ Pass |
 
 *High candidate fit never justifies a Pass role. The matrix says whether to pursue; the diagnostics say what to test.*
+
+**Cold application?** Only at Strong, or at Viable × Candidate High when cheap and the gates are clear. Medium only as a recorded test of a named buyer hypothesis: ______
+*An interview invitation never promotes this rating; only evidence that the requirement is met does.*
 
 ---
 
@@ -185,3 +196,12 @@ ______________________________________________
 - Am I depleted, and is that making one option look like rescue? ☐
 - Is a high candidate fit making a low organizational fit role look worth applying to? ☐
 - Am I lowering an organizational score because a similar role rejected me, rather than because of new evidence about the organization? ☐
+- Am I raising a score, or a candidate-fit rating, because they invited me or a sponsor likes me? ☐
+
+---
+
+## When it ends (fill in on the outcome)
+
+**Reason (one):** ☐ no real buyer ☐ literal requirement ☐ archetype ☐ level ☐ compensation ☐ mandate ☐ veto ☐ competing candidate ☐ my call ☐ no reply ☐ unknown
+*Literal only if the employer named it or the evidence is recorded.*
+**Asked:** *"What did the person you chose have that I didn't, and would it have mattered if I'd had it?"* → ☐ non-recognition ☐ different risk reduction ☐ not asked: ______

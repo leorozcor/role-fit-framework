@@ -21,7 +21,8 @@ No inference, no rounding up, no "probably also did." If something is needed and
 
 ## Roles, in reverse order
 
-### [Company] — [Title], [City], [Years]
+### [Company] — [Title], [City], [YYYY]–[YYYY, or blank if ongoing]
+<!-- Keep this heading format: `bin/jobs cvcheck` reads the years from it. -->
 - One line per verifiable outcome. Numbers only where you can defend them.
 - Team size, scope, domain.
 - How it ended, if relevant to how you will be read.

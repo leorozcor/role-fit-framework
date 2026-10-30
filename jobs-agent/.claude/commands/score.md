@@ -20,7 +20,9 @@ Note the job id. Everything for this role goes in `runs/<id>/`.
 
 ## 1. Score
 
-Follow `CLAUDE.md` Steps 1, 2, 2b, 2c, 2d, 3 and 5 exactly, using
+Follow `CLAUDE.md` Steps 1 (including the buyer reality check), 2, 2b, 2c,
+2c-bis (buyer map: veto holders, proof threshold, urgency, process cost), 2d, 3
+and 5 exactly, using
 `rules/framework-v6.2.md`, `rules/scoring-sheet-template.md`,
 `profile/search-profile.md`, `profile/facts.md` and `profile/network.md`.
 
@@ -36,7 +38,11 @@ Follow `CLAUDE.md` Steps 1, 2, 2b, 2c, 2d, 3 and 5 exactly, using
 
 Lead with any UNRESOLVED gate and its question. Then: verdict, total, warnings
 fired, asymmetry, candidate fit with the selection-critical requirement, channel
-strength, and the action from the channel-decision matrix in one line.
+strength, and the action from the channel-decision matrix in one line. Then
+the proof threshold in one sentence: what evidence would let this buyer choose
+him over the literal-match CV, and whether `profile/decision-bank.md` has it.
+If the action would be a cold application, check the cold rule (Strong, or
+Viable × High when cheap). An invitation later never promotes the rating.
 
 Then the rationalisation check, answered honestly, and the interview questions.
 

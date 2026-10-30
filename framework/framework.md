@@ -2,7 +2,9 @@
 
 *A decision tool, not an essay. It exists to predict organizational fit and to identify where capability can create unusual value — not to explain organizations beautifully.*
 
-**Architecture:** A strategic layer says what the search is for. Principles state commitments. Gates stop bad fits. The positive lens finds asymmetry. Nine factors predict fit. Diagnostics and heuristics operationalize the factors. Evidence and usage rules keep the scoring honest. A calibration appendix holds dated examples so the framework itself stays stable.
+**Architecture:** A strategic layer says what the search is for, and a decision sequence keeps four separate judgments apart. Principles state commitments. Gates stop bad fits. The positive lens finds asymmetry. Nine factors predict fit. A buyer map tests whether value can be recognised, funded and acted on. An acceptance test decides offers. Diagnostics and heuristics operationalize the factors. Evidence and usage rules keep the scoring honest. A calibration appendix holds dated examples so the framework itself stays stable.
+
+*Revised 30.10.2026: decision sequence (0b), buyer qualification (3b), cold-application rule (3b), outcome reasons (3b), offer acceptance (10b), freeze rule (9).*
 
 ---
 
@@ -27,6 +29,21 @@ Rejections about direct domain expertise are **market evidence about selection a
 **3. Life purpose ≠ employer's business model.** Purpose lives across family, community, friendships and interests outside work, including joy in ridiculous things. Mentoring, teaching and community organising may express some of it better outside employment; this is one reason Work interest carries 5%, not more. Work should offer enough meaning and contribution to remain sustainable, **while supporting rather than monopolizing that wider life**. Watch for employers that require more attention, health or family time than the work can sustainably give back: score that in **Sustainability** (look for its cause in the fear diagnostic), and do not let a strong mission or a good salary compensate for it. Geography and ethical limits remain hard gates; ongoing demands belong in Sustainability and the final *Home/Gig* judgment.
 
 **Strategic decision test:** *Can I create unusual value? Will this buyer recognize and reward it now? Does the opportunity preserve enough of the life I want to live? What do I gain or give up over the next few years?*
+
+---
+
+## 0b. DECISION SEQUENCE — FOUR JUDGMENTS, NEVER MERGED
+
+**Organizational Fit** decides whether an employer deserves your commitment. **Candidate Fit** estimates whether they might choose you. The **buyer map** explains whether your particular value can be recognized, funded and acted upon. The **acceptance test** decides whether a resulting offer is worth taking. These are four different judgments. **None silently revises another** — above all, *being wanted never makes an organization better*, and an organization being good never makes you more selectable.
+
+**Sequence:**
+1. **Cheap first screen (minutes).** Gates (a FAIL stops; UNRESOLVED is noted), avoid list and ethics, level, an obvious archetype mismatch, plus a **buyer reality check**: is the seat real and funded; is there an identifiable person who can hire; is the archetype plainly different from recent career identity. This step exists for *efficiency*: it only removes roles, it never promotes one.
+2. **Organizational Fit** — the nine factors and asymmetry, scored independently of whether they want you.
+3. **Candidate Fit, buyer map and channel** — literal requirements, archetype, level; problem owner, budget, selection, veto, recognition, proof threshold, urgency.
+4. **Pursuit decision** — the decision matrix (3b), plus buyer urgency, proof threshold, process cost and the real alternative.
+5. **Offer decision** — the acceptance test (10b), with minimum terms written **before** any offer exists. A weak fit is not promoted because an offer exists.
+
+*Why fit comes before selection.* Screening on "will they pick me?" first would drift toward roles whose requirements overlap most easily — and those are often too junior, too operational or structurally unattractive. Screening efficiency and decision priority are different concerns: the cheap first screen solves the first; the order above protects the second.
 
 ---
 
@@ -104,7 +121,19 @@ Asymmetry exists only when all three conditions hold:
 
 **Why it exists.** Asymmetry was quietly doing double duty — its "relevance" leg was self-assessed on structural analogy, and it was being read as a hiring prediction. The evidence against that reading is consistent: in every case where the rejection reason is known, it was a **literal stated requirement already identified as a gap**, not a weakness in the analogy.
 
-**Buyer map — selection diagnostic, not a fourth score.** For a serious opportunity, identify who owns the problem, who owns the budget or hiring authorization, and who makes the selection decision. They may be different people. Check that the problem is recognized *now* and that the decision-maker sees literal evidence of this candidate as its solution. Missing budget belongs to the hard gate; missing recognition belongs to Candidate Fit, positioning and channel strategy. It does **not** lower Organizational Fit or Asymmetry. See the Strategic Layer.
+**Buyer map — selection diagnostic, not a fourth score.** For a serious opportunity, identify:
+- **Problem owner** — who experiences the problem and wants it fixed.
+- **Budget owner** — who approves the headcount, compensation and investment.
+- **Selection decision-maker** — who must believe this candidate is the answer.
+- **Veto holders** — who can block the hire, and on what grounds (owners, a location policy, a peer executive, the sponsor of an internal candidate). Ask whether the person advocating for you has influence over them. *A champion who wins the budget can still lose to a veto* (calibration appendix).
+- **Recognition** — is the problem acknowledged as important *now*, and does the decision-maker see literal evidence of this candidate as its solution?
+- **Proof threshold** — *what concrete evidence would let this buyer choose you over the candidate whose CV matches the description literally?* Name it specifically. If there is no answer, the asymmetry is interesting but not commercially actionable. If there is one, it defines interview preparation.
+- **Buyer urgency** — does the buyer need the problem solved within roughly six months, or are they hiring an ideal future executive? Urgent, funded problems create room for an unusual profile; vague future ambitions favour familiar credentials.
+- **Process economics** — time the process consumes against the evidence that it converts. A short recruiter call and a four-stage process with unpaid case work are not economically equivalent.
+
+Missing budget belongs to the hard gate; missing recognition belongs to Candidate Fit, positioning and channel strategy. None of these lowers Organizational Fit or Asymmetry. See the Strategic Layer.
+
+*Judgment is not observable; evidence is.* Hiring committees cannot see judgment directly, so they use substitutes: literal credentials (owned a P&L, shipped production AI, scaled 30 → 150) or **observable decisions** (what was chosen, what alternatives were rejected, what evidence changed the plan, what economic consequence followed). Where a credential is missing, a well-evidenced decision is the only honest substitute — keep a bank of them (`profile/decision-bank.md` in the agent). It does not erase a mandatory requirement; it does make the case where the requirement is judgment rather than a credential.
 
 **Scored on literal evidence, not analogy:**
 - **Stated requirements met from the fact base** — required versus nice-to-have, counted rather than argued
@@ -183,8 +212,12 @@ Channel strength never changes the candidate fit rating. It affects only the **a
 - Strong with low candidate fit is not a pass — it is an instruction about *channel*. Find the advocate first, apply second.
 - Before investing in any role where candidate fit is Medium or Low, name the selection-critical requirement likely to decide it. It is usually one already on the gap list.
 - Placing a role in a cell does not replace the diagnostic questions. The matrix says whether to pursue; the diagnostics say what to test.
+- **Cold applications** (no Advocate or Sponsor) follow the matrix: allowed at **Strong**, and at **Viable × Candidate High** when the application is cheap and the gates are clear. A **Medium** cold application is allowed only as a deliberate test of a named buyer hypothesis, recorded before applying. *Calibration:* a strong literal domain match got a cold application read and an interview within a day.
+- **An invitation never promotes a rating.** Reaching an interview is evidence of plausibility, not proof that a literal requirement is met; keep the candidate-fit rating until the requirement itself is shown. Promoting ratings on outcomes would make the model explain results instead of predicting them.
 
 **Outcome-update rule.** Selection outcomes update **candidate-fit calibration only.** A rejection does not retrospectively lower organizational fit or asymmetry — unless the process itself revealed **new organizational evidence** (an owner overriding a hiring manager, a role dissolved by reorganization, a mandate described differently in interview than in the JD). *"They rejected me, therefore we overrated the role"* is exactly the error this rule exists to prevent: rejections are evidence about how you are read, not about what the environment is like.
+
+**Tag every ended process with one reason**, so the selection model can be tested rather than merely explain: *no real buyer · literal requirement · functional archetype · level · compensation · mandate · veto · competing candidate · his own call · no reply · unknown.* Use *literal* only where the employer named the requirement or the evidence is recorded; otherwise *unknown*. After a rejection, ask the question that separates two different commercial problems: *"What did the person you chose have that I didn't, and would it have mattered if I'd had it?"* — **non-recognition** (they did not see the evidence; evidence and advocacy can change this) versus **a different risk reduction** (they saw it and preferred a specialist; only a buyer with a different problem or different credentials changes this).
 
 ---
 
@@ -404,6 +437,9 @@ That combination is high-performance trust. An interviewer who cannot produce an
 
 - **Score when emotionally regulated.** State shapes the quality and range of cognition. A depleted mind does not necessarily produce false thoughts, but it changes which explanations feel obvious and which possibilities remain visible. Do not finalize a score — or a self-assessment — from a depleted state.
 - **Rapport is weak evidence of structural fit.** Positive interpersonal chemistry indicates rapport, not organizational fit. Being liked and admired tends to disarm vigilance; treat warmth as pleasant, not as signal.
+- **Measure progress by the funnel, not the board.** The number of roles evaluated or recorded is not progress. Track roles that pass the gates on four things: access to the actual hiring manager, evidence that the hiring manager recognizes your specific value, progression through stages, and paid conversion.
+- **Presentation is a real variable — up to the ceiling.** Better framing cannot replace a missing mandatory requirement. Where the requirement is judgment, leading with the decision and its result (not the context) is the difference between evidence and narrative.
+- **Freeze after a revision.** After changing the framework, freeze it until roughly ten more processes have tagged outcomes, or until a set review date, whichever comes first; then judge whether it *predicted* anything. A model revised after every rejection only ever explains the past. *Write the current freeze period here.*
 
 ---
 
@@ -415,6 +451,24 @@ That combination is high-performance trust. An interviewer who cannot produce an
 - **Pass** — fails gates, loses to the real alternative, or fires the double load-bearing warning.
 - **Gig** — worth a time-boxed tour (credential, experience, income, optionality), not a home. Requires: secured runway, other live threads, honest expectation of exit, compensation that clears the floor.
 - **Real alternative / self-generated platform** — the independent, advisory, or board path; the benchmark other roles compete against.
+
+---
+
+## 10b. OFFER ACCEPTANCE TEST (a separate instrument)
+
+The scoring machine decides whether to pursue. It is the wrong tool for choosing between offers, or between an offer and a paid engagement: those are different economic arrangements with different risk profiles. **The buyer map says whether the transaction can happen; the acceptance test says whether it should.**
+
+Write the minimum acceptable terms for each live process **before** any offer, while you are not yet invested in being chosen:
+
+| Dimension | Acceptance test |
+|---|---|
+| **Compensation** | Permanent base clears the floor in base cash. Consulting is judged on realistic paid days and net economics, not the day rate. |
+| **Authority** | Decision rights sufficient to deliver what you will be held accountable for. |
+| **Sustainability** | Travel, workload and family-life implications are genuinely workable, stated in hours and days. |
+| **Career capital** | Builds capabilities, credibility or options you actually want — not just the next title. |
+| **Reversibility** | Especially for gigs: notice period, payment terms, and freedom to pursue permanent roles. |
+
+Then compare the **cost of saying yes**: time, emotional energy and optionality the offer consumes. Do not choose by comparing organizational totals; they are not measures of career utility. For a bounded engagement, set **review points** in advance (continue, go permanent, or build the fractional practice deliberately) rather than an open-ended search deadline.
 
 ---
 
@@ -434,9 +488,13 @@ That combination is high-performance trust. An interviewer who cannot produce an
 
 - **Two failed-fit shapes.** A structure emptied of meaning over time, and a structure created without the belief needed to sustain it. For a newly created role, the mandate probe becomes: *"What makes you confident the business units will defer to a central product function?"*
 - **A stated rejection reason can be a socially safe proxy.** Test it against later evidence rather than against the explanation given at the time. Not every rejection is a dodged bullet; some are genuine losses to closer fits.
-- **Organizational fit does not predict selection.** In every lost process where the reason was known, the deciding factor was a literal stated requirement already on the gap list, or a level or functional-archetype mismatch — never the quality of the analogy. Asymmetry can be real as a statement about value creation and still predict nothing about hiring.
+- **Organizational fit does not predict selection.** Where the reason was known, the deciding factor was mostly a literal stated requirement already on the gap list, or a level or functional-archetype mismatch. The highest organizational scores all lost, mostly in adjacent domains where I was the analogy candidate. Asymmetry can be real as a statement about value creation and still predict nothing about hiring.
+- **But not only credentials.** One rejection asked for deeper hands-on technical and AI depth *and* a more structured analytical approach; a transcript review found results buried behind context. Where the requirement is judgment rather than a credential, presentation is a real variable: lead with the decision and its result.
+- **Most reasons are unknown.** A first full tagging of a year's rejections found roughly a third with a literal requirement, a handful on archetype, level, a competing candidate, a veto or mandate, and nearly half unknown. Tag every outcome; the heuristic is only as good as the share of known reasons.
+- **A strong literal match can make a cold application work.** One cold application, on a close domain match, was read and invited within a day. The candidate-fit rating stayed where it was: an invitation is not proof the requirement is met.
+- **An unforced error.** A CV with a wrong end date went out on several applications. Check dates against the fact base before every send.
 - **The squeeze.** Senior roles went to candidates with the literal domain; hands-on roles went to candidates whose recent work was hands-on in the form the role meant (technical in one case, delivery in another). Selection is won where senior level and a literal match line up. This is a working heuristic from a small sample, not a law.
-- **Sponsorship is not permeability.** A hiring manager who wants you, argues for you and wins the budget can still lose the decision to owners who are moving the centre of gravity elsewhere.
+- **Sponsorship is not permeability.** A hiring manager who wants you, argues for you and wins the budget can still lose the decision to owners who are moving the centre of gravity elsewhere. Map the veto holders, not just the champion.
 - **Rapport predicted little.** Warmth and interest repeatedly failed to convert, or converted into roles without structural fit.
 
 *To build your own:* for each case, record the verdict you gave before the outcome, the outcome, the stated reason, and anything learned later that changed the reading. Update candidate-fit calibration from outcomes; update organizational fit only when the process revealed new evidence about the organization.

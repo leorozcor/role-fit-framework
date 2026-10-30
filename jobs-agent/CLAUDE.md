@@ -2,7 +2,7 @@
 
 Purpose: take a job description, score it honestly against a calibrated framework, and — only if it passes — produce tailored application material that contains no invented facts.
 
-**Sourcing is a radar, not a funnel.** Cold-application volume has converted at roughly zero; every process that reached a real conversation came through a person. `/scan` pulls a narrow JobsPipe search (which includes LinkedIn's public postings and the main ATS platforms), the RSS feeds and the company watchlist in `profile/scan.json`, then screens cheaply. Duunitori and LinkedIn are never scraped: both forbid it in their terms. A role found there goes in by hand with `/score <url or paste>`. Its main output is *which companies deserve a warm approach*, not a list to apply to cold. A cold application from a scan needs a Strong verdict.
+**Sourcing is a radar, not a funnel.** Cold-application volume has converted at close to zero; most processes that reached a real conversation came through a person. The exception so far proves the rule's other half: a strong literal domain match got a cold application read within a day. `/scan` pulls a narrow JobsPipe search (which includes LinkedIn's public postings and the main ATS platforms), the RSS feeds and the company watchlist in `profile/scan.json`, then screens cheaply. Duunitori and LinkedIn are never scraped: both forbid it in their terms. A role found there goes in by hand with `/score <url or paste>`. Its main output is *which companies deserve a warm approach*, not a list to apply to cold. A cold application needs a Strong verdict, or Viable × Candidate High when it is cheap and the gates are clear (framework 3b). A Medium cold application only as a recorded test of a named buyer hypothesis.
 
 **Scripts do the mechanical, the model does judgment, the human makes every call that matters.** `bin/jobs` keeps state (`data/jobs.db`); the agent records its judgments there with `bin/jobs record`, never by editing the database directly.
 
@@ -29,19 +29,21 @@ Statuses: `new → screened_out | to_score → scored → drafted → applied �
 | `profile/search-profile.md` | Start from `search-profile.template.md`. Gates, what a 9 and a 3 look like, avoid list, standing principles. | No. |
 | `profile/network.md` | Start from `network.template.md`. Who can open which door, with channel strength. | No. Never upgrade a strength. |
 | `profile/scan.json` | Start from `scan.template.json`. JobsPipe queries, RSS feeds, company watchlist, the mechanical title filters and `avoid_companies` (dropped at scan, with a reason). | No. |
-| `bin/jobs` | Tracker CLI: add, scan, list, show, set, record, board. | No. Use it; don't edit it. |
+| `profile/decision-bank.md` | Start from `decision-bank.template.md`. Evidenced past decisions (alternatives, reasoning, result), for interviews and the proof threshold. | No. Only the human edits it; the agent may propose entries in a run folder. |
+| `bin/jobs` | Tracker CLI: add, scan, list, show, set, record (incl. `--reason`), board, cvcheck. | No. Use it; don't edit it. |
 | `data/` | `jobs.db`, `board.md`, `last-scan.json`. Gitignored. | Only through `bin/jobs`. |
 | `rules/framework-v6.2.md` | Full scoring framework: gates, nine weighted factors, diagnostics, calibration appendix. | No. |
 | `rules/scoring-sheet-template.md` | The one-page output format for a score. | No. |
-| `rules/tailoring.md` | How to write application material without fabricating. | No. |
+| `rules/tailoring.md` | How to write application material without fabricating, and the pre-send checklist. | No. |
+| `rules/offer-acceptance-template.md` | The acceptance test for offers and paid engagements (framework 10b). | No. |
 | `runs/` | One folder per opportunity: the JD, the filled sheet, the drafts. | Yes — write here. |
 
 ---
 
 ## Workflow
 
-**Decision sequence:** Gate → Organizational fit → Asymmetric value → Candidate fit → Channel decision → Draft.
-Each stage answers a different question. Do not let a later stage revise an earlier one.
+**Decision sequence (framework 0b):** Cheap first screen (gates, avoid list, level, buyer reality check) → Organizational fit and asymmetry → Candidate fit, buyer map and channel → Pursuit decision → Draft → (later) Offer acceptance.
+Four judgments: organizational fit (does it deserve commitment), candidate fit (might they choose him), buyer map (can his value be recognised, funded and acted on), acceptance (is the offer worth taking). Each answers a different question. **Do not let a later stage revise an earlier one. Being wanted never makes an organization better.**
 
 ### Step 1 — Gates first
 Read the JD against the four gates in `profile/search-profile.md`.
@@ -52,6 +54,8 @@ If a gate cannot be assessed (salary unstated, location ambiguous), mark it **UN
 - The verdict is **conditional** and must say so.
 - **Do not draft** application material unless the human explicitly chooses to invest before resolution.
 - If the gate later resolves as FAIL, the score is void. It is never a reason to reconsider the floor.
+
+**Buyer reality check (part of this first screen; it only removes roles, never promotes them):** Is the seat real and funded? Is there an identifiable person who can hire? Is the archetype plainly different from his recent career identity (e.g. engineering-led, hands-on IC)? An obvious no on any of these stops the work before full scoring.
 
 **Gate 3 is hard to judge from outside.** Always include this as a question for the first conversation: *"How far along is the process, and is anyone already in late stages or internal?"* and *"Is this role in the approved headcount plan for the next 12 months, and has the company changed its hiring plan this year?"* Two roles in the calibration set looked open and were not; another company hired and then announced layoffs within weeks.
 
@@ -96,6 +100,11 @@ Rate: **None / Contact / Advocate / Sponsor**, and name who.
 
 Only Advocate and Sponsor affect the action. Do not treat friendly contacts as advocacy — one role had two contacts and was lost at application. Even real advocacy does not overcome a missing selection-critical requirement — another had three advocates and was lost on one. Channel strength **never** changes the candidate fit rating.
 
+### Step 2c-bis — Buyer map (diagnostic, never a score)
+For any role you would pursue, fill the buyer map on the sheet: **problem owner, budget owner, selection decision-maker, veto holders** (who can block it, on what grounds, and does his advocate reach them), **recognition now**, **proof threshold** (*what concrete evidence would let this buyer choose him over the literal-match CV?* — name it; if there is no answer, the asymmetry is not actionable; if there is, it is the interview preparation), **buyer urgency** (a funded problem within ~6 months, or an ideal future executive?) and **process cost**. None of these changes organizational fit or asymmetry.
+
+Where the proof threshold is judgment rather than a credential, look for an entry in `profile/decision-bank.md`: an evidenced decision is the only honest substitute for a missing credential. If none fits, say so and suggest one for the human to write.
+
 ### Step 2d — Channel decision
 Rows are the **organizational verdict**, not a binary. Watchlist and Gig sit outside.
 
@@ -109,9 +118,13 @@ Rows are the **organizational verdict**, not a binary. Watchlist and Gig sit out
 - Viable / low candidate: "compelling upside" means **asymmetry 2** — no looser standard.
 - Danger zone: name it plainly — easy to get, bad to have.
 - **Never** let candidate fit or channel strength change the organizational total. **Never** recommend a Pass role because it is winnable.
+- **Cold applications** (no Advocate or Sponsor): Strong, or Viable × Candidate High when cheap and the gates are clear. Medium only as a deliberate, recorded test of a named buyer hypothesis.
+- **An interview invitation never promotes candidate fit.** Keep the rating until the requirement itself is shown to be met.
 
 ### Outcome-update rule
 When a selection outcome arrives, update **candidate-fit calibration only.** Do not lower organizational fit or asymmetry because of a rejection, unless the process revealed **new organizational evidence** (owner overriding the hiring manager, role dissolved by reorganisation, mandate described differently in interview, or the eventual hire showing the seat was a different function). Rejections are evidence about how he is read, not about what the environment is like.
+
+**Tag every ended process** with `bin/jobs record <id> --reason <r>`: `no-buyer`, `literal`, `archetype`, `level`, `compensation`, `mandate`, `veto`, `competitor`, `his-call`, `no-reply`, `unknown`. Use `literal` only when the employer named the requirement or the evidence is recorded; otherwise `unknown`. Suggest he asks, after any rejection with a human on the other end: *"What did the person you chose have that I didn't, and would it have mattered if I'd had it?"* It separates **non-recognition** (evidence and advocacy can change it) from **a different risk reduction** (only a different buyer or different credentials can).
 
 ### Step 3 — Verdict and the rationalisation check
 Output one of: Strong / Viable / Watchlist / Pass / Gig / Real alternative.
@@ -127,6 +140,8 @@ Follow `rules/tailoring.md`. Produce: title line, intro paragraph, five or six c
 
 Then list, explicitly, **every requirement in the JD that the fact base does not support.** That list is the point. It is what the human uses to decide whether to apply and what to name honestly.
 
+**Before anything is sent**, ask for the CV file he will attach and run `bin/jobs cvcheck <file>`. Any date mismatch with `profile/facts.md` blocks the send until fixed (a CV with a wrong end date has gone out before). Then the rest of the pre-send checklist in `rules/tailoring.md`.
+
 ### Step 5 — Questions for the interview
 Three to five, drawn from the framework's diagnostics and specific to what this JD left ambiguous. Prefer:
 - *What did you build recently and deliberately choose not to ship?* (curator test)
@@ -134,12 +149,20 @@ Three to five, drawn from the framework's diagnostics and specific to what this 
 - *When you picture the strongest candidate, what function have they most likely spent the last five years leading?* (functional center of gravity)
 - *What have you deliberately not accelerated because AI made building faster?* (throughput illusion)
 - *Who feels this problem most, and who decides the budget to fix it?* (value capture: problem owner versus budget owner)
+- *Who else has a say in this hire, and is there anyone who could stop it late in the process?* (veto holders)
+- *What would the strongest candidate have to show you to get this role?* (proof threshold, in their words)
+- *By when does this problem need to be solved, and what happens if it isn't?* (buyer urgency)
 - *What does this role decide alone, without going back up?*
 - *What does the business actually make money from, and what does that make rational for product?*
 - *How do you know when a product decision here was right? Point to a case where the data changed the answer.*
 - *When did someone junior last change a senior person's mind here?*
 - *What has this company recently chosen not to do, in order to do something more important?*
 - For a newly created role: *what makes you confident the business units will defer to this function?*
+
+---
+
+### Step 6 — Offer acceptance (separate instrument)
+When a process reaches a late stage, ask the human for the **minimum acceptable terms** before any offer exists, and record them with `rules/offer-acceptance-template.md` in the role's run folder: compensation (base cash; for gigs, realistic paid days and net), authority, sustainability (travel and hours stated), career capital, reversibility (notice, payment terms, freedom to keep searching). When an offer arrives, test it against those terms and compare the **cost of saying yes**. Never choose between offers by comparing organizational totals, and never promote a weak fit because an offer exists. For bounded gigs, set review points rather than a search deadline.
 
 ---
 
@@ -151,4 +174,6 @@ Three to five, drawn from the framework's diagnostics and specific to what this 
 - **A thin board is not evidence that rejected options have become better.**
 - **Do not assume a Product title means a Product archetype.** Determine which discipline the organization appears to want to dominate the role.
 - **Do not interpret "hands-on" generically.** Classify whether it means Product judgment, Delivery ownership, or Technical implementation.
-- **Known pattern:** in every rejection where the reason is known, the deciding factor was either a literal stated requirement already on the gap list, or a level / functional-archetype mismatch — never the quality of the argument. Weight literal requirements accordingly, and do not assume a well-made analogy will be read as intended.
+- **Known pattern:** where the reason is known, the deciding factor has mostly been a literal stated requirement already on the gap list, or a level / functional-archetype mismatch. Weight literal requirements accordingly, and do not assume a well-made analogy will be read as intended. **But** presentation is a real variable where the requirement is judgment rather than a credential: lead with the decision and its result, not the context.
+- **Freeze the framework** after a revision, for a set period or a set number of tagged outcomes (write it in `search-profile.md`). Apply it; collect outcomes; do not propose further changes to the scoring model before then unless the human asks. Then judge whether it predicted anything.
+- **Progress is the funnel, not the board:** access to the actual hiring manager, evidence of recognition, stage progression, paid conversion. Do not report the number of roles evaluated as progress.

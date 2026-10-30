@@ -40,7 +40,12 @@ and `profile/network.md` once. Then for each row from
    `bin/jobs record <id> --company "<name>"` before anything else. If it
    doesn't (a recruiter posting for an unnamed client), leave it unknown and
    say so in the gate note. Never guess an employer.
-5. **Network:** does `profile/network.md` list anyone at this company? Copy
+5. **Buyer reality check** (framework 0b; it only removes roles): is the seat
+   real and funded (live, not a pipeline posting), is there an identifiable
+   person who could hire, and is the archetype plainly different from his
+   recent career identity? An obvious no is a screen-out with the reason; a
+   doubt goes into the `to_score` note.
+6. **Network:** does `profile/network.md` list anyone at this company? Copy
    the strength exactly as written there. Never upgrade a Contact to an
    Advocate.
 
@@ -54,6 +59,10 @@ to `to_score` with the note "JD missing, paste before scoring".
 
 When unsure, prefer `to_score` with the doubt written in the note. Screening is
 cheap to reverse; a wrongly dropped role is invisible.
+
+**Cold applications from a scan** need a Strong verdict, or Viable × Candidate
+High when cheap and the gates are clear (framework 3b). Say this when reporting
+a promising row: the default next step is a warm approach, not an application.
 
 **Search-firm roles** (`flags.via_search_firm`): the employer is the client
 named in the title; the channel is the recruiter. Say so in the gate note: the

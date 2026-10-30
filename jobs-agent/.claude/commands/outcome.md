@@ -10,6 +10,11 @@ Record this outcome: $ARGUMENTS
 `bin/jobs set <id> <outcome> --note "<one line of what happened>"`.
 If the transition is refused, show the allowed ones and ask.
 
+For `rejected`, `closed` or `passed`, also tag the reason:
+`bin/jobs record <id> --reason <no-buyer|literal|archetype|level|compensation|mandate|veto|competitor|his-call|no-reply|unknown>`.
+`literal` only if the employer named the requirement or the evidence is
+recorded; otherwise `unknown`. Never guess a reason that wasn't given.
+
 ## 2. If the outcome is `rejected` or `interviewing` with new information
 
 Apply the **outcome-update rule** from `CLAUDE.md`:
@@ -25,12 +30,24 @@ Apply the **outcome-update rule** from `CLAUDE.md`:
   mismatch? Say which, or say the reason is unknown. Do not guess a reason
   that wasn't given.
 
-Write `runs/<id>/outcome.md` with: outcome, date, stated reason (verbatim if
+If a person delivered the rejection, suggest one question for him to ask:
+*"What did the person you chose have that I didn't, and would it have mattered
+if I'd had it?"* The answer separates non-recognition (evidence and advocacy can
+change it) from a different risk reduction (only a different buyer can).
+
+Write `runs/<id>/outcome.md` with: outcome, date, reason tag, stated reason (verbatim if
 given), what it says about how he is read, any new organizational evidence, and
 **a proposed one-line entry for the calibration appendix**. The agent does not
 edit `rules/` or `profile/`; the human pastes the line if he agrees.
 
-## 3. If the outcome is `applied`
+## 3. If the outcome is `interviewing` at a late stage, or `offer`
+
+Ask for his **minimum acceptable terms** before any offer, and write them to
+`runs/<id>/offer-acceptance.md` from `rules/offer-acceptance-template.md`. When an
+offer arrives, test it against those terms and the cost of saying yes. Never
+compare offers by organizational totals.
+
+## 4. If the outcome is `applied`
 
 Note the date. Suggest one follow-up date, 10 working days out, and say who to
 nudge if a contact or advocate is recorded.

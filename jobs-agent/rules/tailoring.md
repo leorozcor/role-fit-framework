@@ -64,3 +64,12 @@ Interest → structural parallel → evidence → honest gap → why this compan
 4. Are there five or six competencies, not nine?
 5. Is the company name correct everywhere? (Naming the wrong company ends an application.)
 6. Has anything been quietly upgraded from "once" to "extensive"?
+7. Where the requirement is judgment rather than a credential (investment cases, forecasts, trade-offs), is it shown through a **decision** from `profile/decision-bank.md` (what was chosen, the alternatives, the result), led by the result rather than the context?
+
+## Pre-send checklist (the human's button, run every time)
+
+1. **`bin/jobs cvcheck <cv file>`**: every role's years on the CV match `profile/facts.md`. A mismatch blocks the send. (A CV with a wrong end date is an unforced error that has happened.)
+2. The file attached is the version just checked, with the right name in the file name.
+3. Company name and role title are right in the cover note, the CV headline and any form fields.
+4. Salary expectation, if asked, is base cash and consistent with what has already been said to this company.
+5. After sending: `bin/jobs set <id> applied --note "<date, channel>"`.

@@ -7,6 +7,7 @@ jobs-agent/runs/*
 !jobs-agent/runs/.gitkeep
 jobs-agent/profile/network.md
 jobs-agent/profile/scan.json
+jobs-agent/profile/decision-bank.md
 jobs-agent/data/
 jobs-agent/.env
 __pycache__/

@@ -48,6 +48,9 @@ If `pandoc` is available: `pandoc runs/<id>/application.md -o runs/<id>/applicat
 
 `bin/jobs set <id> drafted`
 
-Report: the path to the draft, the unsupported-requirements list in full, and
+Ask which CV file he will attach and run `bin/jobs cvcheck <file>`. A date
+mismatch with `profile/facts.md` blocks the send: report it first.
+
+Report: the path to the draft, the cvcheck result, the unsupported-requirements list in full, and
 the one thing the human should check first. Remind him that applying is his
 button: `bin/jobs set <id> applied` after he sends it.
