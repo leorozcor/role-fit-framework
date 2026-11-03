@@ -15,11 +15,22 @@ import argparse, html, json, os
 HERE = os.path.dirname(os.path.abspath(__file__))
 p = argparse.ArgumentParser()
 p.add_argument('roles', nargs='?', default=os.path.join(HERE, 'sample', 'roles.sample.json'))
-p.add_argument('out', nargs='?', default=os.path.join(HERE, 'sample', 'preview.html'))
+p.add_argument('out', nargs='?', default=None)
 p.add_argument('--as-of', default=None)
 p.add_argument('--title', default='Job search')
 a = p.parse_args()
-if a.as_of is None and os.path.abspath(a.roles) == os.path.join(HERE, 'sample', 'roles.sample.json'):
+# A real roles file is confidential. Never write it to the version-controlled
+# public sample location, even if the operator omits the output path.
+PUBLIC_SAMPLE = os.path.realpath(os.path.join(HERE, 'sample', 'roles.sample.json'))
+is_demo = os.path.realpath(a.roles) == PUBLIC_SAMPLE
+if a.out is None:
+    a.out = (os.path.join(HERE, 'sample', 'preview.html') if is_demo
+             else os.path.join(HERE, '..', 'data', 'dashboard-preview.html'))
+out_abs = os.path.realpath(a.out)
+sample_dir = os.path.realpath(os.path.join(HERE, 'sample'))
+if not is_demo and (out_abs == sample_dir or out_abs.startswith(sample_dir + os.sep)):
+    p.error("Refusing to embed a real roles file in the publicly tracked sample/ directory")
+if a.as_of is None and is_demo:
     a.as_of = '2032-08-15'
 
 roles = json.load(open(a.roles))
@@ -99,7 +110,7 @@ doc = f"""<!doctype html>
 <script>{SHIM_JS % {'asof': json.dumps(a.as_of)}}</script>
 </head>
 <body>
-<p class="preview-banner">{'Dummy data for illustration: every company, role and date is invented.' if 'sample' in os.path.basename(a.roles) else 'Local preview of the job-search dashboard.'}</p>
+<p class="preview-banner">{'Independent fictional demo (2032); no real applications.' if is_demo else 'PRIVATE local preview containing real recruitment data — do not publish.'}</p>
 {page}
 <script id="roles-data" type="application/json">{json.dumps(roles, ensure_ascii=False).replace('</', '<\\/')}</script>
 <script>dash._boot(JSON.parse(document.getElementById('roles-data').textContent));</script>

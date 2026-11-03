@@ -86,11 +86,11 @@ From `jobs-agent/`:
 
 ```sh
 python3 dashboard/build_roles.py                 # -> data/dashboard-roles.json
-python3 dashboard/make_preview.py data/dashboard-roles.json data/dashboard-preview.html
+python3 dashboard/make_preview.py data/dashboard-roles.json
 open data/dashboard-preview.html                 # or any browser
 ```
 
-Both outputs land in `data/`, which is gitignored, because they contain your real search.
+For a **real** roles file, the preview now defaults to `data/dashboard-preview.html` (gitignored). The script refuses to embed real data in the version-controlled `dashboard/sample/` directory. With the built-in fictional sample, it can still regenerate `dashboard/sample/preview.html`. Never override these safeguards by copying a real preview into Git. Both real outputs belong in `data/`.
 
 ### Publishing it as a Claude Dashboard artifact
 
