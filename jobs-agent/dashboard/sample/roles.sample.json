@@ -1,0 +1,714 @@
+[
+{
+"company": "Company A",
+"role": "Head of Product",
+"group": "pipeline",
+"stage": "Interviewing",
+"detail": "Round 2 done; next: CEO",
+"location": "Hybrid",
+"last": "2026-11-02",
+"reached": 4,
+"reachedEstimated": false,
+"applied": "2026-10-15",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 4,
+"estimated": false,
+"applied": "2026-10-15",
+"ended": "",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company B",
+"role": "Director of Product",
+"group": "pipeline",
+"stage": "Interviewing",
+"detail": "Recruiter call done; next: product leadership",
+"location": "Remote",
+"last": "2026-10-30",
+"reached": 2,
+"reachedEstimated": false,
+"applied": "2026-10-27",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 2,
+"estimated": false,
+"applied": "2026-10-27",
+"ended": "",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company S",
+"role": "Product Manager, Homepage",
+"group": "screened",
+"stage": "At first look",
+"detail": "",
+"location": "On-site",
+"last": "2026-10-30",
+"reached": 0,
+"reachedEstimated": false,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": []
+},
+{
+"company": "Company Z",
+"role": "Product Lead, Consulting",
+"group": "closed",
+"stage": "No reply",
+"detail": "",
+"location": "Remote",
+"last": "2026-10-30",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2026-10-09",
+"ended": "2026-10-30",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2026-10-09",
+"ended": "2026-10-30",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company O",
+"role": "Product Director",
+"group": "rejected",
+"stage": "At application",
+"detail": "",
+"location": "Remote",
+"last": "2026-10-29",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2026-10-15",
+"ended": "2026-10-29",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2026-10-15",
+"ended": "2026-10-29",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company C",
+"role": "Product Director, Data Products",
+"group": "pipeline",
+"stage": "Applied",
+"detail": "",
+"location": "On-site",
+"last": "2026-10-27",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2026-10-27",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 4,
+"estimated": false,
+"applied": "2026-08-13",
+"ended": "2026-09-24",
+"endedApprox": false
+},
+{
+"cycle": 2,
+"reached": 1,
+"estimated": false,
+"applied": "2026-10-27",
+"ended": "",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company W",
+"role": "Director of Product, Payments",
+"group": "screened",
+"stage": "After a closer look",
+"detail": "",
+"location": "Remote",
+"last": "2026-10-24",
+"reached": 0,
+"reachedEstimated": false,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": []
+},
+{
+"company": "Company D",
+"role": "VP Product",
+"group": "pipeline",
+"stage": "Applied",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-10-23",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2026-10-23",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2026-10-23",
+"ended": "",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company V",
+"role": "Senior Product Manager",
+"group": "screened",
+"stage": "After a closer look",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-10-23",
+"reached": 0,
+"reachedEstimated": false,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": []
+},
+{
+"company": "Company J",
+"role": "Product Coach",
+"group": "rejected",
+"stage": "After interviews",
+"detail": "",
+"location": "Remote",
+"last": "2026-10-22",
+"reached": 2,
+"reachedEstimated": false,
+"applied": "2026-10-14",
+"ended": "2026-10-22",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2026-06-26",
+"ended": "2026-08-20",
+"endedApprox": false
+},
+{
+"cycle": 2,
+"reached": 2,
+"estimated": false,
+"applied": "2026-10-14",
+"ended": "2026-10-22",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company AB",
+"role": "Service Director",
+"group": "closed",
+"stage": "My call",
+"detail": "",
+"location": "On-site",
+"last": "2026-10-21",
+"reached": 2,
+"reachedEstimated": false,
+"applied": "2026-10-15",
+"ended": "2026-10-21",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 2,
+"estimated": false,
+"applied": "2026-10-15",
+"ended": "2026-10-21",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company E",
+"role": "Chief Product Officer",
+"group": "pipeline",
+"stage": "Exploring",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-10-20",
+"reached": 0,
+"reachedEstimated": false,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": []
+},
+{
+"company": "Company I",
+"role": "Senior Director of Product",
+"group": "rejected",
+"stage": "After interviews",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-10-13",
+"reached": 3,
+"reachedEstimated": false,
+"applied": "2026-10-08",
+"ended": "2026-10-13",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 3,
+"estimated": false,
+"applied": "2026-10-08",
+"ended": "2026-10-13",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company T",
+"role": "Managing Director",
+"group": "screened",
+"stage": "At first look",
+"detail": "",
+"location": "On-site",
+"last": "2026-10-12",
+"reached": 0,
+"reachedEstimated": false,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": []
+},
+{
+"company": "Company N",
+"role": "Head of Product",
+"group": "rejected",
+"stage": "At application",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-10-02",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2026-09-30",
+"ended": "2026-10-02",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2026-09-30",
+"ended": "2026-10-02",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company M",
+"role": "Principal Product Manager",
+"group": "rejected",
+"stage": "At application",
+"detail": "",
+"location": "On-site",
+"last": "2026-09-22",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2026-09-07",
+"ended": "2026-09-22",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2026-09-07",
+"ended": "2026-09-22",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company Y",
+"role": "AI Product Manager",
+"group": "closed",
+"stage": "Role paused or pulled",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-09-08",
+"reached": 3,
+"reachedEstimated": false,
+"applied": "2026-08-12",
+"ended": "2026-09-08",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 3,
+"estimated": false,
+"applied": "2026-08-12",
+"ended": "2026-09-08",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company U",
+"role": "Head of Growth",
+"group": "screened",
+"stage": "At first look",
+"detail": "",
+"location": "Remote",
+"last": "2026-09-03",
+"reached": 0,
+"reachedEstimated": false,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": []
+},
+{
+"company": "Company AF",
+"role": "Product Strategy Lead",
+"group": "screened",
+"stage": "After a closer look",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-08-28",
+"reached": 0,
+"reachedEstimated": false,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": []
+},
+{
+"company": "Company H",
+"role": "Head of Product Operations",
+"group": "rejected",
+"stage": "After interviews",
+"detail": "",
+"location": "On-site",
+"last": "2026-06-18",
+"reached": 2,
+"reachedEstimated": false,
+"applied": "2026-06-05",
+"ended": "2026-06-18",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 2,
+"estimated": false,
+"applied": "2026-06-05",
+"ended": "2026-06-18",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company G",
+"role": "Product Lead",
+"group": "rejected",
+"stage": "After interviews",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-05-21",
+"reached": 3,
+"reachedEstimated": false,
+"applied": "2026-04-15",
+"ended": "2026-05-21",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 3,
+"estimated": false,
+"applied": "2026-04-15",
+"ended": "2026-05-21",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company F",
+"role": "Head of Product Platform",
+"group": "rejected",
+"stage": "After interviews",
+"detail": "",
+"location": "Remote",
+"last": "2026-04-24",
+"reached": 6,
+"reachedEstimated": false,
+"applied": "2026-03-15",
+"ended": "2026-04-24",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 6,
+"estimated": false,
+"applied": "2026-03-15",
+"ended": "2026-04-24",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company L",
+"role": "Director of Product Management",
+"group": "rejected",
+"stage": "At application",
+"detail": "",
+"location": "Remote",
+"last": "2026-04-17",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2026-04-08",
+"ended": "2026-04-17",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2026-04-08",
+"ended": "2026-04-17",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company K",
+"role": "CPO",
+"group": "rejected",
+"stage": "After interviews",
+"detail": "",
+"location": "Hybrid",
+"last": "2026-02-16",
+"reached": 3,
+"reachedEstimated": false,
+"applied": "2026-01-07",
+"ended": "2026-02-16",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 3,
+"estimated": false,
+"applied": "2026-01-07",
+"ended": "2026-02-16",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company R",
+"role": "Product Director",
+"group": "rejected",
+"stage": "At application",
+"detail": "",
+"location": "Remote",
+"last": "2025-11-15",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2025-10-15",
+"ended": "2025-11-15",
+"dateApprox": true,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2025-10-15",
+"ended": "2025-11-15",
+"endedApprox": true
+}
+]
+},
+{
+"company": "Company Q",
+"role": "Head of Product",
+"group": "rejected",
+"stage": "After interviews",
+"detail": "",
+"location": "Hybrid",
+"last": "2025-08-13",
+"reached": 4,
+"reachedEstimated": false,
+"applied": "2025-05-31",
+"ended": "2025-08-13",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 4,
+"estimated": false,
+"applied": "2025-05-31",
+"ended": "2025-08-13",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company P",
+"role": "Senior Product Manager",
+"group": "rejected",
+"stage": "At application",
+"detail": "",
+"location": "Hybrid",
+"last": "",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2026-05-29",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2026-05-29",
+"ended": "",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company X",
+"role": "VP of Products",
+"group": "screened",
+"stage": "After a closer look",
+"detail": "",
+"location": "Remote",
+"last": "",
+"reached": 0,
+"reachedEstimated": false,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": []
+},
+{
+"company": "Company AA",
+"role": "Product Director, Field Services",
+"group": "closed",
+"stage": "My call",
+"detail": "",
+"location": "On-site",
+"last": "",
+"reached": 4,
+"reachedEstimated": false,
+"applied": "2025-04-01",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 4,
+"estimated": false,
+"applied": "2025-04-01",
+"ended": "",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company AC",
+"role": "Chief Product Officer",
+"group": "closed",
+"stage": "Outcome unknown",
+"detail": "",
+"location": "Remote",
+"last": "",
+"reached": 1,
+"reachedEstimated": false,
+"applied": "2025-11-29",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": false,
+"applied": "2025-11-29",
+"ended": "",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company AD",
+"role": "Product Director",
+"group": "closed",
+"stage": "Outcome unknown",
+"detail": "",
+"location": "Hybrid",
+"last": "",
+"reached": 2,
+"reachedEstimated": false,
+"applied": "2025-01-08",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 2,
+"estimated": false,
+"applied": "2025-01-08",
+"ended": "",
+"endedApprox": false
+}
+]
+},
+{
+"company": "Company AE",
+"role": "Head of Product",
+"group": "closed",
+"stage": "No reply",
+"detail": "",
+"location": "Hybrid",
+"last": "",
+"reached": 1,
+"reachedEstimated": true,
+"applied": "",
+"ended": "",
+"dateApprox": false,
+"processes": [
+{
+"cycle": 1,
+"reached": 1,
+"estimated": true,
+"applied": "",
+"ended": "",
+"endedApprox": false
+}
+]
+}
+]

@@ -19,6 +19,7 @@ A fourth judgment sits outside the scoring: **is this offer worth taking?** The 
 | [`framework/offer-acceptance.md`](framework/offer-acceptance.md) | The offer-acceptance test: compensation, authority, sustainability, career capital, reversibility, and the cost of saying yes. |
 | [`notebook/leadership-philosophy.md`](notebook/leadership-philosophy.md) | The explanatory side: cognitive ecology, fear and the centralization of judgment, urgency displacement, requisite variety, the profit formula, AI and the moving bottleneck. Ideas live here if they help thinking; they move into the framework only if they improve prediction. |
 | [`jobs-agent/`](jobs-agent/) | A Claude Code agent that scores a job description against the framework and, only if it passes, drafts application material from a verified fact base without inventing anything. Profile files are templates. |
+| [`jobs-agent/dashboard/`](jobs-agent/dashboard/) | A one-page dashboard of the search built from the tracker: a funnel counted by recruitment cycle and selection round, roles grouped by outcome, and a timeline. Ships with invented sample data (Company A, Company B…) and a [preview](jobs-agent/dashboard/sample/preview.html). |
 | [`tools/job-scorer.jsx`](tools/job-scorer.jsx) | An earlier React scoring widget. Uses older factor weights than v6.2. |
 | [`tools/chiva-x-posts/`](tools/chiva-x-posts/) | Unrelated side project: a WordPress plugin that shows recent X posts using the X API v2. |
 
