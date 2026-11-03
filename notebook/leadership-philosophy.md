@@ -255,35 +255,31 @@ Using AI to learn, and to become better rather than merely faster, requires the 
 
 *Falsification:* if organizations with dramatically faster engineering throughput showed no increase in the value of discovery and decision quality, and simply shipped more with the same hit rate, the hypothesis would be wrong.
 
-## Independent corroboration — the Nokia case *(observation)*
+## Synthesis — enabling leadership conditions *(hypothesis)*
 
-A former colleague, writing publicly and without any framework in mind, described Nokia at its best in terms that map almost exactly onto the mechanisms above. Worth recording because independent convergence is evidence the calibration set is not retrospective flattery.
+Work environments may differ markedly in whether authority can be exercised without constant escalation. The following conditions form a useful diagnostic model, **not a description of any identifiable employer, colleague or confidential engagement**:
 
-What he named:
-- **Context plus trust, not autonomy alone.** A proper handover and a clear sense of what success looked like — *then* left to run with it. "Nobody was looking over my shoulder. If I'd been getting it wrong, I'm sure someone would have stepped in. But the default was trust, not oversight." A $50M budget line at 27.
-- **Curiosity over committee.** When unfamiliar territory appeared, the instinct was to find someone curious and capable and say *go and work it out*, rather than forming a group to study it.
-- **Reachable senior judgment.** More experienced people made time when approached. A senior leader in another division noticed his work unprompted and offered to support it.
-- **The underlying belief:** people, given the right context and the right trust, will generally rise to it.
-- **No policy or framework produced this.** It was a consistent default.
+- **Context and trust:** a clear understanding of outcomes and constraints, followed by discretion over how to achieve them.
+- **Curiosity over committee:** when an unfamiliar problem arises, the organization can give capable people space to explore it.
+- **Reachable senior judgment:** expertise and sponsorship remain accessible when the work becomes difficult.
+- **A default belief in learning:** people can improve their judgment with evidence and appropriate support.
 
-*Why it matters for the model.* The first point is the Mandate pairing — accountability matched to usable authority, where context is given and then authority is real. The third is upward judgment architecture in its healthy form: someone with standing who could *see* the quality of the work, across an organisational boundary, without being asked. Its absence is what makes a role unsurvivable — not hostility, but nobody above who can evaluate what is being done.
-
-*The separability finding.* Nokia failed commercially, and the people who were there describe it without bitterness as somewhere that got the best out of them. **Commercial performance and cognitive ecology are separable variables — commercial success is not a reliable proxy for cognitive ecology.** They plainly influence each other over time; the claim is not independence but that neither can be read off the other. A company can lose and still have been a good place to do work; a company can win while being corrosive. This is a useful corrective when evaluating opportunities partly on whether the business is succeeding — growth tells you about the business, not about whether the environment will get the best out of you.
+Commercial outcomes and a workplace's cognitive ecology should be evaluated separately. A business can perform well while degrading collective judgment, or struggle commercially while still offering an environment of trust and learning. This is a general hypothesis, not a claim about any particular organization.
 
 *The formulation, compressed:*
 
 > **Autonomy + clarity + sponsorship + available expertise + trust**
 
-These are **conjunctive, not additive** — the failure mode differs depending on which element is missing, which is why the framework tests them across separate factors rather than as one score.
+These are **conjunctive, not additive** — the failure mode differs depending on which element is missing.
 
 - **Autonomy without clarity** is abandonment.
 - **Clarity without autonomy** is a specification.
-- **Both without sponsorship** is exposure the moment it gets uncomfortable.
-- **All three without available expertise** limits learning and leaves difficult problems with no one reachable to help solve them.
-- **All four without evaluability above you** means good judgment may still be invisible to the system.
-- **All of it without trust as the default** means each is conditional and revocable — granted while things go well, withdrawn under pressure.
+- **Both without sponsorship** create exposure when things become uncomfortable.
+- **All three without available expertise** limit learning and leave difficult problems without reachable help.
+- **All four without evaluability above you** mean good judgment may remain invisible.
+- **All of it without trust as the default** makes the other conditions temporary and revocable.
 
-*Sponsorship and available expertise are distinct and both necessary.* Sponsorship is someone with standing who backs you when it gets hard. Available expertise is senior people who make time when you reach out and who can recognise good work when they see it.
+*Sponsorship and available expertise are distinct.* Sponsorship backs decisions when stakes rise; available expertise helps people solve problems and improve their reasoning.
 
 ## Soil before water *(heuristic)*
 

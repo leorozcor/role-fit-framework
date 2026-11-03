@@ -496,7 +496,7 @@ def fact_roles() -> list[dict]:
         head = line[4:m.start()].rstrip(" ,")
         employer = re.split(r"\s+[—–-]\s+|,", head)[0]
         names = [n.strip() for n in employer.split("/") if len(n.strip()) > 2]
-        # Also try each alias's first word ("Schibsted" for "Schibsted Nordic Marketplaces").
+        # Also try each alias's first word ("Example Group" for "Example Group Services").
         firsts = [n.split()[0] for n in names if len(n.split()) > 1 and len(n.split()[0]) >= 4]
         roles.append({"line": line[4:], "names": names + [f for f in firsts if f not in names],
                       "start": m.group(1), "end": m.group(2)})

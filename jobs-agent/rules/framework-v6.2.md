@@ -2,7 +2,7 @@
 
 *A decision tool, not an essay. It exists to predict organizational fit and to identify where capability can create unusual value — not to explain organizations beautifully.*
 
-**Architecture:** A strategic layer says what the search is for, and a decision sequence keeps four separate judgments apart. Principles state commitments. Gates stop bad fits. The positive lens finds asymmetry. Nine factors predict fit. A buyer map tests whether value can be recognised, funded and acted on. An acceptance test decides offers. Diagnostics and heuristics operationalize the factors. Evidence and usage rules keep the scoring honest. A calibration appendix holds dated examples so the framework itself stays stable.
+**Architecture:** A strategic layer says what the search is for, and a decision sequence keeps four separate judgments apart. Principles state commitments. Gates stop bad fits. The positive lens finds asymmetry. Nine factors predict fit. A buyer map tests whether value can be recognised, funded and acted on. An acceptance test decides offers. Diagnostics and heuristics operationalize the factors. Evidence and usage rules keep the scoring honest. **Real company-specific calibration cases are intentionally not published here.**
 
 *Revised 30.10.2026: decision sequence (0b), buyer qualification (3b), cold-application rule (3b), outcome reasons (3b), offer acceptance (10b), freeze rule (9).*
 
@@ -20,7 +20,7 @@ The scoring machine below answers *is this role worth it?* This layer answers *w
 - **Selection decision-maker:** who must believe my specific experience is the best answer, and what evidence would convince them?
 - **Recognition:** is the problem acknowledged as important now, and does the buyer recognize my *literal proof* rather than require an analogy they may not accept?
 
-Use concrete outcomes and personal interventions, not adjectives, in applications and interviews. **But communication has a ceiling.** The calibration appendix shows that every rejection with a known reason turned on a literal requirement or a level/archetype mismatch, never on the quality of the argument. Better framing cannot create recognition where a literal requirement is missing; an advocate, or choosing roles where recognition is already likely, can.
+Use concrete outcomes and personal interventions, not adjectives, in applications and interviews. **But communication has a ceiling.** A clear account of judgment improves the evidence available to a hiring committee; it cannot substitute for a genuinely mandatory credential. Evaluate recognition and selection criteria separately from organizational fit.
 
 Rejections about direct domain expertise are **market evidence about selection and recognition**, not proof that my value-creation assessment or the organization's fit was wrong; they update candidate-fit calibration, per the outcome-update rule. Do not count recognition, budget and salary again in the nine-factor total.
 
@@ -73,7 +73,7 @@ No factor score compensates for a failed gate.
 1. **Salary floor** — your minimum monthly base, set before you look at any role. Confirm it is *base cash*, not base-plus-illiquid-equity. Clearing only at the top of a band, or only by counting startup options, is a conditional pass at best.
 2. **Geography** — compatible with Helsinki family life. "Regular / at least 20% / sometimes more" travel is elastic and a real sustainability question; bounded predictable travel is fine.
 3. **Role is real, authorized, live, and genuinely open to an external hire.** A public posting is not required — legitimate executive searches and network-originated roles often never appear publicly. What fails: speculative interest, pipeline-shaping conversations, unfunded roles, and searches where an internal or preselected candidate effectively owns the seat.
-   *This gate is hard to judge from outside.* Two roles in my calibration set looked open and were not: one already had another candidate in late stages; in the other, the person who made the introduction took the seat. **Ask early:** *"How far along is the process, and is anyone already in late stages or internal?"* A recruiter who answers vaguely is itself information. **Then:** *"Is this role in the approved headcount plan for the next 12 months, and has the company changed its hiring plan this year?"* This catches the unfunded or soon-to-be-cut seat: one company in the calibration set was hiring and announced layoffs within weeks, a sign that hiring managers did not control their own headcount.
+   *This gate is hard to judge from outside.* **Ask early:** *"How far along is the process, and is anyone already in late stages or internal?"* A vague answer should prompt a follow-up. **Then:** *"Is this role in the approved headcount plan for the next 12 months, and has the company changed its hiring plan this year?"* A funded, authorized vacancy is different from exploratory interest; hiring plans can also change after the search begins.
 4. **No obvious dealbreakers** — no ethical, reputational, or structural red flag you would walk away from regardless of score.
 
 **FAIL vs UNRESOLVED.**
@@ -119,7 +119,7 @@ Asymmetry exists only when all three conditions hold:
 
 **Why separate.** A role you would thrive in but are unlikely to get should keep its high organizational score, because that score carries true information about where you do your best work. Lowering it for poor odds would destroy that information. Conversely, a role you would easily get but would not thrive in must not have its low organizational score rescued by high odds. Folding the axes together corrupts both.
 
-**Why it exists.** Asymmetry was quietly doing double duty — its "relevance" leg was self-assessed on structural analogy, and it was being read as a hiring prediction. The evidence against that reading is consistent: in every case where the rejection reason is known, it was a **literal stated requirement already identified as a gap**, not a weakness in the analogy.
+**Why it exists.** Asymmetry can quietly do double duty: its relevance leg is partly judged through structural analogy, but it may then be misread as a prediction that the hiring team will choose the candidate. **The two inferences must remain separate.** An employer may value direct domain credentials over an analogous track record, regardless of how strong the analogy is.
 
 **Buyer map — selection diagnostic, not a fourth score.** For a serious opportunity, identify:
 - **Problem owner** — who experiences the problem and wants it fixed.
@@ -143,12 +143,12 @@ Missing budget belongs to the hard gate; missing recognition belongs to Candidat
 **Step one — identify the selection-critical requirement(s).** Not all required bullets are equal. Before rating, name the **one or two qualifications most likely to separate finalists** — usually the requirement that is most specific to this product, stated most emphatically, or repeated across the JD. Generic requirements (years of experience, communication, leadership) rarely decide it.
 - If a selection-critical requirement is **not met literally**, candidate fit **cannot be High.**
 - If a selection-critical requirement is **central to the actual product** and is met **only by analogy**, candidate fit defaults to **Medium** (small, credibly bridgeable gap) or **Low** (the gap is the core of the job).
-- *Calibration:* this rule would have rated two lost processes correctly before either began — one decided on data-product packaging experience, the other on creator and content environments.
+- *Calibration method:* record the selection-critical requirements before applying, then compare them to the employer's stated reasons when an outcome arrives. Keep individual cases in private calibration records.
 
 **Rating: High / Medium / Low.** Not a precise number — the competition is usually invisible, and false precision would mislead.
 - **High:** every selection-critical requirement met literally, direct pattern match, level fits.
 
-**Level-mismatch cap.** A level mismatch in **either direction** — above or below where the role is targeted — caps candidate fit at **Medium**, even when every stated requirement is met literally. Over-levelling is a real selection risk, not a formality: One role was rated High on a full literal match while the level mismatch was noted in the same breath, and was lost on exactly that. Apply this cap **before** the requirements match can override it.
+**Level-mismatch cap.** A level mismatch in **either direction** — above or below where the role is targeted — caps candidate fit at **Medium**, even when every stated requirement is met literally. Over-levelling is a real selection risk, not a formality. Apply this cap before the requirements match. One-team execution roles and organization-wide leadership roles need different kinds of proof.
 - **Medium:** selection-critical requirements met, or one met by credible analogy where the gap is small; other required qualifications largely met.
 - **Low:** a selection-critical requirement missing or met only by analogy where it is the core of the job; or the role asks for a specific domain or product pattern not in the fact base.
 
@@ -156,7 +156,7 @@ Missing budget belongs to the hard gate; missing recognition belongs to Candidat
 
 *Resolved later:* the archetype turned out to be more specific than "executor" — the hire was an engineering leader.
 
-*Second case — the same signal from the other side.* Another role met every stated requirement and was lost because recent work sat at director level for a role scoped as one product area, one team, no reports. The first wanted hands-on *technical* leadership; the second wanted hands-on *delivery* at one-team scope. **Recent work is read as leadership, and hands-on roles see that first.**
+*The same signal from the other side.* A role can meet every stated requirement yet be scoped below the candidate's recent level — for example, one product area, one team and no direct reports. A role expecting hands-on *technical* leadership differs from one expecting hands-on *delivery*. **Recent work is read as leadership, and hands-on roles see that first.**
 
 **Functional center of gravity.** Job titles and role descriptions can obscure which discipline the organization actually wants to dominate the seat. A role called Product, Product Development, Transformation, Digital, Platform or Operating Model may in practice be optimized for someone whose recent identity is primarily Product, Engineering, Commercial, Operations, Data, Design or another function.
 
@@ -178,7 +178,7 @@ These are different archetypes and are **not interchangeable.**
 - **Probe:** *"When you say hands-on, what would I personally be doing in an ordinary week?"*
 - **Follow with:** *"Do you mean close to customers and product decisions, close to delivery execution, or close to the technical implementation itself?"*
 
-Calibration: one role looked closer to hands-on Product; another explicitly wanted hands-on Delivery at one-team scope; a third was, in retrospect, weighted toward hands-on Technical and engineering execution far more heavily than understood at the time. The classification changes candidate fit materially. It changes organizational fit **only** when it reveals that the seat itself is different from the one scored — that is new evidence about the role, not a reaction to the rejection.
+A role can demand hands-on Product work, Delivery work, or Technical work. Classification changes candidate fit materially. It changes organizational fit **only** when it reveals that the seat is different from the one originally scored — new evidence about the mandate, not a reaction to rejection.
 
 **Reported alongside, not part of the rating — channel strength.** Four levels, and only the top two count:
 
@@ -189,7 +189,7 @@ Calibration: one role looked closer to hands-on Product; another explicitly want
 | **Advocate** | Explicitly tells the hiring team *why* your non-obvious background fits. | Yes |
 | **Sponsor** | Has enough standing to materially influence who gets considered. | Yes |
 
-*Contact is not advocacy.* One role had two internal contacts and was lost at application. Friendly people passing on a CV do not make the analogy argument. And even genuine advocacy does not overcome a missing selection-critical requirement — another had three advocates, the recruiter confirmed they were actively advocating, and it was still lost on channel and business-development experience. Advocacy gets the analogy **heard**; it does not make it **accepted**.
+*Contact is not advocacy.* A friendly contact passing on a CV does not make the analogy argument. Even genuine advocacy does not overcome a selection-critical requirement. Advocacy gets the candidate's experience **heard**; it does not make the hiring team **accept** the case.
 
 Channel strength never changes the candidate fit rating. It affects only the **action** below.
 
@@ -212,7 +212,7 @@ Channel strength never changes the candidate fit rating. It affects only the **a
 - Strong with low candidate fit is not a pass — it is an instruction about *channel*. Find the advocate first, apply second.
 - Before investing in any role where candidate fit is Medium or Low, name the selection-critical requirement likely to decide it. It is usually one already on the gap list.
 - Placing a role in a cell does not replace the diagnostic questions. The matrix says whether to pursue; the diagnostics say what to test.
-- **Cold applications** (no Advocate or Sponsor) follow the matrix: allowed at **Strong**, and at **Viable × Candidate High** when the application is cheap and the gates are clear. A **Medium** cold application is allowed only as a deliberate test of a named buyer hypothesis, recorded before applying. *Calibration:* a strong literal domain match got a cold application read and an interview within a day.
+- **Cold applications** (no Advocate or Sponsor) follow the matrix: allowed at **Strong**, and at **Viable × Candidate High** when the application is cheap and the gates are clear. A **Medium** cold application is allowed only as a deliberate test of a named buyer hypothesis, recorded before applying. An invitation shows initial interest, not that every selection-critical requirement has been met.
 - **An invitation never promotes a rating.** Reaching an interview is evidence of plausibility, not proof that a literal requirement is met; keep the candidate-fit rating until the requirement itself is shown. Promoting ratings on outcomes would make the model explain results instead of predicting them.
 
 **Outcome-update rule.** Selection outcomes update **candidate-fit calibration only.** A rejection does not retrospectively lower organizational fit or asymmetry — unless the process itself revealed **new organizational evidence** (an owner overriding a hiring manager, a role dissolved by reorganization, a mandate described differently in interview than in the JD). *"They rejected me, therefore we overrated the role"* is exactly the error this rule exists to prevent: rejections are evidence about how you are read, not about what the environment is like.
@@ -482,19 +482,17 @@ Then compare the **cost of saying yes**: time, emotional energy and optionality 
 
 ---
 
-## 12. CALIBRATION APPENDIX
+## 12. CALIBRATION PROCEDURE (PUBLIC VERSION)
 
-*The framework above is meant to stay stable; the appendix is where dated, real cases live, and it is what keeps the scoring honest. My own appendix is private, because it names organizations and people. What it has taught so far, anonymized:*
+The private calibration record may contain identifiable applications, employer feedback, compensation discussions, named sponsors, unpublished decisions or confidential organizational context. Those records do **not** belong in a public repository, including under company aliases. This public section describes the method only.
 
-- **Two failed-fit shapes.** A structure emptied of meaning over time, and a structure created without the belief needed to sustain it. For a newly created role, the mandate probe becomes: *"What makes you confident the business units will defer to a central product function?"*
-- **A stated rejection reason can be a socially safe proxy.** Test it against later evidence rather than against the explanation given at the time. Not every rejection is a dodged bullet; some are genuine losses to closer fits.
-- **Organizational fit does not predict selection.** Where the reason was known, the deciding factor was mostly a literal stated requirement already on the gap list, or a level or functional-archetype mismatch. The highest organizational scores all lost, mostly in adjacent domains where I was the analogy candidate. Asymmetry can be real as a statement about value creation and still predict nothing about hiring.
-- **But not only credentials.** One rejection asked for deeper hands-on technical and AI depth *and* a more structured analytical approach; a transcript review found results buried behind context. Where the requirement is judgment rather than a credential, presentation is a real variable: lead with the decision and its result.
-- **Most reasons are unknown.** A first full tagging of a year's rejections found roughly a third with a literal requirement, a handful on archetype, level, a competing candidate, a veto or mandate, and nearly half unknown. Tag every outcome; the heuristic is only as good as the share of known reasons.
-- **A strong literal match can make a cold application work.** One cold application, on a close domain match, was read and invited within a day. The candidate-fit rating stayed where it was: an invitation is not proof the requirement is met.
-- **An unforced error.** A CV with a wrong end date went out on several applications. Check dates against the fact base before every send.
-- **The squeeze.** Senior roles went to candidates with the literal domain; hands-on roles went to candidates whose recent work was hands-on in the form the role meant (technical in one case, delivery in another). Selection is won where senior level and a literal match line up. This is a working heuristic from a small sample, not a law.
-- **Sponsorship is not permeability.** A hiring manager who wants you, argues for you and wins the budget can still lose the decision to owners who are moving the centre of gravity elsewhere. Map the veto holders, not just the champion.
-- **Rapport predicted little.** Warmth and interest repeatedly failed to convert, or converted into roles without structural fit.
+1. **Record the pre-outcome assessment.** Preserve the organizational-fit verdict, candidate-fit rating, the one or two selection-critical requirements, supporting evidence and uncertainty before the result.
+2. **Record an outcome with evidence provenance.** Distinguish employer-stated reasons from assumptions and unknown reasons. Do not publish identifiable interview notes or private recruiter messages.
+3. **Update the correct axis.** Selection feedback calibrates candidate fit; new evidence about decision rights, organization structure or mandate may calibrate organizational fit. One does not silently revise the other.
+4. **Separate levels and functional archetypes.** Test whether the role actually requires Product leadership, delivery execution, technical implementation, or some combination. Count interview rounds consistently.
+5. **Audit predictions in batches.** After enough new outcomes, examine where the model anticipated selection constraints and where it did not. Do not tune the model to explain individual disappointments.
+6. **Keep the denominator honest.** Include application-stage outcomes and unknown reasons; a sample biased toward lengthy interview processes will flatter conversion rates.
 
-*To build your own:* for each case, record the verdict you gave before the outcome, the outcome, the stated reason, and anything learned later that changed the reading. Update candidate-fit calibration from outcomes; update organizational fit only when the process revealed new evidence about the organization.
+For a **synthetic example**, suppose a fictional company advertises an empowered Product role, but the actual mandate requires an individual contributor to run technical implementation without staff or decision rights. The new mandate evidence changes organizational fit; the mismatch with the candidate's recent experience changes candidate fit. This illustration is invented and is not a disguised version of a private selection process.
+
+The private evidence ledger, not the public framework, is where real dates, organizations, sources, names and conversations belong.

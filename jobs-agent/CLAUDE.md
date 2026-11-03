@@ -2,7 +2,7 @@
 
 Purpose: take a job description, score it honestly against a calibrated framework, and — only if it passes — produce tailored application material that contains no invented facts.
 
-**Sourcing is a radar, not a funnel.** Cold-application volume has converted at close to zero; most processes that reached a real conversation came through a person. The exception so far proves the rule's other half: a strong literal domain match got a cold application read within a day. `/scan` pulls a narrow JobsPipe search (which includes LinkedIn's public postings and the main ATS platforms), the RSS feeds and the company watchlist in `profile/scan.json`, then screens cheaply. Duunitori and LinkedIn are never scraped: both forbid it in their terms. A role found there goes in by hand with `/score <url or paste>`. Its main output is *which companies deserve a warm approach*, not a list to apply to cold. A cold application needs a Strong verdict, or Viable × Candidate High when it is cheap and the gates are clear (framework 3b). A Medium cold application only as a recorded test of a named buyer hypothesis.
+**Sourcing is a radar, not a funnel.** Treat public postings as discovery, not a proxy for genuine hiring access. `/scan` pulls a narrow JobsPipe search (which includes public postings from major ATS platforms), RSS feeds and a private watchlist in `profile/scan.json`, then screens cheaply. Sites whose terms prohibit scraping are not scraped. The output is **which companies deserve a considered approach**, not a bulk-application funnel. Cold applications require a Strong verdict or Viable × Candidate High when cheap and gates are clear. A Medium cold application is only a recorded test of a named buyer hypothesis.
 
 **Scripts do the mechanical, the model does judgment, the human makes every call that matters.** `bin/jobs` keeps state (`data/jobs.db`); the agent records its judgments there with `bin/jobs record`, never by editing the database directly.
 
@@ -57,7 +57,7 @@ If a gate cannot be assessed (salary unstated, location ambiguous), mark it **UN
 
 **Buyer reality check (part of this first screen; it only removes roles, never promotes them):** Is the seat real and funded? Is there an identifiable person who can hire? Is the archetype plainly different from his recent career identity (e.g. engineering-led, hands-on IC)? An obvious no on any of these stops the work before full scoring.
 
-**Gate 3 is hard to judge from outside.** Always include this as a question for the first conversation: *"How far along is the process, and is anyone already in late stages or internal?"* and *"Is this role in the approved headcount plan for the next 12 months, and has the company changed its hiring plan this year?"* Two roles in the calibration set looked open and were not; another company hired and then announced layoffs within weeks.
+**Gate 3 is hard to judge from outside.** Ask: *"How far along is the process, and is anyone already in late stages or internal?"* and *"Is this role in the approved headcount plan for the next 12 months, and has the company changed its hiring plan this year?"* Distinguish authorized hiring from exploratory discussion, and be prepared for hiring plans to change.
 
 ### Step 2 — Score
 Fill `rules/scoring-sheet-template.md` using `rules/framework-v6.2.md`.
@@ -88,8 +88,8 @@ Work through these **in order, before rating**:
 Then **rate High / Medium / Low**, obeying:
 - A selection-critical requirement not met literally → **cannot be High.**
 - Selection-critical, central to the product, analogy only → **Medium** if the gap is small and bridgeable, **Low** if it is the core of the job.
-- **Level mismatch in either direction** (over- or under-levelled for how the role is scoped) → **cannot be High**, even with every stated requirement met. Apply this before the requirements match. One role was rated High on a full literal match and lost on level. Hands-on Delivery at one-team scope with no reports triggers this cap.
-- **Functional center of gravity materially different from his recent identity** (e.g. Engineering, or hands-on Technical) → reduce candidate fit even when stated requirements appear to match. One finalist process was lost this way.
+- **Level mismatch in either direction** (over- or under-levelled for how the role is scoped) → **cannot be High**, even with every stated requirement met. Apply this before the requirements match. Hands-on delivery at one-team scope with no reports can signal a different career level from senior Product leadership.
+- **Functional center of gravity materially different from the candidate's recent identity** (e.g. Engineering, or hands-on Technical) → reduce candidate fit even when stated requirements appear to match. Check the actual mandate, not just the title.
 - If 4 or 5 is **Unknown**, the rating is provisional — say so, and put the probe first in the interview questions.
 
 ### Step 2c — Channel strength (reported separately)
@@ -98,7 +98,7 @@ Rate: **None / Contact / Advocate / Sponsor**, and name who.
 - **Advocate** — explicitly tells the hiring team why his non-obvious background fits.
 - **Sponsor** — has standing to materially influence consideration.
 
-Only Advocate and Sponsor affect the action. Do not treat friendly contacts as advocacy — one role had two contacts and was lost at application. Even real advocacy does not overcome a missing selection-critical requirement — another had three advocates and was lost on one. Channel strength **never** changes the candidate fit rating.
+Only Advocate and Sponsor affect the action. Do not treat friendly contacts as advocacy: forwarding a CV is not proof that the hiring team recognizes the match. Even strong advocacy cannot substitute for a missing selection-critical qualification. Channel strength **never** changes candidate fit.
 
 ### Step 2c-bis — Buyer map (diagnostic, never a score)
 For any role you would pursue, fill the buyer map on the sheet: **problem owner, budget owner, selection decision-maker, veto holders** (who can block it, on what grounds, and does his advocate reach them), **recognition now**, **proof threshold** (*what concrete evidence would let this buyer choose him over the literal-match CV?* — name it; if there is no answer, the asymmetry is not actionable; if there is, it is the interview preparation), **buyer urgency** (a funded problem within ~6 months, or an ideal future executive?) and **process cost**. None of these changes organizational fit or asymmetry.
@@ -174,6 +174,6 @@ When a process reaches a late stage, ask the human for the **minimum acceptable 
 - **A thin board is not evidence that rejected options have become better.**
 - **Do not assume a Product title means a Product archetype.** Determine which discipline the organization appears to want to dominate the role.
 - **Do not interpret "hands-on" generically.** Classify whether it means Product judgment, Delivery ownership, or Technical implementation.
-- **Known pattern:** where the reason is known, the deciding factor has mostly been a literal stated requirement already on the gap list, or a level / functional-archetype mismatch. Weight literal requirements accordingly, and do not assume a well-made analogy will be read as intended. **But** presentation is a real variable where the requirement is judgment rather than a credential: lead with the decision and its result, not the context.
+- **Calibration:** compare pre-outcome predictions with documented employer feedback, but keep all identifiable cases and recruiter discussions in private data files. Generalizations from a small sample are provisional.
 - **Freeze the framework** after a revision, for a set period or a set number of tagged outcomes (write it in `search-profile.md`). Apply it; collect outcomes; do not propose further changes to the scoring model before then unless the human asks. Then judge whether it predicted anything.
 - **Progress is the funnel, not the board:** access to the actual hiring manager, evidence of recognition, stage progression, paid conversion. Do not report the number of roles evaluated as progress.
