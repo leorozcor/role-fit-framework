@@ -47,7 +47,7 @@ dashboard/overrides.json ----+                                                (C
 | `make_preview.py` | Wraps `page.html` and a roles file into one HTML file that opens in any browser, with a small shim standing in for the runtime. |
 | `overrides.example.json` | Copy to `overrides.json` (gitignored): display names, live-role detail lines, stages for roles with no dates row, ids to leave out. |
 | `process-dates.example.csv` | Copy to `data/process-dates.csv` (gitignored): one row per recruitment cycle. |
-| `sample/` | Dummy roles file, its preview and the screenshot. |
+| `sample/` | Fictional roles file and its preview. |
 
 ### Status mapping
 
