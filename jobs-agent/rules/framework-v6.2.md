@@ -100,7 +100,7 @@ Asymmetry exists only when all three conditions hold:
 **Builder Shape Fit (part of relevance and deployability).** *Individuals should be spiky; teams should be well-rounded.* A role is especially attractive when its hardest recurring problems exercise the candidate's strongest competencies, while complementary people, systems or agents cover the weaker ones. A rare background is not genuinely asymmetric if the job spends most of its time on competencies that are adequate or weak, while the spikes go unused.
 > **Probe:** *"What will the person in this role spend disproportionate time being unusually good at?"*
 > **Inputs.** Spikes come from self-assessment; **gaps come from selection evidence**, not self-assessment, because self-rating reliably under-reports gaps. Keep both lists in the search profile.
-> A role whose critical path runs through the weak zone, with no team or agents to cover it (solo PM, only builder, one team with no reports), is low shape fit however rare the background. *Illustration:* one role puts data, experience, direction and executive alignment on the critical path; another puts service operations, procurement and contracts there — close to the inverse.
+> A role whose critical path runs through the weak zone, with no team or agents to cover it (solo PM, only builder, one team with no reports), is low shape fit however rare the background. *Fictional illustration:* a team may require extensive customer discovery while a different team requires managing operational suppliers. The same person's strengths will not be equally relevant to both.
 
 **Scoring (overlay, not part of the numerical total):**
 - **0 — Generic:** credible but broadly substitutable.
