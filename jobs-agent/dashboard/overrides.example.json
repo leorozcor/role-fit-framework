@@ -1,7 +1,21 @@
 {
-  "company": { "consultancy-x-product-coach": "Consultancy X (client confidential)" },
-  "title":   { "company-z-role-title-not-recorded": "Product role (confidential)" },
-  "detail":  { "company-a-head-of-product": "Round 2 done; next: CEO" },
-  "reached": { "company-b-director-of-product": 2, "company-g-product-lead": [3, "?"] },
-  "skip":    [ "company-q-duplicate-posting" ]
+  "company": {
+    "example-company-14": "Example Company 14 (fictional)"
+  },
+  "title": {
+    "example-company-08": "Business Systems Director"
+  },
+  "detail": {
+    "example-company-01": "Illustrative next conversation"
+  },
+  "reached": {
+    "example-company-02": 3,
+    "example-company-14": [
+      3,
+      "?"
+    ]
+  },
+  "skip": [
+    "example-company-18"
+  ]
 }

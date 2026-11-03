@@ -4,7 +4,7 @@ Usage, from jobs-agent/:
     python3 dashboard/make_preview.py [ROLES.json] [OUT.html] [--as-of YYYY-MM-DD] [--title TEXT]
 
 Defaults: the dummy sample in, dashboard/sample/preview.html out. --as-of pins "today"
-so recency colours stay stable (the sample is pinned to 2026-11-03); omit it for real data.
+so recency colours stay stable (the sample is pinned to the fictional date 2032-08-15); omit it for real data.
 
 page.html is written for the Claude Dashboard artifact runtime (dash.calc, dash.draw,
 dash.data, dash.colors). The small shim below implements just enough of that runtime
@@ -20,7 +20,7 @@ p.add_argument('--as-of', default=None)
 p.add_argument('--title', default='Job search')
 a = p.parse_args()
 if a.as_of is None and os.path.abspath(a.roles) == os.path.join(HERE, 'sample', 'roles.sample.json'):
-    a.as_of = '2026-11-03'
+    a.as_of = '2032-08-15'
 
 roles = json.load(open(a.roles))
 page = open(os.path.join(HERE, 'page.html')).read().replace('<meta name="dash-one-writer">', '')

@@ -19,7 +19,7 @@ A fourth judgment sits outside the scoring: **is this offer worth taking?** The 
 | [`framework/offer-acceptance.md`](framework/offer-acceptance.md) | The offer-acceptance test: compensation, authority, sustainability, career capital, reversibility, and the cost of saying yes. |
 | [`notebook/leadership-philosophy.md`](notebook/leadership-philosophy.md) | The explanatory side: cognitive ecology, fear and the centralization of judgment, urgency displacement, requisite variety, the profit formula, AI and the moving bottleneck. Ideas live here if they help thinking; they move into the framework only if they improve prediction. |
 | [`jobs-agent/`](jobs-agent/) | A Claude Code agent that scores a job description against the framework and, only if it passes, drafts application material from a verified fact base without inventing anything. Profile files are templates. |
-| [`jobs-agent/dashboard/`](jobs-agent/dashboard/) | A one-page dashboard of the search built from the tracker: a funnel counted by recruitment cycle and selection round, roles grouped by outcome, and a timeline. Ships with invented sample data (Company A, Company B…) and a [preview](jobs-agent/dashboard/sample/preview.html). |
+| [`jobs-agent/dashboard/`](jobs-agent/dashboard/) | A one-page dashboard of the search built from the tracker: a funnel counted by recruitment cycle and selection round, roles grouped by outcome, and a timeline. Ships with independently generated fictional data (Example Company 01–18, set in 2032) and a [preview](jobs-agent/dashboard/sample/preview.html). |
 | [`tools/job-scorer.jsx`](tools/job-scorer.jsx) | An earlier React scoring widget. Uses older factor weights than v6.2. |
 | [`tools/chiva-x-posts/`](tools/chiva-x-posts/) | Unrelated side project: a WordPress plugin that shows recent X posts using the X API v2. |
 
@@ -50,7 +50,7 @@ The pipeline shape (scripts for the mechanical, the model for judgment, a person
 - The calibration behind this framework is a small sample from one person's search. The selection findings are working heuristics, not laws: in a first full tagging, nearly half the rejection reasons were unknown.
 - After the October 2026 revision the framework is frozen for a few months, to see whether it predicts outcomes rather than explaining them afterwards.
 - Organizational fit has not been validated as a predictor of thriving. It has been validated, repeatedly, as *not* a predictor of being hired, which is why candidate fit exists.
-- The real calibration appendix names organizations and people, so it stays private. The public appendix keeps the lessons without the cases.
+- Private calibration records, company-specific interview evidence, client information and real dashboard exports must stay outside this repository. The public framework contains general decision rules only.
 
 ## Licence
 

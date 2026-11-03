@@ -12,3 +12,14 @@ jobs-agent/data/
 jobs-agent/dashboard/overrides.json
 jobs-agent/.env
 __pycache__/
+
+# Extra guards for generated dashboards and local credentials
+**/.env
+**/.env.*
+!**/.env.example
+*.sqlite
+*.sqlite3
+*.db
+jobs-agent/dashboard/roles.json
+jobs-agent/dashboard/preview.html
+jobs-agent/dashboard/process-dates.csv

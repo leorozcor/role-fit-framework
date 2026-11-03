@@ -2,9 +2,9 @@
 
 A one-page view of a job search built from the tracker (`bin/jobs`): a funnel from *evaluated* to *hired*, every role grouped by where it stands, and a timeline of the year's applications. It was made to show family how a search is going, so it leaves out people's names, pay and confidential clients.
 
-![The dashboard with dummy data](sample/screenshot.png)
+[Open the interactive fictional dashboard preview](sample/preview.html). The demo is set entirely in **2032** to prevent confusion with actual recruitment timelines.
 
-**Everything in `sample/` is invented.** Company A to Company AF, their roles and every date are dummy data. Open [`sample/preview.html`](sample/preview.html) in a browser to try it (it loads d3 from cdnjs).
+**Everything in `sample/` is invented.** The example companies, generic roles, and 2032 dates are synthetic, not a renaming of any individual's job-search history. Open [`sample/preview.html`](sample/preview.html) in a browser to try it (it loads d3 from cdnjs).
 
 ## What it shows
 
@@ -67,9 +67,9 @@ dashboard/overrides.json ----+                                                (C
 
 ```
 id,cycle,applied,ended,reached,reached_estimated,source,note
-company-a-head-of-product,1,2026-10-15,,4,no,ATS email + calendar,Round 2 done 3 Nov
-company-c-product-director,1,2026-08-13,2026-09-24,4,no,Gmail,Rejected after 2nd interview
-company-c-product-director,2,2026-10-27,,1,no,Gmail,Applied again
+example-company-01,1,2032-08-03,,4,no,Fictional data,Demo second round
+example-company-08,1,2031-07-08,2031-08-19,1,no,Fictional data,Demo first cycle
+example-company-08,2,2032-02-09,2032-02-20,1,no,Fictional data,Demo second cycle
 ```
 
 - `id` is the tracker id (`bin/jobs list`). A row for an id the tracker doesn't have is ignored.
@@ -98,7 +98,7 @@ If your Claude account offers the **Dashboard** artifact type, ask Claude to mak
 
 ## Privacy
 
-The roles file holds company, role title, location, dates and stages, and nothing else from the tracker: no notes, no sources, no scores, no people. Use `overrides.json` to rename anything that should not be shown (a consultancy's client, an NDA role). Check the output before sharing it, because company names alone can say more than you intend.
+The roles file can disclose real employer names, titles, locations, dates and stages, even when it omits interview notes. This may reveal confidential hiring relationships. **Never publish a real roles file or a superficially renamed version as a public demo.** Use `overrides.json` to rename anything that should not be shown (a consultancy's client, an NDA role). Check the output and Git history before sharing. Use fully synthetic data for public demos. A `.gitignore` rule does not remove information already committed.
 
 ## Limits
 
