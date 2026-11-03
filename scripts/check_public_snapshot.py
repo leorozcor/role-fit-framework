@@ -23,17 +23,38 @@ for path in tracked:
     if path.endswith((".db", ".sqlite", ".sqlite3")):
         issues.append("Database tracked: " + path)
 
+approved_employers = {
+    "Director of Hyperspace Route Strategy": "Claatuvac Guild",
+    "VP Platform, Tycho Station": "Tycho Manufacturing and Engineering Concern",
+    "Head of LCARS Design Systems": "Starfleet Research and Development",
+    "Director of Outer Rim Customer Growth": "Trade Federation",
+    "Holodeck Product Operations Lead": "Starfleet Engineering",
+    "Epstein Drive Portfolio Lead": "Martian Congressional Republic Navy",
+    "Director of Cantina Guest Experience": "Chalmun's Spaceport Cantina",
+    "Director of Ferengi Business Systems": "Ferengi Commerce Authority",
+    "Head of Digital Services, Rocinante": "Rocinante (independent crew)",
+    "Death Star Portfolio Planning Manager": "Galactic Empire — Imperial Navy",
+    "Director of Protomolecule Analytics": "Protogen",
+    "VP Commerce, Mos Eisley Spaceport": "Hutt Clan",
+    "Principal Jedi Product Coach": "Jedi Order",
+    "Kessel Run Operations Transformation Lead": "Pyke Syndicate",
+    "Director of Subspace Platform Experience": "Starfleet Communications",
+    "Starfleet Product Enablement Lead": "Starfleet Command",
+    "Director of Replicator Service Design": "Starfleet Engineering",
+    "Technology Strategy Lead, Ceres Station": "Outer Planets Alliance (Ceres faction)",
+}
+
 try:
     sample = json.loads((root / "jobs-agent/dashboard/sample/roles.sample.json").read_text())
     preview = (root / "jobs-agent/dashboard/sample/preview.html").read_text()
     match = re.search(r'<script id="roles-data" type="application/json">([\s\S]*?)</script>', preview)
     if not match or json.loads(match.group(1)) != sample:
         issues.append("Sample HTML does not contain exactly the independently fictional JSON dataset")
-    if len(sample) < 6:
-        issues.append("Sample unexpectedly short")
+    if len(sample) != len(approved_employers):
+        issues.append("Unexpected number of public fictional roles")
     for i, item in enumerate(sample, 1):
-        if not re.fullmatch(r"Example Company \d{2}", item.get("company", "")):
-            issues.append(f"Record {i}: company name is not a fictional example label")
+        if item.get("company") != approved_employers.get(item.get("role")):
+            issues.append(f"Record {i}: role/employer is not in the fictional demonstration allowlist")
         for obj in [item] + item.get("processes", []):
             for field in ("applied", "ended", "last"):
                 val = obj.get(field) or ""

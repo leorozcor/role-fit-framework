@@ -4,7 +4,7 @@ A one-page view of a job search built from the tracker (`bin/jobs`): a funnel fr
 
 [Open the interactive fictional dashboard preview](sample/preview.html). The demo is set entirely in **2032** to prevent confusion with actual recruitment timelines.
 
-**Everything in `sample/` is invented.** The example companies, generic roles, and 2032 dates are synthetic, not a renaming of any individual's job-search history. Open [`sample/preview.html`](sample/preview.html) in a browser to try it (it loads d3 from cdnjs).
+**The demo is deliberately fictional.** Employers are real *in-universe* organizations from Star Wars, Star Trek, and The Expanse; job titles, recruitment outcomes and 2031–2032 dates are inventions for the example. The data is not based on any individual's real job search. Open [`sample/preview.html`](sample/preview.html) in a browser to try it (it loads d3 from cdnjs).
 
 ## What it shows
 

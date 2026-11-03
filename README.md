@@ -50,7 +50,7 @@ The pipeline shape (scripts for the mechanical, the model for judgment, a person
 - The calibration behind this framework is a small sample from one person's search. The selection findings are working heuristics, not laws: in a first full tagging, nearly half the rejection reasons were unknown.
 - After the October 2026 revision the framework is frozen for a few months, to see whether it predicts outcomes rather than explaining them afterwards.
 - Organizational fit has not been validated as a predictor of thriving. It has been validated, repeatedly, as *not* a predictor of being hired, which is why candidate fit exists.
-- Private calibration records, company-specific interview evidence, client information and real dashboard exports must stay outside this repository. The public framework contains general decision rules only. The public sample uses independently fictional dates and roles; **renaming real companies is not sufficient anonymization**.
+- Private calibration records, company-specific interview evidence, client information and real dashboard exports must stay outside this repository. The public framework contains general decision rules only. The public sample uses fictional roles and dates paired with familiar **in-universe organizations** (Star Wars, Star Trek and The Expanse); **renaming real employers is not sufficient anonymization**.
 
 ## Licence
 
