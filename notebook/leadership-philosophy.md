@@ -281,6 +281,28 @@ These are **conjunctive, not additive** — the failure mode differs depending o
 
 *Sponsorship and available expertise are distinct.* Sponsorship backs decisions when stakes rise; available expertise helps people solve problems and improve their reasoning.
 
+## The Trust Pyramid *(heuristic — an earlier framework of mine)*
+
+A layered model I have used in talks since 2022 to explain what empowerment depends on. Each layer rests on the one below it:
+
+1. **Trust** — the default that people given context will generally rise to it.
+2. **Psychological safety** — people can say what they see, including bad news and disagreement, without being punished for it.
+3. **A common vision and priorities** — everyone knows where we are going and what matters most right now.
+4. **Empowerment: yes. Free-for-all: no.** — teams decide how to reach the outcome, inside a shared direction and agreed boundaries.
+5. **Resilience** — the result: an organization that absorbs setbacks and keeps learning instead of reverting to control.
+
+*Decisions make it concrete.* Strategy, values and culture are not what a company writes down; they are what its decisions show: what it believes, how it acts, and where it is actually going.
+
+**Why the order matters.** Empowerment granted without the lower layers tends to fail in a recognizable way: without priorities it becomes a free-for-all; without psychological safety, problems surface too late; without trust, the autonomy is withdrawn at the first setback.
+
+**Relation to the rest of this notebook.** The pyramid predates the *Synthesis* above and is a simpler, more prescriptive version of it. The synthesis treats the same conditions as conjunctive rather than strictly stacked, and adds sponsorship and available expertise, which the pyramid leaves implicit. *Trust, fear, and the centralization of judgment* supplies a candidate mechanism for why the lower layers matter.
+
+**Epistemic notes.**
+- *Supporting cases:* teams that were given priorities and safety before autonomy, and kept their autonomy under pressure.
+- *Plausible counterexamples:* crises where clear direction comes first and trust is built afterwards; small founding teams where everything is built at once.
+- *What would weaken it:* organizations that sustain empowerment and resilience with low psychological safety, or with priorities set only after autonomy is granted.
+- *Where the metaphor stops:* real organizations don't build layer by layer. The layers erode and are rebuilt together, and a pyramid suggests a stability that trust rarely has.
+
 ## Soil before water *(heuristic)*
 
 The portable heuristic derived from the ecology model. Before adding an intervention, identify the limiting condition. Sometimes water really is missing. Sometimes the soil cannot absorb it.
