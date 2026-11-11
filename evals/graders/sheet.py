@@ -103,9 +103,12 @@ def parse(text: str) -> Sheet:
     vsec = _section(text, r"Verdict")
     vword = re.compile(r"\b(" + "|".join(VERDICTS) + r")\b")
     for line in vsec.splitlines():
-        if "☒" in line:
-            # The first verdict word on the ticked line ("Viable, with a path to Strong" is Viable).
-            hits = [(m.start(), m.group(1)) for m in vword.finditer(line)]
+        tick = re.search(r"[☒☑✓✔]", line)
+        if tick:
+            # The first verdict word after the tick: "☐ Strong · ☑ **Viable**" is Viable, and
+            # "☒ Viable, with a path to Strong" is Viable. (Found 11.11.2026: the agent ticks
+            # with ☑ too, and the first word on such a line is the unticked option.)
+            hits = [(m.start(), m.group(1)) for m in vword.finditer(line, tick.end())]
             if hits:
                 s.verdict, s.verdict_line = min(hits)[1], line.strip()
                 break

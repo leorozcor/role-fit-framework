@@ -131,6 +131,15 @@ class SheetGrader(unittest.TestCase):
         t = make_sheet(verdict="Viable (conditional on salary), with a clear path to Strong")
         self.assertEqual(sheet.parse(t).verdict, "Viable")
 
+    def test_verdict_ticked_with_check_mark(self):
+        # Agent output, 11.11.2026: a ☑ tick on a line that lists every option.
+        t = make_sheet(verdict="Viable").split("## Verdict")[0] + (
+            "## Verdict\n\n☐ Strong · ☑ **Viable** · ☐ Watchlist · ☐ Pass · ☐ Gig · ☐ Real alternative\n")
+        self.assertEqual(sheet.parse(t).verdict, "Viable")
+        t = make_sheet(verdict="Viable").split("## Verdict")[0] + (
+            "## Verdict\n\n☑ **Viable** — passes gates.\n\nNot Strong: it does not beat the real alternative.\n")
+        self.assertEqual(sheet.parse(t).verdict, "Viable")
+
     def test_candidate_cap_selection_critical(self):
         t = make_sheet(cand="High", selection="1. Ten years of accounting software. ☒ Missing")
         self.assertIn("C1-cap-selection-critical", rules(t))
