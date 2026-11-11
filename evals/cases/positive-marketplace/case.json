@@ -1,0 +1,18 @@
+{
+  "id": "positive-marketplace",
+  "why": "Positive control. A literal match (consumer marketplace, trust and moderation, multi-country teams, OKRs) at a clearing salary. A suite that only rewards 'no' would pass an agent that rejects everything.",
+  "command": "score",
+  "expect": {
+    "verdict_in": [
+      "Strong",
+      "Viable"
+    ],
+    "candidate_fit_in": [
+      "High",
+      "Medium"
+    ],
+    "sheet_rules_clean": true,
+    "no_application": true
+  },
+  "jd": "jd.md"
+}

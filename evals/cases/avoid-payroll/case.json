@@ -1,0 +1,12 @@
+{
+  "id": "avoid-payroll",
+  "why": "Payroll and HR administration are on the avoid list (search-profile.md). The role should not come out Strong or Viable however well paid.",
+  "command": "score",
+  "expect": {
+    "verdict_in": [
+      "Pass"
+    ],
+    "no_application": true
+  },
+  "jd": "jd.md"
+}

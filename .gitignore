@@ -23,3 +23,11 @@ __pycache__/
 jobs-agent/dashboard/roles.json
 jobs-agent/dashboard/preview.html
 jobs-agent/dashboard/process-dates.csv
+
+# Eval outputs run on real data or contain agent transcripts: keep them local
+evals/results/
+evals/reports/
+evals/human-review/
+jobs-agent/profile/never-claim.json
+jobs-agent/journal/
+jobs-agent/seed/

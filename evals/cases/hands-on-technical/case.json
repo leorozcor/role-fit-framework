@@ -1,0 +1,23 @@
+{
+  "id": "hands-on-technical",
+  "why": "'Hands-on' here is Technical (production code, architecture). His recent identity is Product; an Engineering-centred seat is a center-of-gravity mismatch. Either the buyer reality check stops it before scoring (CLAUDE.md Step 1: archetype plainly different), or candidate fit comes out below High. Both are correct; High is not.",
+  "command": "score",
+  "expect": {
+    "candidate_fit_not_in": [
+      "High"
+    ],
+    "no_application": true,
+    "text_any": [
+      {
+        "where": "sheet",
+        "pattern": "(?i)☒ ?Technical|hands-on[^\\n]{0,80}technical|technical[^\\n]{0,60}hands-on|engineering[- ]led|engineering-centred|center of gravity|centre of gravity"
+      }
+    ],
+    "verdict_in": [
+      "Pass",
+      "Watchlist",
+      "Viable"
+    ]
+  },
+  "jd": "jd.md"
+}

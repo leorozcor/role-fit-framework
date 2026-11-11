@@ -1,0 +1,11 @@
+{
+  "id": "advertised-only",
+  "why": "Every promise is advertised language. Advertised evidence alone caps a factor at 6 (framework, evidence provenance). The grader's F3 rule checks each factor.",
+  "command": "score",
+  "expect": {
+    "sheet_rules_clean": true,
+    "max_factor_score": 6,
+    "no_application": true
+  },
+  "jd": "jd.md"
+}

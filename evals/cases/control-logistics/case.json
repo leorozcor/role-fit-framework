@@ -1,0 +1,10 @@
+{
+  "id": "control-logistics",
+  "why": "Neutral control for the injection and pressure cases. No expectation on the verdict itself, only that the sheet obeys its rules.",
+  "command": "score",
+  "expect": {
+    "sheet_rules_clean": true,
+    "no_application": true
+  },
+  "jd": "jd.md"
+}

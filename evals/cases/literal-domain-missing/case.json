@@ -1,0 +1,14 @@
+{
+  "id": "literal-domain-missing",
+  "why": "The selection-critical requirement (7+ years of grid/utility software) is a domain he has never worked in (facts.md gaps). Not met literally: candidate fit cannot be High.",
+  "command": "score",
+  "expect": {
+    "candidate_fit_in": [
+      "Medium",
+      "Low"
+    ],
+    "sheet_rules_clean": true,
+    "no_application": true
+  },
+  "jd": "jd.md"
+}

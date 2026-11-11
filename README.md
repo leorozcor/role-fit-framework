@@ -20,6 +20,7 @@ A fourth judgment sits outside the scoring: **is this offer worth taking?** The 
 | [`notebook/leadership-philosophy.md`](notebook/leadership-philosophy.md) | The explanatory side: cognitive ecology, fear and the centralization of judgment, urgency displacement, requisite variety, the profit formula, AI and the moving bottleneck. Ideas live here if they help thinking; they move into the framework only if they improve prediction. |
 | [`jobs-agent/`](jobs-agent/) | A Claude Code agent that scores a job description against the framework and, only if it passes, drafts application material from a verified fact base without inventing anything. Profile files are templates. |
 | [`jobs-agent/dashboard/`](jobs-agent/dashboard/) | A one-page dashboard of the search built from the tracker: a funnel counted by recruitment cycle and selection round, roles grouped by outcome, and a timeline. Ships with made-up roles, a synthetic 2031–2032 timeline, and recognizable employers from Star Wars, Star Trek and The Expanse, plus a [preview](jobs-agent/dashboard/sample/preview.html). |
+| [`evals/`](evals/) | Evaluations of the agent: rule-based graders with their own tests, behavioural cases run against the live agent (paired prompt-injection and pressure cases, a positive control), run-to-run variance, calibration against real outcomes, forecast scoring, and a human-review loop for the graders. The cases run against a fictional candidate in [`evals/persona/`](evals/persona/). |
 | [`tools/job-scorer.jsx`](tools/job-scorer.jsx) | An earlier React scoring widget. Uses older factor weights than v6.2. |
 | [`tools/chiva-x-posts/`](tools/chiva-x-posts/) | Unrelated side project: a WordPress plugin that shows recent X posts using the X API v2. |
 
@@ -39,6 +40,8 @@ A fourth judgment sits outside the scoring: **is this offer worth taking?** The 
 | `/scan` | A narrow JobsPipe search (which includes LinkedIn's public postings), any RSS feeds you list, and a watchlist of companies polled through their public job-board endpoints (Greenhouse, Lever, Ashby, Recruitee, Personio, Teamtailor), screened cheaply. A radar for companies worth a warm approach, not a cold-application funnel. Job boards whose terms forbid scraping, such as LinkedIn and Duunitori, are not scraped. |
 | `/board` | The board and what needs attention. |
 
+To check the agent itself, see [`evals/`](evals/README.md): `python3 -m unittest discover -s evals/tests` tests the graders, `python3 evals/run_offline.py` grades your saved sheets and drafts, and `python3 evals/run_cases.py` runs the agent on fixed cases.
+
 Before sending anything, `bin/jobs cvcheck <cv>` checks the CV's dates against the fact base. When a process ends, `bin/jobs record <id> --reason <r>` tags why (literal requirement, archetype, level, veto, no real buyer and so on), and the board tallies the reasons, so the selection model can be tested rather than only explain the past.
 
 `bin/jobs` is a small standard-library Python tracker (SQLite) that does the bookkeeping; the model does the judgment and records it there. The agent cannot edit `profile/`, `rules/`, `bin/` or its own settings, and has no tool that applies, sends or contacts anyone. It drafts; you decide.
@@ -54,7 +57,7 @@ The pipeline shape (scripts for the mechanical, the model for judgment, a person
 
 ## Licence
 
-The writing (framework, notebook, agent instructions and rules) is [CC BY 4.0](LICENSE): use and adapt it freely, with attribution. The code, `jobs-agent/bin/`, `jobs-agent/.claude/` and `tools/job-scorer.jsx`, is [MIT](LICENSE-CODE). The WordPress plugin in `tools/chiva-x-posts/` is GPL-2.0-or-later.
+The writing (framework, notebook, agent instructions and rules) is [CC BY 4.0](LICENSE): use and adapt it freely, with attribution. The code, `jobs-agent/bin/`, `jobs-agent/.claude/`, `evals/` and `tools/job-scorer.jsx`, is [MIT](LICENSE-CODE). The WordPress plugin in `tools/chiva-x-posts/` is GPL-2.0-or-later.
 
 ## Author
 

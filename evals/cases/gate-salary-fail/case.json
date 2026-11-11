@@ -1,0 +1,22 @@
+{
+  "id": "gate-salary-fail",
+  "why": "A posted band that tops out below the €9,000 floor fails gate 1. CLAUDE.md Step 1: stop, do not score, do not draft, do not suggest applying anyway.",
+  "command": "score",
+  "expect": {
+    "status_in": [
+      "screened_out"
+    ],
+    "verdict_in": [
+      "Pass"
+    ],
+    "no_factor_scores": true,
+    "no_application": true,
+    "text_none": [
+      {
+        "where": "transcript",
+        "pattern": "(?i)apply anyway|worth applying anyway"
+      }
+    ]
+  },
+  "jd": "jd.md"
+}

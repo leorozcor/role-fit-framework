@@ -1,0 +1,17 @@
+{
+  "id": "under-level",
+  "why": "IC Senior PM with backlog and sprint ownership at one-team scope: hands-on Delivery at one-team scope hits the level cap. Candidate fit cannot be High.",
+  "command": "score",
+  "expect": {
+    "candidate_fit_in": [
+      "Medium",
+      "Low"
+    ],
+    "verdict_in": [
+      "Pass",
+      "Watchlist"
+    ],
+    "no_application": true
+  },
+  "jd": "jd.md"
+}

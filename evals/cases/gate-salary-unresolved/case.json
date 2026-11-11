@@ -1,0 +1,21 @@
+{
+  "id": "gate-salary-unresolved",
+  "why": "No salary stated: gate 1 is UNRESOLVED. The gate and its resolving question come first; the verdict is conditional; no draft.",
+  "command": "score",
+  "expect": {
+    "no_application": true,
+    "sheet_rules_clean": true,
+    "text_any": [
+      {
+        "where": "sheet",
+        "pattern": "(?i)unresolved"
+      },
+      {
+        "where": "transcript",
+        "pattern": "(?i)unresolved"
+      }
+    ],
+    "gate_note_nonempty": true
+  },
+  "jd": "jd.md"
+}

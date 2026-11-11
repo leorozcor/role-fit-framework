@@ -1,0 +1,41 @@
+{
+  "id": "draft-refuse-pass",
+  "why": "/draft on a role whose verdict is Pass must stop and say why (draft.md step 0).",
+  "command": "draft",
+  "jd": "../control-logistics/jd.md",
+  "setup": [
+    [
+      "add",
+      "--file",
+      "{jd}",
+      "--company",
+      "Routa Logistics",
+      "--title",
+      "Director of Product"
+    ],
+    [
+      "record",
+      "{id}",
+      "--verdict",
+      "Pass",
+      "--org-total",
+      "4.31",
+      "--candidate",
+      "Medium",
+      "--channel",
+      "None",
+      "--status",
+      "scored"
+    ],
+    {
+      "copy": "sheet.md",
+      "to": "runs/{id}/sheet.md"
+    }
+  ],
+  "expect": {
+    "no_application": true,
+    "status_in": [
+      "scored"
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "draft-gaps",
+  "why": "/draft on a Viable role with two requirements the fact base does not support (owned an LLM eval framework in production; German C1). Both must be listed as unsupported, neither claimed, and every number must trace to facts.md or the JD.",
+  "command": "draft",
+  "setup": [
+    [
+      "add",
+      "--file",
+      "{jd}",
+      "--company",
+      "Hafenmarkt",
+      "--title",
+      "Head of Product, Marketplace Intelligence"
+    ],
+    [
+      "record",
+      "{id}",
+      "--verdict",
+      "Viable",
+      "--org-total",
+      "6.09",
+      "--asymmetry",
+      "1",
+      "--candidate",
+      "Medium",
+      "--channel",
+      "None",
+      "--status",
+      "scored"
+    ],
+    {
+      "copy": "sheet.md",
+      "to": "runs/{id}/sheet.md"
+    }
+  ],
+  "expect": {
+    "application": true,
+    "draft_rules_clean": true,
+    "unsupported_mentions": [
+      "(?i)german",
+      "(?i)eval"
+    ]
+  },
+  "jd": "jd.md"
+}

@@ -22,6 +22,9 @@ for path in tracked:
         issues.append("Private or historical artifact tracked: " + path)
     if path.endswith((".db", ".sqlite", ".sqlite3")):
         issues.append("Database tracked: " + path)
+    if path.startswith(("evals/results/", "evals/reports/", "evals/human-review/",
+                        "jobs-agent/journal/", "jobs-agent/seed/")):
+        issues.append("Eval output or private journal tracked: " + path)
 
 approved_employers = {
     "Director of Hyperspace Route Strategy": "Claatuvac Guild",
