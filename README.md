@@ -1,5 +1,7 @@
 # Role fit framework
 
+*By Luis Orozco, a product leader in Helsinki who also works as a fractional, interim and advisory product lead. [Work with the author](#work-with-the-author).*
+
 A decision tool for senior job searches, and the thinking behind it. It tries to answer three separate questions about any role, and to keep them separate:
 
 1. **Would I thrive there?** Organizational fit: four gates, then nine weighted factors.
@@ -17,6 +19,7 @@ A fourth judgment sits outside the scoring: **is this offer worth taking?** The 
 | [`framework/framework.md`](framework/framework.md) | The framework (v6.2): principles, gates, the asymmetry lens, candidate fit, nine factors with diagnostics and interview probes, fear diagnostic, evidence rules, verdicts, and an anonymized calibration appendix. |
 | [`framework/scoring-sheet.md`](framework/scoring-sheet.md) | One-page sheet for scoring a role. Fill it in before re-reading the framework. |
 | [`framework/offer-acceptance.md`](framework/offer-acceptance.md) | The offer-acceptance test: compensation, authority, sustainability, career capital, reversibility, and the cost of saying yes. |
+| [`hiring/judging-interim-product-leaders.md`](hiring/judging-interim-product-leaders.md) | The same logic turned around, for founders, CEOs and investors: how to judge a fractional or interim product leader. |
 | [`notebook/leadership-philosophy.md`](notebook/leadership-philosophy.md) | The explanatory side: cognitive ecology, fear and the centralization of judgment, urgency displacement, requisite variety, the profit formula, AI and the moving bottleneck. Ideas live here if they help thinking; they move into the framework only if they improve prediction. |
 | [`jobs-agent/`](jobs-agent/) | A Claude Code agent that scores a job description against the framework and, only if it passes, drafts application material from a verified fact base without inventing anything. Profile files are templates. |
 | [`jobs-agent/dashboard/`](jobs-agent/dashboard/) | A one-page dashboard of the search built from the tracker: a funnel counted by recruitment cycle and selection round, roles grouped by outcome, and a timeline. Ships with made-up roles, a synthetic 2031–2032 timeline, and recognizable employers from Star Wars, Star Trek and The Expanse, plus a [preview](jobs-agent/dashboard/sample/preview.html). |
@@ -59,6 +62,8 @@ The pipeline shape (scripts for the mechanical, the model for judgment, a person
 
 The writing (framework, notebook, agent instructions and rules) is [CC BY 4.0](LICENSE): use and adapt it freely, with attribution. The code, `jobs-agent/bin/`, `jobs-agent/.claude/`, `evals/` and `tools/job-scorer.jsx`, is [MIT](LICENSE-CODE). The WordPress plugin in `tools/chiva-x-posts/` is GPL-2.0-or-later.
 
-## Author
+## Work with the author
 
-Luis Orozco, Helsinki. Writing at [chivacongelado.com](https://chivacongelado.com).
+Luis Orozco, Helsinki. Product leader for marketplaces, trust and B2B SaaS, available for fractional, interim and advisory product leadership, as well as permanent roles. If your company needs product direction, a product operating model, or someone to steady a product organisation through a transition, get in touch: [LinkedIn](https://www.linkedin.com/in/orozco) or leorozcor@gmail.com.
+
+Writing at [chivacongelado.com](https://chivacongelado.com).
