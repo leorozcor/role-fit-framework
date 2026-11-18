@@ -6,7 +6,9 @@ statuses, and printing the board. Every judgment (gates, scoring, drafting) is
 made by the agent following CLAUDE.md, then recorded here with `jobs record`.
 
 Standard library only. State lives in data/jobs.db (gitignored).
-Some mechanics adapted from mattijskersten/jobs-dashboard (MIT licence).
+Some mechanics adapted from jobs-dashboard by Mattijs Kersten
+(https://github.com/mattijskersten/jobs-dashboard), MIT licence,
+Copyright (c) 2026 Mattijs Kersten. See THIRD_PARTY_NOTICES.md at the repo root.
 """
 
 from __future__ import annotations

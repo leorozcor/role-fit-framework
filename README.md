@@ -49,7 +49,7 @@ Before sending anything, `bin/jobs cvcheck <cv>` checks the CV's dates against t
 
 `bin/jobs` is a small standard-library Python tracker (SQLite) that does the bookkeeping; the model does the judgment and records it there. The agent cannot edit `profile/`, `rules/`, `bin/` or its own settings, and has no tool that applies, sends or contacts anyone. It drafts; you decide.
 
-The pipeline shape (scripts for the mechanical, the model for judgment, a person for every call that matters) follows Mattijs Kersten's [jobs-dashboard](https://github.com/mattijskersten/jobs-dashboard), MIT licensed. This version drops volume collection and auto-tailoring in favour of a scoring framework and network-first channels.
+**Credit.** The jobs agent is derived from Mattijs Kersten's [jobs-dashboard](https://github.com/mattijskersten/jobs-dashboard) (MIT licence): its pipeline shape (scripts for the mechanical, the model for judgment, a person for every call that matters), its SQLite tracker and parts of `bin/jobs` come from there. This version drops volume collection and auto-tailoring in favour of a scoring framework and network-first channels. The licence notice is in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The framework, the notebook and the hiring page are original work.
 
 ## Status and honesty notes
 
@@ -60,7 +60,7 @@ The pipeline shape (scripts for the mechanical, the model for judgment, a person
 
 ## Licence
 
-The writing (framework, notebook, agent instructions and rules) is [CC BY 4.0](LICENSE): use and adapt it freely, with attribution. The code, `jobs-agent/bin/`, `jobs-agent/.claude/`, `evals/` and `tools/job-scorer.jsx`, is [MIT](LICENSE-CODE). The WordPress plugin in `tools/chiva-x-posts/` is GPL-2.0-or-later.
+The writing (framework, notebook, agent instructions and rules) is [CC BY 4.0](LICENSE): use and adapt it freely, with attribution. The code, `jobs-agent/bin/`, `jobs-agent/.claude/`, `evals/` and `tools/job-scorer.jsx`, is [MIT](LICENSE-CODE). Portions of `jobs-agent/` are adapted from Mattijs Kersten's jobs-dashboard, also MIT; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The WordPress plugin in `tools/chiva-x-posts/` is GPL-2.0-or-later.
 
 ## Work with the author
 
