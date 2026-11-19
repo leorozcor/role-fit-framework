@@ -2,6 +2,12 @@
 
 *By Luis Orozco, a product leader in Helsinki who also works as a fractional, interim and advisory product lead. [Work with the author](#work-with-the-author).*
 
+**Authorship and attribution.** The role-fit framework, leadership notebook and hiring guidance are original work by Luis Orozco.
+
+The job-search agent builds on [Mattijs Kersten's jobs-dashboard](https://github.com/mattijskersten/jobs-dashboard) (MIT licence). Its pipeline architecture, SQLite job tracker, status lifecycle and portions of `jobs-agent/bin/jobs` are adapted from that project. The scoring framework, decision rules and evaluations were developed separately for this project.
+
+See [Third-party notices](THIRD_PARTY_NOTICES.md) for the original copyright and licence.
+
 A decision tool for senior job searches, and the thinking behind it. It tries to answer three separate questions about any role, and to keep them separate:
 
 1. **Would I thrive there?** Organizational fit: four gates, then nine weighted factors.
@@ -48,8 +54,6 @@ To check the agent itself, see [`evals/`](evals/README.md): `python3 -m unittest
 Before sending anything, `bin/jobs cvcheck <cv>` checks the CV's dates against the fact base. When a process ends, `bin/jobs record <id> --reason <r>` tags why (literal requirement, archetype, level, veto, no real buyer and so on), and the board tallies the reasons, so the selection model can be tested rather than only explain the past.
 
 `bin/jobs` is a small standard-library Python tracker (SQLite) that does the bookkeeping; the model does the judgment and records it there. The agent cannot edit `profile/`, `rules/`, `bin/` or its own settings, and has no tool that applies, sends or contacts anyone. It drafts; you decide.
-
-**Credit.** The jobs agent is derived from Mattijs Kersten's [jobs-dashboard](https://github.com/mattijskersten/jobs-dashboard) (MIT licence): its pipeline shape (scripts for the mechanical, the model for judgment, a person for every call that matters), its SQLite tracker and parts of `bin/jobs` come from there. This version drops volume collection and auto-tailoring in favour of a scoring framework and network-first channels. The licence notice is in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The framework, the notebook and the hiring page are original work.
 
 ## Status and honesty notes
 
