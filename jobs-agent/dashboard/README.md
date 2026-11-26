@@ -12,7 +12,7 @@ A one-page view of a job search built from the tracker (`bin/jobs`): a funnel fr
 |---|---|
 | Headline | How many roles are in play, rejected, screened out and closed. |
 | **Funnel** | How far applications get. *Evaluated* counts every role you looked at. Every column after it counts **recruitment cycles** (see below) at every stage they reached: applied or approached, recruiter screening, hiring-manager interview, 2nd round, 3rd round, 4th round or later, hired. Each column shows its share of the one before. |
-| **In play** | Live roles: interviewing, applied, exploring (scored, not yet applied). A live role can carry one line of detail ("Round 2 done; next: CEO"). |
+| **In play** | Live roles: signed (an accepted, signed engagement), interviewing, applied, exploring (scored, not yet applied). A live role can carry one line of detail ("Round 2 done; next: CEO"). |
 | **Rejected** | Their decision, split into *after interviews* and *at application*. |
 | **Screened out** | Your decision before applying: *at first look* (gates, avoid list) or *after a closer look* (scored and passed). |
 | **Closed** | The world's decision, by outcome reason: role paused or pulled, my call (you withdrew), no reply, outcome unknown. |
@@ -45,7 +45,7 @@ dashboard/overrides.json ----+                                                (C
 | `build_roles.py` | Reads the tracker and writes the roles file. Maps statuses to groups and stages, outcome reasons to the closed categories, applies the dates file and the overrides. |
 | `page.html` | The page itself, written for the Claude **Dashboard** artifact runtime (`dash.calc` for the counts, funnel and date tallies; `dash.draw` for each element). |
 | `make_preview.py` | Wraps `page.html` and a roles file into one HTML file that opens in any browser, with a small shim standing in for the runtime. |
-| `overrides.example.json` | Copy to `overrides.json` (gitignored): display names, live-role detail lines, stages for roles with no dates row, ids to leave out. |
+| `overrides.example.json` | Copy to `overrides.json` (gitignored): display names, live-role detail lines, stages for roles with no dates row, signed engagements, ids to leave out. |
 | `process-dates.example.csv` | Copy to `data/process-dates.csv` (gitignored): one row per recruitment cycle. |
 | `sample/` | Fictional roles file and its preview. |
 
@@ -53,6 +53,7 @@ dashboard/overrides.json ----+                                                (C
 
 | Tracker status | Group | Stage |
 |---|---|---|
+| listed under `signed` in `overrides.json` | In play | Signed (give it a dates row ended on the signing date; keep `reached` at the last selection round, because the funnel is cumulative and 7 would also count rounds it never had) |
 | `applied` | In play | Applied |
 | `interviewing`, `offer` | In play | Interviewing |
 | `new`, `to_score`, `scored`, `drafted` (verdict not Pass) | In play | Exploring |

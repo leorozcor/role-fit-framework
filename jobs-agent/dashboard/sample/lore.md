@@ -22,6 +22,7 @@ These are recognizable **in-universe organizations**, not actual job vacancies. 
 | Star Trek | Starfleet Product Enablement Lead | Starfleet Command |
 | Star Trek | Director of Replicator Service Design | Starfleet Engineering |
 | The Expanse | Technology Strategy Lead, Ceres Station | Outer Planets Alliance (Ceres faction) |
+| Star Trek | Product Operating Model Coach (contract) | Utopia Planitia Fleet Yards |
 
 ## Lore notes
 
@@ -33,6 +34,7 @@ These are recognizable **in-universe organizations**, not actual job vacancies. 
 - **Chalmun's Spaceport Cantina** is the Mos Eisley establishment; the **Hutt Clan** is a separate, less reputable commercial employer operating on Tatooine. [References](https://starwars.fandom.com/wiki/Chalmun%27s_Spaceport_Cantina) · [Hutt Clan](https://www.starwars.com/databank/hutt-clan)
 - The **Rocinante** is an independently operated ship, not a corporation, so its crew is explicitly labelled as such. [Reference](https://expanse.fandom.com/wiki/Rocinante)
 - **Starfleet Communications** handles subspace communications. [Reference](https://memory-alpha.fandom.com/wiki/Starfleet_Communications)
+- **Utopia Planitia Fleet Yards** is Starfleet's shipyard above Mars; the demo's one signed contract. [Reference](https://memory-alpha.fandom.com/wiki/Utopia_Planitia_Fleet_Yards)
 - The **Outer Planets Alliance's Ceres faction** is associated with Anderson Dawes. [Reference](https://expanse.fandom.com/wiki/Anderson_Dawes%27_OPA)
 
 The sample is a noncommercial fan-reference demonstration; none of these fictional organizations is affiliated with this repository.

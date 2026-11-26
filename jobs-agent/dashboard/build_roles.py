@@ -54,9 +54,11 @@ def iso(d):
 #   company / title  display names (e.g. hide a confidential client)
 #   detail   one line shown under a live role ("Round 2 done; next: CEO")
 #   skip     ids to leave out entirely
+#   signed   ids of accepted, signed engagements (shown in In play as Signed; their dates row keeps the last selection round reached, not 7)
 O = json.load(open(a.overrides)) if os.path.exists(a.overrides) else {}
 REACHED, COMPANY, TITLE, DETAIL = (O.get(k, {}) for k in ('reached', 'company', 'title', 'detail'))
 SKIP = set(O.get('skip', []))
+SIGNED = set(O.get('signed', []))
 
 # One row per recruitment cycle: id, cycle, applied, ended, reached, reached_estimated, source, note.
 PROC = {}
@@ -80,7 +82,9 @@ for jid, co, ti, st, reason, notes, gate, verdict, loc in c.execute(
     ds = [d for d in dates(' '.join(filter(None, [notes, gate] + [e[1] for e in ev]))) if d <= TODAY]
     last = max(ds) if ds else None
     # Status -> dashboard group and stage
-    if st in ('interviewing', 'applied', 'offer'):
+    if jid in SIGNED:
+        group, stage = 'pipeline', 'Signed'
+    elif st in ('interviewing', 'applied', 'offer'):
         group, stage = 'pipeline', ('Interviewing' if st in ('interviewing', 'offer') else 'Applied')
     elif st in ('scored', 'drafted') and verdict == 'Pass':
         group, stage = 'screened', 'After a closer look'

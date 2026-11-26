@@ -17,5 +17,8 @@
   },
   "skip": [
     "example-company-18"
+  ],
+  "signed": [
+    "example-company-19"
   ]
 }
