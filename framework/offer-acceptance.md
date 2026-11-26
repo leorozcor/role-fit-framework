@@ -11,7 +11,7 @@ never makes an organization better. Do not compare
 organizational scores to choose between offers.*
 
 **Original verdict:** ______
-**Commitment type:** Home / Gig / Real alternative
+**Commitment type:** Home / Gig
 **Minimum terms set on:** ______
 **Offer received on:** ______
 
@@ -98,6 +98,11 @@ or future options would accepting consume?
 
 **Real alternative:** What happens if I decline or wait?
 Use actual alternatives, not hypothetical offers.
+
+**If two options are live:** compare them dimension by
+dimension, not by score. Which one fails a minimum? Which
+one's cost of saying yes is lower for the same career
+capital?
 
 **Regret test:** What is the strongest evidence-based
 reason I might regret accepting?
