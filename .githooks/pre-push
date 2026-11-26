@@ -1,0 +1,9 @@
+#!/bin/sh
+# Runs the same checks as .github/workflows/privacy.yml before anything leaves this clone.
+# Enable once per clone:  git config core.hooksPath .githooks
+# Bypass in an emergency: git push --no-verify
+cd "$(git rev-parse --show-toplevel)" || exit 1
+python3 scripts/check_public_snapshot.py || {
+  echo "pre-push: privacy check failed; nothing was pushed." >&2; exit 1; }
+python3 -m unittest discover -s evals/tests -q || {
+  echo "pre-push: grader tests failed; nothing was pushed." >&2; exit 1; }
