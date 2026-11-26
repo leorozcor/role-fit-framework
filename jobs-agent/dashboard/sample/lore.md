@@ -22,7 +22,7 @@ These are recognizable **in-universe organizations**, not actual job vacancies. 
 | Star Trek | Starfleet Product Enablement Lead | Starfleet Command |
 | Star Trek | Director of Replicator Service Design | Starfleet Engineering |
 | The Expanse | Technology Strategy Lead, Ceres Station | Outer Planets Alliance (Ceres faction) |
-| Star Trek | Product Operating Model Coach (contract) | Utopia Planitia Fleet Yards |
+| Star Trek | Director of Warp Core Delivery Practices | Utopia Planitia Fleet Yards |
 
 ## Lore notes
 
