@@ -45,6 +45,7 @@ approved_employers = {
     "Starfleet Product Enablement Lead": "Starfleet Command",
     "Director of Replicator Service Design": "Starfleet Engineering",
     "Technology Strategy Lead, Ceres Station": "Outer Planets Alliance (Ceres faction)",
+    "Director of Warp Core Delivery Practices": "Utopia Planitia Fleet Yards",
 }
 
 try:
